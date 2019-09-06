@@ -18,15 +18,23 @@ import com.mag.taskmanager.R;
 public class UserInfoFragment extends Fragment {
 
 
+    public static UserInfoFragment newInstance(String username, String password) {
+
+        Bundle args = new Bundle();
+        args.putString("arg_username", username);
+        args.putString("arg_password", password);
+
+        UserInfoFragment fragment = new UserInfoFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     public UserInfoFragment() {
-        // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_user_info, container, false);
     }
 

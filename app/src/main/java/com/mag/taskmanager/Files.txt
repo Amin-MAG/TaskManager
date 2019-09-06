@@ -1,9 +1,11 @@
 
 Activities:
                 LoginActivity(*)
+                RegisterActivity
                 TaskActivity
 Fragment:
                 LoginFragment
+                RegisterFragment
                 UserInfoFragment
                 TaskFragment
                 EmptyListFragment

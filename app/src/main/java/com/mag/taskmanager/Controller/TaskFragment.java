@@ -17,16 +17,24 @@ import com.mag.taskmanager.R;
  */
 public class TaskFragment extends Fragment {
 
+    public static TaskFragment newInstance(String username, String password) {
+        
+        Bundle args = new Bundle();
+        args.putString("arg_username", username);
+        args.putString("arg_password", password);
+
+        TaskFragment fragment = new TaskFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     public TaskFragment() {
-        // Required empty public constructor
+        
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_task, container, false);
     }
 
