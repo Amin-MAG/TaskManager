@@ -1,0 +1,15 @@
+
+Activities:
+                LoginActivity(*)
+                TaskActivity
+Fragment:
+                LoginFragment
+                UserInfoFragment
+                TaskFragment
+                EmptyListFragment
+                TaskListFragment(recycler view)
+Fragment Pop Up:
+                AddTaskFragment
+                EditTaskFragment
+layouts:
+                TaskLayout
