@@ -1,6 +1,8 @@
 package com.mag.taskmanager.Controller;
 
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,6 +35,7 @@ import java.util.ArrayList;
  */
 public class RegisterFragment extends Fragment {
 
+    public static final String REGISTRATION_COMPLETED = "Registration completed";
     private LinearLayout mainLayout;
     private TextInputEditText usernameEditText, passwordEditText, passwordRepeatEditText;
     private MaterialButton submitBtn;
@@ -66,6 +69,7 @@ public class RegisterFragment extends Fragment {
 
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceType")
             @Override
             public void onClick(View view) {
 
@@ -86,7 +90,7 @@ public class RegisterFragment extends Fragment {
 
                     Repository.getInstance().addUser(new User(usernameText, passwordText, new ArrayList<Task>()));
 
-                    Snackbar.make(mainLayout,"Registration completed", Snackbar.LENGTH_SHORT).show();
+                    showSnackbar(REGISTRATION_COMPLETED, getResources().getString(R.color.task_app_green_dark));
 
                     Constants.TIME_HANDLER.postDelayed(new Runnable() {
                         @Override
@@ -96,19 +100,27 @@ public class RegisterFragment extends Fragment {
                     }, 2000);
 
                 } catch (EmptyFieldException e) {
-                    Snackbar.make(mainLayout, e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                    showSnackbar(e.getMessage(), getResources().getString(R.color.task_app_red));
                 } catch (ShortPasswordException e) {
-                    Snackbar.make(mainLayout, e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                    showSnackbar(e.getMessage(), getResources().getString(R.color.task_app_red));
                 } catch (WrongRepeatedPasswordException e) {
-                    Snackbar.make(mainLayout, e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                    showSnackbar(e.getMessage(), getResources().getString(R.color.task_app_red));
                 } catch (DuplicateUsernameException e) {
-                    Snackbar.make(mainLayout, e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                    showSnackbar(e.getMessage(), getResources().getString(R.color.task_app_red));
                 }
+
 
             }
         });
 
 
+    }
+
+    public void showSnackbar(String message, String color){
+        Snackbar snackbar = Snackbar.make(mainLayout, message, Snackbar.LENGTH_SHORT);
+        View snackBarView = snackbar.getView();
+        snackBarView.setBackgroundColor(Color.parseColor(color));
+        snackbar.show();
     }
 
 }
