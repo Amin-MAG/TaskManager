@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
     <color name="colorPrimary">@color/task_app_blue</color>
     <color name="colorPrimaryDark">@color/task_app_dark</color>
     <color name="colorAccent">@color/task_app_yellow</color>
+
+
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
+
+
 
     <!--White-->
 
@@ -22,6 +28,6 @@
 
     <color name="task_app_purple">#be1ede</color>
     <color name="task_app_dark">#590e63</color>
-    <color name="task_app_darkest">#36093b</color>
+    <color name="task_app_darkest">#37093b</color>
 
 </resources>

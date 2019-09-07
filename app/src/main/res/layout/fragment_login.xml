@@ -20,16 +20,16 @@ tools:context=".Controller.LoginFragment">
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/loginFragment_imageView"
             android:layout_width="263dp"
             android:layout_height="220dp"
             android:layout_gravity="center"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="48dp"
             android:layout_marginBottom="32dp"
             android:src="@drawable/task_logo" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout"
+            android:id="@+id/loginFragment_textInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="280dp"
             android:layout_height="60dp"
@@ -38,7 +38,7 @@ tools:context=".Controller.LoginFragment">
             app:boxStrokeColor="@color/task_app_red">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/startFragment_username"
+                android:id="@+id/loginFragment_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textImeMultiLine"
@@ -48,7 +48,7 @@ tools:context=".Controller.LoginFragment">
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout2"
+            android:id="@+id/loginFragment_textInputLayout2"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="280dp"
             android:layout_height="60dp"
@@ -58,7 +58,7 @@ tools:context=".Controller.LoginFragment">
             app:boxStrokeColor="@color/task_app_red">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/startFragment_number_of_tasks"
+                android:id="@+id/loginFragment_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberPassword"
@@ -68,12 +68,22 @@ tools:context=".Controller.LoginFragment">
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/startFragment_create_button"
+            android:id="@+id/loginFragment_loginBtn"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:padding="15dp"
             android:text="@string/create"
+            android:textColor="@color/task_app_darkest"
+            app:backgroundTint="@color/task_app_yellow" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginFragment_registerBtn"
+            android:layout_width="170dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            android:padding="15dp"
+            android:text="@string/register"
             android:textColor="@color/task_app_darkest"
             app:backgroundTint="@color/task_app_yellow" />
 

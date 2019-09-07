@@ -21,16 +21,16 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/loginFragment_imageView"
                 android:layout_width="237dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginBottom="24dp"
                 android:src="@drawable/task_side_logo" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
+                android:id="@+id/loginFragment_textInputLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="280dp"
                 android:layout_height="60dp"
@@ -39,7 +39,7 @@
                 app:boxStrokeColor="@color/task_app_red">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/startFragment_username"
+                    android:id="@+id/loginFragment_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textImeMultiLine"
@@ -49,7 +49,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout2"
+                android:id="@+id/loginFragment_textInputLayout2"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="280dp"
                 android:layout_height="60dp"
@@ -59,7 +59,7 @@
                 app:boxStrokeColor="@color/task_app_red">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/startFragment_number_of_tasks"
+                    android:id="@+id/loginFragment_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberPassword"
@@ -68,15 +68,35 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/startFragment_create_button"
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:padding="15dp"
-                android:text="@string/create"
-                android:textColor="@color/task_app_darkest"
-                app:backgroundTint="@color/task_app_yellow" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/loginFragment_registerBtn"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:padding="15dp"
+                    android:text="@string/register"
+                    android:textColor="@color/task_app_darkest"
+                    app:backgroundTint="@color/task_app_yellow" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/loginFragment_loginBtn"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:padding="15dp"
+                    android:text="@string/create"
+                    android:textColor="@color/task_app_darkest"
+                    app:backgroundTint="@color/task_app_yellow" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
