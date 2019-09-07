@@ -7,14 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Var.Contants;
+import com.mag.taskmanager.Var.Constants;
 
 public class TaskActivity extends AppCompatActivity {
 
     public static Intent newIntent(Context context, String username, String password) {
         Intent intent = new Intent(context, TaskActivity.class);
-        intent.putExtra(Contants.EXTRA_USERNAME, username);
-        intent.putExtra(Contants.EXTRA_PASSWORD, password);
+        intent.putExtra(Constants.EXTRA_USERNAME, username);
+        intent.putExtra(Constants.EXTRA_PASSWORD, password);
         return intent;
     }
 

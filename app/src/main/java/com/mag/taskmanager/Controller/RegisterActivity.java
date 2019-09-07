@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.RegisterFragment;
 
 public class RegisterActivity extends SingleFragmentActivity {
 
