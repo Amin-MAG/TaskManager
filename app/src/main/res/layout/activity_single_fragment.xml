@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.SingleFragmentActivity">
+    tools:context=".Controller.SingleFragmentActivity"
+    android:background= "@color/task_app_dark">
 
 </FrameLayout>

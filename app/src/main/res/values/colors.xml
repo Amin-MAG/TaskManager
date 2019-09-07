@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">@color/task_app_blue</color>
+    <color name="colorPrimaryDark">@color/task_app_dark</color>
+    <color name="colorAccent">@color/task_app_yellow</color>
+
+    <!--White-->
+
+    <color name="task_app_white">#FFFFFF</color>
+    <color name="task_app_white_dark">#A5A5A5</color>
+
+    <color name="task_app_blue">#3ede1e</color>
+    <color name="task_app_yellow">#ffec20</color>
+
+    <!--Red-->
+
+    <color name="task_app_err_color">#ff1f41</color>
+    <color name="task_app_red">#de1e3e</color>
+
+
+    <!--Purples-->
+
+    <color name="task_app_purple">#be1ede</color>
+    <color name="task_app_dark">#590e63</color>
+    <color name="task_app_darkest">#36093b</color>
+
 </resources>
