@@ -25,6 +25,7 @@ import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.User;
 import com.mag.taskmanager.R;
+import com.mag.taskmanager.Util.UiUtil;
 import com.mag.taskmanager.Var.Constants;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 public class RegisterFragment extends Fragment {
 
     public static final String REGISTRATION_COMPLETED = "Registration completed";
+
     private LinearLayout mainLayout;
     private TextInputEditText usernameEditText, passwordEditText, passwordRepeatEditText;
     private MaterialButton submitBtn;
@@ -79,7 +81,7 @@ public class RegisterFragment extends Fragment {
 
                 try {
 
-                    if (usernameText.equals("") || passwordText.equals("") || passwordRepeatText.equals(""))
+                    if (usernameText.equals(Constants.EMPTY_STRING) || passwordText.equals(Constants.EMPTY_STRING) || passwordRepeatText.equals(Constants.EMPTY_STRING))
                         throw new EmptyFieldException();
                     if (Repository.getInstance().getUserByUsername(usernameText) != null)
                         throw new DuplicateUsernameException();
@@ -90,7 +92,7 @@ public class RegisterFragment extends Fragment {
 
                     Repository.getInstance().addUser(new User(usernameText, passwordText, new ArrayList<Task>()));
 
-                    showSnackbar(REGISTRATION_COMPLETED, getResources().getString(R.color.task_app_green_dark));
+                    UiUtil.showSnackbar(mainLayout,REGISTRATION_COMPLETED, getResources().getString(R.color.task_app_green_dark));
 
                     Constants.TIME_HANDLER.postDelayed(new Runnable() {
                         @Override
@@ -100,13 +102,13 @@ public class RegisterFragment extends Fragment {
                     }, 2000);
 
                 } catch (EmptyFieldException e) {
-                    showSnackbar(e.getMessage(), getResources().getString(R.color.task_app_red));
+                    UiUtil.showSnackbar(mainLayout,e.getMessage(), getResources().getString(R.color.task_app_red));
                 } catch (ShortPasswordException e) {
-                    showSnackbar(e.getMessage(), getResources().getString(R.color.task_app_red));
+                    UiUtil.showSnackbar(mainLayout,e.getMessage(), getResources().getString(R.color.task_app_red));
                 } catch (WrongRepeatedPasswordException e) {
-                    showSnackbar(e.getMessage(), getResources().getString(R.color.task_app_red));
+                    UiUtil. showSnackbar(mainLayout,e.getMessage(), getResources().getString(R.color.task_app_red));
                 } catch (DuplicateUsernameException e) {
-                    showSnackbar(e.getMessage(), getResources().getString(R.color.task_app_red));
+                    UiUtil.showSnackbar(mainLayout,e.getMessage(), getResources().getString(R.color.task_app_red));
                 }
 
 
@@ -116,11 +118,5 @@ public class RegisterFragment extends Fragment {
 
     }
 
-    public void showSnackbar(String message, String color){
-        Snackbar snackbar = Snackbar.make(mainLayout, message, Snackbar.LENGTH_SHORT);
-        View snackBarView = snackbar.getView();
-        snackBarView.setBackgroundColor(Color.parseColor(color));
-        snackbar.show();
-    }
 
 }

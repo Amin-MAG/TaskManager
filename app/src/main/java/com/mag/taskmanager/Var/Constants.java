@@ -9,5 +9,7 @@ public class Constants {
 
     public static final String EXTRA_PASSWORD = "extra_password";
     public static final String EXTRA_USERNAME = "extra_username";
+    public static final String EMPTY_STRING = "";
+
 
 }

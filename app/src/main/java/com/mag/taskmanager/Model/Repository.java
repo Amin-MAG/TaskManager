@@ -1,5 +1,8 @@
 package com.mag.taskmanager.Model;
 
+import com.mag.taskmanager.Exception.BadAuthorizationException;
+import com.mag.taskmanager.Exception.EmptyFieldException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -49,5 +52,13 @@ public class Repository {
         users.add(user);
     }
 
+    public boolean checkAuthorization(String username, String password) throws BadAuthorizationException {
+        User user = getUserByUsername(username);
+
+        if (user==null || !user.getPassword().equals(password))
+            throw new BadAuthorizationException();
+
+        return true;
+    }
 
 }
