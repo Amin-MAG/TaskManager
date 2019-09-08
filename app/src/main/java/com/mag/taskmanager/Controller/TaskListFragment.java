@@ -62,7 +62,7 @@ public class TaskListFragment extends Fragment {
                 recyclerView.setBackgroundColor(Color.parseColor(getResources().getString(R.color.task_app_red)));
                 break;
             case DOING:
-                recyclerView.setBackgroundColor(Color.parseColor(getResources().getString(R.color.task_app_yellow)));
+                recyclerView.setBackgroundColor(Color.parseColor(getResources().getString(R.color.black)));
                 break;
             case DONE:
                 recyclerView.setBackgroundColor(Color.parseColor(getResources().getString(R.color.task_app_green_dark)));

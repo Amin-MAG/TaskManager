@@ -20,7 +20,7 @@
     <FrameLayout
         android:id="@+id/taskActivity_headerFrame"
         android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_height="72dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

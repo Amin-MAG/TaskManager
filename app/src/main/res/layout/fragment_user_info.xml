@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/task_app_darkest"
     tools:context=".Controller.UserInfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -16,7 +17,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/task_manager"
-        android:textSize="20sp"
+        android:textColor="@color/task_app_white"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,6 +30,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
         android:text="Maktab"
+        android:textColor="@color/task_app_white"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

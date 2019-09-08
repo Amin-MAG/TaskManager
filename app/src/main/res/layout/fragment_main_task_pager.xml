@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.viewpager.widget.ViewPager
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pagerFragment_viewPager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Controller.MainTaskPagerFragment">
 
 
-</androidx.viewpager.widget.ViewPager>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/pagerFragment_statusTabLayout"
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        android:background="@color/task_app_dark"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/task_app_yellow"
+        app:tabMode="fixed"
+        app:tabTextColor="#FFFFFF" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pagerFragment_viewPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pagerFragment_statusTabLayout"
+        tools:context=".Controller.MainTaskPagerFragment"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
