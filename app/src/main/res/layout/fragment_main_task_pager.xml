@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView
+<androidx.viewpager.widget.ViewPager
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/taskListFragment_recyclerview"
+    android:id="@+id/pagerFragment_viewPager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.TaskListFragment">
+    tools:context=".Controller.MainTaskPagerFragment">
 
-</androidx.recyclerview.widget.RecyclerView>
+
+</androidx.viewpager.widget.ViewPager>

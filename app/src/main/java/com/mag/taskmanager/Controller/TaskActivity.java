@@ -1,12 +1,14 @@
 package com.mag.taskmanager.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.mag.taskmanager.R;
+import com.mag.taskmanager.Util.UiUtil;
 import com.mag.taskmanager.Var.Constants;
 
 public class TaskActivity extends AppCompatActivity {
@@ -23,7 +25,10 @@ public class TaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
+        UiUtil.changeFragment(fragmentManager, UserInfoFragment.newInstance("",""), R.id.taskActivity_headerFrame);
+        UiUtil.changeFragment(fragmentManager, MainTaskPagerFragment.newInstance(""), R.id.taskActivity_mainFrame);
 
     }
 

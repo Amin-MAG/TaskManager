@@ -9,5 +9,6 @@
     <string name="create">Login</string>
     <string name="register">Register</string>
     <string name="password_r">Repeat Password</string>
+    <string name="task_manager">Task Manager</string>
 
 </resources>
