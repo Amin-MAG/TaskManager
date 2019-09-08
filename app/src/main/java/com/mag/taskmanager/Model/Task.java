@@ -11,8 +11,8 @@ public class Task {
     private Date date;
     private TaskStatus taskStatus;
 
-    public Task(UUID taskId, String title, String description, Date date, TaskStatus taskStatus) {
-        this.taskId = taskId;
+    public Task(String title, String description, Date date, TaskStatus taskStatus) {
+        this.taskId = UUID.randomUUID();
         this.title = title;
         this.description = description;
         this.date = date;

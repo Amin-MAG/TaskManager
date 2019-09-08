@@ -104,7 +104,7 @@ public class MainTaskPagerFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                Log.d("Something", String.valueOf(position));
+//                Log.d("Something", String.valueOf(position));
                 statusTabLayout.getTabAt(position).select();
             }
 

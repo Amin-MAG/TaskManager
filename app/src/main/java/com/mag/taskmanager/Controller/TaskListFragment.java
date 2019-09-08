@@ -10,12 +10,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
+import com.mag.taskmanager.RecyclerAdapters.TaskRecyclerAdapter;
 
 
 /**
@@ -60,15 +63,19 @@ public class TaskListFragment extends Fragment {
         switch (status) {
             case TODO:
                 recyclerView.setBackgroundColor(Color.parseColor(getResources().getString(R.color.task_app_red)));
+                recyclerView.setAdapter(new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername("amin").getTasks()));
                 break;
             case DOING:
-                recyclerView.setBackgroundColor(Color.parseColor(getResources().getString(R.color.black)));
+                recyclerView.setBackgroundColor(Color.parseColor(getResources().getString(R.color.task_app_yellow)));
+                recyclerView.setAdapter(new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername("amin").getTasks()));
                 break;
             case DONE:
                 recyclerView.setBackgroundColor(Color.parseColor(getResources().getString(R.color.task_app_green_dark)));
+                recyclerView.setAdapter(new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername("amin").getTasks()));
                 break;
             default:
                 break;
+
         }
 
     }
