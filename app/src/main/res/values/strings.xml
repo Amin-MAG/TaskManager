@@ -10,6 +10,6 @@
     <string name="register">Register</string>
     <string name="password_r">Repeat Password</string>
     <string name="task_manager">Task Manager</string>
-    <string name="there_is_not_any_task">There is\' not any task.</string>
+    <string name="there_is_not_any_task">There is not any task.</string>
 
 </resources>

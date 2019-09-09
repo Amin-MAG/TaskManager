@@ -14,8 +14,9 @@
 
     <color name="task_app_white">#FFFFFF</color>
     <color name="task_app_white_dark">#A5A5A5</color>
-    <color name="black">#000000</color>
+    <color name="black">#2a072e</color>
 
+    <color name="task_app_green_light">#43ff26</color>
     <color name="task_app_green">#3ede1e</color>
     <color name="task_app_green_dark">#33ab17</color>
 

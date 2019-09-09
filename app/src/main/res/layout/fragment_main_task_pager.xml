@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabGravity="fill"
-        app:tabIndicatorColor="@color/task_app_yellow"
+        app:tabIndicatorColor="@color/task_app_green_light"
         app:tabMode="fixed"
         app:tabTextColor="#FFFFFF" />
 
@@ -26,12 +26,13 @@
         android:id="@+id/pagerFragment_viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="#00000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pagerFragment_statusTabLayout"
-        tools:context=".Controller.MainTaskPagerFragment"/>
+        tools:context=".Controller.MainTaskPagerFragment" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

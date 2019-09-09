@@ -6,12 +6,15 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.FrameLayout;
 
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Util.UiUtil;
 import com.mag.taskmanager.Var.Constants;
 
 public class TaskActivity extends AppCompatActivity {
+
+    FrameLayout header, mainFrame;
 
     public static Intent newIntent(Context context, String username, String password) {
         Intent intent = new Intent(context, TaskActivity.class);
@@ -27,8 +30,12 @@ public class TaskActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        UiUtil.changeFragment(fragmentManager, UserInfoFragment.newInstance("amin"), R.id.taskActivity_headerFrame);
-        UiUtil.changeFragment(fragmentManager, MainTaskPagerFragment.newInstance("amin"), R.id.taskActivity_mainFrame);
+        header = findViewById(R.id.taskActivity_headerFrame);
+        mainFrame = findViewById(R.id.taskActivity_mainFrame);
+
+        UiUtil.changeFragment(fragmentManager, MainTaskPagerFragment.newInstance("amin"), mainFrame.getId());
+        if (header != null)
+            UiUtil.changeFragment(fragmentManager, UserInfoFragment.newInstance("amin"), header.getId());
 
     }
 
