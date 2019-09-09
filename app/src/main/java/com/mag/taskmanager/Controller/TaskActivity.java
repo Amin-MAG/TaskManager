@@ -16,10 +16,9 @@ public class TaskActivity extends AppCompatActivity {
 
     FrameLayout header, mainFrame;
 
-    public static Intent newIntent(Context context, String username, String password) {
+    public static Intent newIntent(Context context, String username) {
         Intent intent = new Intent(context, TaskActivity.class);
         intent.putExtra(Constants.EXTRA_USERNAME, username);
-        intent.putExtra(Constants.EXTRA_PASSWORD, password);
         return intent;
     }
 
@@ -28,14 +27,18 @@ public class TaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
 
+//        Intent intent = getIntent();
+//        String username = intent.getStringExtra(Constants.EXTRA_USERNAME);
+        String username = "amin";
+
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         header = findViewById(R.id.taskActivity_headerFrame);
         mainFrame = findViewById(R.id.taskActivity_mainFrame);
 
-        UiUtil.changeFragment(fragmentManager, MainTaskPagerFragment.newInstance("amin"), mainFrame.getId());
+        UiUtil.changeFragment(fragmentManager, MainTaskPagerFragment.newInstance(username), mainFrame.getId());
         if (header != null)
-            UiUtil.changeFragment(fragmentManager, UserInfoFragment.newInstance("amin"), header.getId());
+            UiUtil.changeFragment(fragmentManager, UserInfoFragment.newInstance(username), header.getId());
 
     }
 

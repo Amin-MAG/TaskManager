@@ -84,7 +84,7 @@ public class LoginFragment extends Fragment {
                         Constants.TIME_HANDLER.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                startActivity(TaskActivity.newIntent(getActivity(), username, password));
+                                startActivity(TaskActivity.newIntent(getActivity(), username));
                             }
                         }, 2000);
 
