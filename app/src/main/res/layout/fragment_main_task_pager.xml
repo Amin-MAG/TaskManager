@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabGravity="fill"
-        app:tabIndicatorColor="@color/task_app_green_light"
+        app:tabIndicatorColor="@color/task_app_yellow"
         app:tabMode="fixed"
         app:tabTextColor="#FFFFFF" />
 
@@ -34,5 +34,27 @@
         app:layout_constraintTop_toBottomOf="@+id/pagerFragment_statusTabLayout"
         tools:context=".Controller.MainTaskPagerFragment" />
 
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Main content -->
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/taskActivity_fab"
+            style="@style/Widget.Design.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="32dp"
+            app:borderWidth="0dp"
+            app:fabCustomSize="64dp"
+            android:backgroundTint="@color/task_app_yellow"
+            app:elevation="32dp"
+            android:src="@drawable/ic_add_image" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

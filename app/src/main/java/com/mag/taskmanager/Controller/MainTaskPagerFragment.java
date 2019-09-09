@@ -1,6 +1,8 @@
 package com.mag.taskmanager.Controller;
 
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -16,10 +18,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
+
+import java.util.Objects;
 
 
 /**
@@ -29,6 +34,7 @@ public class MainTaskPagerFragment extends Fragment {
 
     TabLayout statusTabLayout;
     ViewPager taskViewPager;
+    FloatingActionButton fab;
 
 
     public static MainTaskPagerFragment newInstance(String username) {
@@ -59,6 +65,18 @@ public class MainTaskPagerFragment extends Fragment {
         final String username = bundle.getString("arg_username");
 
 
+        // Floating Action bar
+
+        fab = view.findViewById(R.id.taskActivity_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddTaskFragment addTaskFragment = AddTaskFragment.newInstance();
+                addTaskFragment.setTargetFragment(MainTaskPagerFragment.this, 0);
+                addTaskFragment.show(getFragmentManager(), "add_task");
+            }});
+
+
         // Tab Layout
 
         statusTabLayout = view.findViewById(R.id.pagerFragment_statusTabLayout);
@@ -67,7 +85,6 @@ public class MainTaskPagerFragment extends Fragment {
         statusTabLayout.addTab(statusTabLayout.newTab().setText("Doing"));
         statusTabLayout.getTabAt(1).select();
         statusTabLayout.addTab(statusTabLayout.newTab().setText("Done"));
-        ;
 
         statusTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 

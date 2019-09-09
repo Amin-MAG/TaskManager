@@ -8,7 +8,7 @@
     android:layout_marginTop="12dp"
     android:layout_marginRight="16dp"
     android:layout_marginBottom="4dp"
-    app:cardBackgroundColor="@color/task_app_yellow">
+    app:cardBackgroundColor="@color/task_app_white">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -17,11 +17,10 @@ import com.mag.taskmanager.R;
  */
 public class TaskFragment extends Fragment {
 
-    public static TaskFragment newInstance(String username, String password) {
+    public static TaskFragment newInstance(String username) {
         
         Bundle args = new Bundle();
         args.putString("arg_username", username);
-        args.putString("arg_password", password);
 
         TaskFragment fragment = new TaskFragment();
         fragment.setArguments(args);

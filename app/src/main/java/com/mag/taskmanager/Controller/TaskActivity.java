@@ -6,8 +6,10 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Util.UiUtil;
 import com.mag.taskmanager.Var.Constants;
@@ -15,6 +17,7 @@ import com.mag.taskmanager.Var.Constants;
 public class TaskActivity extends AppCompatActivity {
 
     FrameLayout header, mainFrame;
+    FloatingActionButton fab;
 
     public static Intent newIntent(Context context, String username) {
         Intent intent = new Intent(context, TaskActivity.class);
@@ -29,7 +32,7 @@ public class TaskActivity extends AppCompatActivity {
 
 //        Intent intent = getIntent();
 //        String username = intent.getStringExtra(Constants.EXTRA_USERNAME);
-        String username = "amin";
+        final String username = "amin";
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
