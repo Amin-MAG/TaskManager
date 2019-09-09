@@ -59,19 +59,17 @@ public class TaskListFragment extends Fragment {
         String username = bundle.getString("arg_username");
 
         recyclerView = view.findViewById(R.id.taskListFragment_recyclerview);
+        recyclerView.setAdapter(new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername(username).getTaskByStatus(status)));
 
         switch (status) {
             case TODO:
                 recyclerView.setBackgroundColor(Color.parseColor(getResources().getString(R.color.task_app_red)));
-                recyclerView.setAdapter(new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername("amin").getTasks()));
                 break;
             case DOING:
                 recyclerView.setBackgroundColor(Color.parseColor(getResources().getString(R.color.task_app_yellow)));
-                recyclerView.setAdapter(new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername("amin").getTasks()));
                 break;
             case DONE:
                 recyclerView.setBackgroundColor(Color.parseColor(getResources().getString(R.color.task_app_green_dark)));
-                recyclerView.setAdapter(new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername("amin").getTasks()));
                 break;
             default:
                 break;

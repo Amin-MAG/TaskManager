@@ -27,8 +27,8 @@ public class TaskActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        UiUtil.changeFragment(fragmentManager, UserInfoFragment.newInstance("",""), R.id.taskActivity_headerFrame);
-        UiUtil.changeFragment(fragmentManager, MainTaskPagerFragment.newInstance(""), R.id.taskActivity_mainFrame);
+        UiUtil.changeFragment(fragmentManager, UserInfoFragment.newInstance("amin"), R.id.taskActivity_headerFrame);
+        UiUtil.changeFragment(fragmentManager, MainTaskPagerFragment.newInstance("amin"), R.id.taskActivity_mainFrame);
 
     }
 

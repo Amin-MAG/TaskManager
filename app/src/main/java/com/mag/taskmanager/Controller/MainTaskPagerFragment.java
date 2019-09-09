@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
+import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
 
@@ -33,7 +34,7 @@ public class MainTaskPagerFragment extends Fragment {
     public static MainTaskPagerFragment newInstance(String username) {
 
         Bundle args = new Bundle();
-        args.putString("arg_username",username);
+        args.putString("arg_username", username);
 
         MainTaskPagerFragment fragment = new MainTaskPagerFragment();
         fragment.setArguments(args);
@@ -65,7 +66,8 @@ public class MainTaskPagerFragment extends Fragment {
         statusTabLayout.addTab(statusTabLayout.newTab().setText("To Do"));
         statusTabLayout.addTab(statusTabLayout.newTab().setText("Doing"));
         statusTabLayout.getTabAt(1).select();
-        statusTabLayout.addTab(statusTabLayout.newTab().setText("Done"));;
+        statusTabLayout.addTab(statusTabLayout.newTab().setText("Done"));
+        ;
 
         statusTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
@@ -75,10 +77,12 @@ public class MainTaskPagerFragment extends Fragment {
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) { }
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) { }
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
 
         });
 
@@ -89,7 +93,10 @@ public class MainTaskPagerFragment extends Fragment {
 
             @Override
             public Fragment getItem(int position) {
-                return TaskListFragment.newInstance(TaskStatus.values()[position], username);
+                if (Repository.getInstance().getUserByUsername(username).getTaskByStatus(TaskStatus.values()[position]).size() != 0)
+                    return TaskListFragment.newInstance(TaskStatus.values()[position], username);
+                else
+                    return EmptyListFragment.newInstance();
             }
 
             @Override
@@ -100,11 +107,11 @@ public class MainTaskPagerFragment extends Fragment {
         });
         taskViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
 
             @Override
             public void onPageSelected(int position) {
-//                Log.d("Something", String.valueOf(position));
                 statusTabLayout.getTabAt(position).select();
             }
 

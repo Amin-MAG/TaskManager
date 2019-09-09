@@ -1,5 +1,8 @@
 package com.mag.taskmanager.Model;
 
+import android.view.Menu;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,5 +35,15 @@ public class User {
     public List<Task> getTasks() {
         return tasks;
     }
+
+    public List<Task> getTaskByStatus(TaskStatus value) {
+        List<Task> speceficTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getTaskStatus() == value)
+                speceficTasks.add(task);
+        }
+        return speceficTasks;
+    }
+
 
 }

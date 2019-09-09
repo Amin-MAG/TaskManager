@@ -39,8 +39,8 @@ public class Repository {
             add(new Task("Buy Shoes", "Something More", new Date(),TaskStatus.DOING));
             add(new Task("Buy Watch", "Something More", new Date(),TaskStatus.DOING));
             add(new Task("Attend BP Class", "Something More", new Date(),TaskStatus.DOING));
-            add(new Task("Wash Window", "Something More", new Date(),TaskStatus.DOING));
-            add(new Task("Sell Modem", "Something More", new Date(),TaskStatus.DOING));
+            add(new Task("Wash Window", "Something More", new Date(),TaskStatus.TODO));
+            add(new Task("Sell Modem", "Something More", new Date(),TaskStatus.TODO));
             add(new Task("Pick up Reza", "Something More", new Date(),TaskStatus.DOING));
             add(new Task("Chat Zahra", "Something More", new Date(),TaskStatus.DOING));
             add(new Task("Wash the Dishes", "Something More", new Date(),TaskStatus.DOING));

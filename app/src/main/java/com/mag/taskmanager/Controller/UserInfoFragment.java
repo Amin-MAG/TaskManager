@@ -18,11 +18,10 @@ import com.mag.taskmanager.R;
 public class UserInfoFragment extends Fragment {
 
 
-    public static UserInfoFragment newInstance(String username, String password) {
+    public static UserInfoFragment newInstance(String username) {
 
         Bundle args = new Bundle();
         args.putString("arg_username", username);
-        args.putString("arg_password", password);
 
         UserInfoFragment fragment = new UserInfoFragment();
         fragment.setArguments(args);

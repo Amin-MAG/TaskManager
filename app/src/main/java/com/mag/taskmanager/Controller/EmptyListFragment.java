@@ -18,9 +18,17 @@ import com.mag.taskmanager.R;
 public class EmptyListFragment extends Fragment {
 
 
-    public EmptyListFragment() {
+    public static EmptyListFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        EmptyListFragment fragment = new EmptyListFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
+    public EmptyListFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
