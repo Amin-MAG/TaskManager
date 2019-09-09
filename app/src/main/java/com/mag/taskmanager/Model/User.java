@@ -45,5 +45,8 @@ public class User {
         return speceficTasks;
     }
 
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
 
 }
