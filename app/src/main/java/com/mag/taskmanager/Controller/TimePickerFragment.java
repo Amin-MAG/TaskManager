@@ -73,20 +73,7 @@ public class TimePickerFragment extends DialogFragment {
         timePicker = view.findViewById(R.id.time_picker);
         set = view.findViewById(R.id.timepickerFragment_set);
 
-        // Title
-
-        String titleText = "Time Picker";
-        ForegroundColorSpan foregroundColorSpanTtile = new ForegroundColorSpan(Color.parseColor(getResources().getString(R.color.task_app_white)));
-        SpannableStringBuilder titleString = new SpannableStringBuilder(titleText);
-        titleString.setSpan(
-                foregroundColorSpanTtile,
-                0,
-                titleText.length(),
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        );
-
         Dialog dialog = new AlertDialog.Builder(getActivity())
-                .setTitle(titleString)
                 .setView(view)
                 .create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor(getResources().getString(R.color.task_app_dark))));

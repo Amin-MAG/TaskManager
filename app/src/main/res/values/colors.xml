@@ -14,7 +14,7 @@
 
     <color name="task_app_white">#FFFFFF</color>
     <color name="task_app_white_dark">#A5A5A5</color>
-    <color name="black">#2a072e</color>
+    <color name="task_app_black">#2a072e</color>
 
     <color name="task_app_green_light">#43ff26</color>
     <color name="task_app_green">#3ede1e</color>
@@ -30,6 +30,7 @@
 
     <!--Purples-->
 
+    <color name="task_app_pink">#d11e8a</color>
     <color name="task_app_purple">#be1ede</color>
     <color name="task_app_dark">#590e63</color>
     <color name="task_app_darkest">#37093b</color>

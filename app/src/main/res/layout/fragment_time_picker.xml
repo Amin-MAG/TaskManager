@@ -3,16 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="24dp">
 
 
     <TimePicker
         android:id="@+id/time_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/task_app_white"
         android:foregroundGravity="center"
-        android:headerBackground="@color/task_app_dark"
+        android:headerBackground="@color/task_app_darkest"
+        android:numbersBackgroundColor="@color/task_app_white"
+        android:numbersTextColor="@color/task_app_black"
+        android:numbersSelectorColor="@color/task_app_yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,9 +24,13 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/timepickerFragment_set"
-        android:layout_width="262dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:paddingLeft="64dp"
+        android:paddingTop="24dp"
+        android:paddingRight="64dp"
+        android:paddingBottom="24dp"
         android:text="@android:string/ok"
         android:textColor="@color/task_app_dark"
         app:layout_constraintEnd_toEndOf="parent"

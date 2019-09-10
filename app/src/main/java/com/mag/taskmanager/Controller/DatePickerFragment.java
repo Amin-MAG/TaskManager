@@ -78,20 +78,7 @@ public class DatePickerFragment extends DialogFragment {
         datePicker = view.findViewById(R.id.date_picker);
         set = view.findViewById(R.id.datepickerFragment_set);
 
-        // Title
-
-        String titleText = "Date Picker";
-        ForegroundColorSpan foregroundColorSpanTtile = new ForegroundColorSpan(Color.parseColor(getResources().getString(R.color.task_app_white)));
-        SpannableStringBuilder titleString = new SpannableStringBuilder(titleText);
-        titleString.setSpan(
-                foregroundColorSpanTtile,
-                0,
-                titleText.length(),
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        );
-
         Dialog dialog = new AlertDialog.Builder(getActivity())
-                .setTitle(titleString)
                 .setView(view)
                 .create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor(getResources().getString(R.color.task_app_dark))));
