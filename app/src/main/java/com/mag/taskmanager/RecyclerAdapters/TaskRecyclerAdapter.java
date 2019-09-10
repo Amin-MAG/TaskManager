@@ -9,8 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.R;
+import com.mag.taskmanager.Var.Constants;
 
 import java.util.List;
 
@@ -43,8 +45,8 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
 
     public class TaskRecycleHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView;
-        TextView taskTitle, taskDate;
+        private ImageView imageView;
+        private TextView taskTitle, taskDate;
 
         public TaskRecycleHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,10 +58,8 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
         }
 
         public  void bind(final  Task task) {
-
             taskTitle.setText(task.getTitle());
-            taskDate.setText(task.getDate().toString());
-
+            taskDate.setText(Constants.TIME_FORMAT.format(task.getDate()));
         }
 
     }

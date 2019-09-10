@@ -33,17 +33,24 @@ public class TaskListFragment extends Fragment {
     public static TaskListFragment newInstance(TaskStatus status, String username) {
 
         Bundle args = new Bundle();
+        args.putSerializable("arg_status", status);
+        args.putString("arg_username", username);
 
-        TaskListFragment fragment = new TaskListFragment(status, username);
+        TaskListFragment fragment = new TaskListFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public TaskListFragment(TaskStatus status, String username) {
-        this.status = status;
-        this.username = username;
+    TaskListFragment(){
+
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.status = (TaskStatus) getArguments().getSerializable("arg_status");
+        this.username = getArguments().getString("arg_username");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

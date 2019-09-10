@@ -104,7 +104,7 @@ public class MainTaskPagerFragment extends Fragment {
             public void onClick(View view) {
                 AddTaskFragment addTaskFragment = AddTaskFragment.newInstance(username);
                 addTaskFragment.setTargetFragment(MainTaskPagerFragment.this, REQUEST_CODE_FOR_DIALOG);
-                addTaskFragment.show(getFragmentManager(), "add_task");
+                addTaskFragment.show(getFragmentManager(), "add_task_fragment");
             }
         });
 
@@ -136,9 +136,8 @@ public class MainTaskPagerFragment extends Fragment {
         });
         // 3 Recycler
 
-        taskListFragments.put(TaskStatus.TODO, TaskListFragment.newInstance(TaskStatus.TODO, username));
-        taskListFragments.put(TaskStatus.DOING, TaskListFragment.newInstance(TaskStatus.DOING, username));
-        taskListFragments.put(TaskStatus.DONE, TaskListFragment.newInstance(TaskStatus.DONE, username));
+        for (int i = 0; i < 3; i++)
+            taskListFragments.put(TaskStatus.values()[i], TaskListFragment.newInstance(TaskStatus.values()[i], username));
 
         // View Pager
 
@@ -149,9 +148,6 @@ public class MainTaskPagerFragment extends Fragment {
             public Fragment getItem(int position) {
                 if (Repository.getInstance().getUserByUsername(username).getTaskByStatus(TaskStatus.values()[position]).size() != 0) {
                     TaskStatus status = TaskStatus.values()[position];
-//                    TaskListFragment taskListFragment = TaskListFragment.newInstance(status, username);
-//                    taskListFragments.put(status, taskListFragment);
-//                    taskListFragments.get(status).update();
                     return taskListFragments.get(status);
                 } else
                     return EmptyListFragment.newInstance();

@@ -15,6 +15,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TimePicker;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -37,6 +38,10 @@ import java.util.Date;
  */
 public class AddTaskFragment extends DialogFragment {
 
+    public static final int ONE_DAY_MILI_SECONDS = 24 * 60 * 60 * 1000;
+    public static final int REQUEST_CODE_FOR_DATE_PICKER = 1001;
+    public static final int REQUEST_CODE_FOR_TIME_PICKER = 1002;
+
     TextInputEditText title, description;
     MaterialButton cancel, create, date, time;
 
@@ -55,11 +60,6 @@ public class AddTaskFragment extends DialogFragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_add_task, container, false);
     }
@@ -70,12 +70,15 @@ public class AddTaskFragment extends DialogFragment {
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_add_task, null, false);
 
+
+        final String username = getArguments().getString("arg_username");
+
         // Title
 
         String titleText = "Add Task";
         ForegroundColorSpan foregroundColorSpanTtile = new ForegroundColorSpan(Color.parseColor(getResources().getString(R.color.task_app_white)));
-        SpannableStringBuilder ssBuilderTitle = new SpannableStringBuilder(titleText);
-        ssBuilderTitle.setSpan(
+        SpannableStringBuilder titleString = new SpannableStringBuilder(titleText);
+        titleString.setSpan(
                 foregroundColorSpanTtile,
                 0,
                 titleText.length(),
@@ -85,10 +88,11 @@ public class AddTaskFragment extends DialogFragment {
         // Dialog Box
 
         Dialog dialog = new AlertDialog.Builder(getActivity())
-                .setTitle(ssBuilderTitle)
+                .setTitle(titleString)
                 .setView(view)
                 .create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor(getResources().getString(R.color.task_app_dark))));
+
 
         title = view.findViewById(R.id.addTaskFragment_title);
         description = view.findViewById(R.id.addTaskFragment_description);
@@ -96,6 +100,29 @@ public class AddTaskFragment extends DialogFragment {
         time = view.findViewById(R.id.addTaskFragment_timeBtn);
         create = view.findViewById(R.id.addTaskFragment_create);
         cancel = view.findViewById(R.id.addTaskFragment_cancel);
+
+
+        date.setText(Constants.DATE_FORMAT.format(new Date(System.currentTimeMillis() + ONE_DAY_MILI_SECONDS)));
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerFragment datePickerFragment = DatePickerFragment.newInstance(new Date(System.currentTimeMillis() + ONE_DAY_MILI_SECONDS));
+                datePickerFragment.setTargetFragment(AddTaskFragment.this, REQUEST_CODE_FOR_DATE_PICKER);
+                datePickerFragment.show(getFragmentManager(), "add_task_fragment_date_picker");
+            }
+        });
+
+
+        time.setText(Constants.CLOCK_FORMAT.format(new Date(System.currentTimeMillis() + ONE_DAY_MILI_SECONDS)));
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerFragment timePickerFragment= TimePickerFragment.newInstance(new Date(System.currentTimeMillis() + ONE_DAY_MILI_SECONDS));
+                timePickerFragment.setTargetFragment(AddTaskFragment.this, REQUEST_CODE_FOR_TIME_PICKER);
+                timePickerFragment.show(getFragmentManager(), "add_task_fragment_time_picker");
+            }
+        });
+
 
         final Fragment fragment = getTargetFragment();
         final Intent intent = new Intent();
@@ -108,13 +135,10 @@ public class AddTaskFragment extends DialogFragment {
                 String taskDescription = description.getText().toString();
                 Date taskDate = new Date();
 
-
                 try {
-
                     if (taskTitle.equals(Constants.EMPTY_STRING) || taskDescription.equals(Constants.EMPTY_STRING))
                         throw new EmptyFieldException();
-
-                    Repository.getInstance().getUserByUsername(getArguments().getString("arg_username")).addTask(new Task(taskTitle, taskDescription, taskDate, TaskStatus.TODO));
+                    Repository.getInstance().getUserByUsername(username).addTask(new Task(taskTitle, taskDescription, taskDate, TaskStatus.TODO));
                 } catch (EmptyFieldException e) {
                     intent.putExtra("dialog_error",e.getMessage() );
                     intent.putExtra("has_error",1 );
