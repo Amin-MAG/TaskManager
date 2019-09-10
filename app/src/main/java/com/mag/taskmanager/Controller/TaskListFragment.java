@@ -70,16 +70,16 @@ public class TaskListFragment extends Fragment {
         status = (TaskStatus) bundle.getSerializable("arg_status");
         username = bundle.getString("arg_username");
 
-        update();
-
         recyclerView = view.findViewById(R.id.taskListFragment_recyclerview);
-        recyclerView.setAdapter(taskRecyclerAdapter);
+
+        update();
 
     }
 
     public void update(){
         taskRecyclerAdapter = new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername(username).getTaskByStatus(status));
         taskRecyclerAdapter.notifyDataSetChanged();
+        recyclerView.setAdapter(taskRecyclerAdapter);
     }
 
 }
