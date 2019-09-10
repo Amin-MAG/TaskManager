@@ -27,8 +27,10 @@ import com.google.android.material.tabs.TabLayout;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
+import com.mag.taskmanager.RecyclerAdapters.TaskRecyclerAdapter;
 import com.mag.taskmanager.Util.UiUtil;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 
@@ -38,6 +40,8 @@ import java.util.Objects;
 public class MainTaskPagerFragment extends Fragment {
 
     public static final int REQUEST_CODE_FOR_DIALOG = 100;
+
+    private HashMap<TaskStatus, TaskListFragment> taskListFragments = new HashMap<>();
 
     private ConstraintLayout mainLayout;
     private TabLayout statusTabLayout;
@@ -58,7 +62,6 @@ public class MainTaskPagerFragment extends Fragment {
     public MainTaskPagerFragment() {
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_main_task_pager, container, false);
@@ -72,7 +75,11 @@ public class MainTaskPagerFragment extends Fragment {
         switch (requestCode) {
             case REQUEST_CODE_FOR_DIALOG:
                 if (resultCode == Activity.RESULT_CANCELED)
-                    UiUtil.showSnackbar(mainLayout,data.getStringExtra("dialog_error"),getResources().getString(R.color.task_app_red));
+                    UiUtil.showSnackbar(mainLayout, data.getStringExtra("dialog_error"), getResources().getString(R.color.task_app_red));
+                else if (resultCode == Activity.RESULT_OK) {
+                    taskListFragments.get(TaskStatus.TODO).update();
+                    UiUtil.showSnackbar(mainLayout, "Successfully Added.", getResources().getString(R.color.task_app_green_dark));
+                }
                 break;
             default:
                 break;
@@ -129,6 +136,11 @@ public class MainTaskPagerFragment extends Fragment {
             }
 
         });
+        // 3 Recycler
+
+        taskListFragments.put(TaskStatus.TODO, TaskListFragment.newInstance(TaskStatus.TODO, username));
+        taskListFragments.put(TaskStatus.DOING, TaskListFragment.newInstance(TaskStatus.DOING, username));
+        taskListFragments.put(TaskStatus.DONE, TaskListFragment.newInstance(TaskStatus.DONE, username));
 
         // View Pager
 
@@ -137,9 +149,13 @@ public class MainTaskPagerFragment extends Fragment {
 
             @Override
             public Fragment getItem(int position) {
-                if (Repository.getInstance().getUserByUsername(username).getTaskByStatus(TaskStatus.values()[position]).size() != 0)
-                    return TaskListFragment.newInstance(TaskStatus.values()[position], username);
-                else
+                if (Repository.getInstance().getUserByUsername(username).getTaskByStatus(TaskStatus.values()[position]).size() != 0) {
+                    TaskStatus status = TaskStatus.values()[position];
+//                    TaskListFragment taskListFragment = TaskListFragment.newInstance(status, username);
+//                    taskListFragments.put(status, taskListFragment);
+//                    taskListFragments.get(status).update();
+                    return taskListFragments.get(status);
+                } else
                     return EmptyListFragment.newInstance();
             }
 
@@ -165,7 +181,6 @@ public class MainTaskPagerFragment extends Fragment {
 
         });
         taskViewPager.setCurrentItem(1);
-
     }
 
 

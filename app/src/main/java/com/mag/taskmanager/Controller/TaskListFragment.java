@@ -16,9 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mag.taskmanager.Model.Repository;
+import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.RecyclerAdapters.TaskRecyclerAdapter;
+
+import java.util.List;
 
 
 /**
@@ -26,7 +29,12 @@ import com.mag.taskmanager.RecyclerAdapters.TaskRecyclerAdapter;
  */
 public class TaskListFragment extends Fragment {
 
-    RecyclerView recyclerView;
+    private TaskRecyclerAdapter taskRecyclerAdapter;
+    private RecyclerView recyclerView;
+
+    private List<Task> tasks;
+    private String username;
+    private TaskStatus status;
 
     public static TaskListFragment newInstance(TaskStatus status, String username) {
 
@@ -48,6 +56,10 @@ public class TaskListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_task_list, container, false);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
     @SuppressLint("ResourceType")
     @Override
@@ -55,13 +67,19 @@ public class TaskListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Bundle bundle = getArguments();
-        TaskStatus status = (TaskStatus) bundle.getSerializable("arg_status");
-        String username = bundle.getString("arg_username");
+        status = (TaskStatus) bundle.getSerializable("arg_status");
+        username = bundle.getString("arg_username");
+
+        update();
 
         recyclerView = view.findViewById(R.id.taskListFragment_recyclerview);
-        recyclerView.setAdapter(new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername(username).getTaskByStatus(status)));
-
-
+        recyclerView.setAdapter(taskRecyclerAdapter);
 
     }
+
+    public void update(){
+        taskRecyclerAdapter = new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername(username).getTaskByStatus(status));
+        taskRecyclerAdapter.notifyDataSetChanged();
+    }
+
 }
