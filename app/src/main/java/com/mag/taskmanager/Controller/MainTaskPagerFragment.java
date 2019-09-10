@@ -4,10 +4,11 @@ package com.mag.taskmanager.Controller;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,21 +18,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.RecyclerAdapters.TaskRecyclerAdapter;
 import com.mag.taskmanager.Util.UiUtil;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 
 /**
@@ -74,12 +68,16 @@ public class MainTaskPagerFragment extends Fragment {
 
         switch (requestCode) {
             case REQUEST_CODE_FOR_DIALOG:
-                if (resultCode == Activity.RESULT_CANCELED)
-                    UiUtil.showSnackbar(mainLayout, data.getStringExtra("dialog_error"), getResources().getString(R.color.task_app_red));
-                else if (resultCode == Activity.RESULT_OK) {
-                    taskListFragments.get(TaskStatus.TODO).update();
-                    UiUtil.showSnackbar(mainLayout, "Successfully Added.", getResources().getString(R.color.task_app_green_dark));
+
+                if (resultCode == Activity.RESULT_OK) {
+                    if (data.getIntExtra("has_error", 0) == 1)
+                        UiUtil.showSnackbar(mainLayout, data.getStringExtra("dialog_error"), getResources().getString(R.color.task_app_red));
+                    else {
+                        taskListFragments.get(TaskStatus.TODO).update();
+                        UiUtil.showSnackbar(mainLayout, "Successfully Added.", getResources().getString(R.color.task_app_green_dark));
+                    }
                 }
+
                 break;
             default:
                 break;

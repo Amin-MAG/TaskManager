@@ -5,39 +5,28 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.mag.taskmanager.Exception.EmptyFieldException;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Util.UiUtil;
 import com.mag.taskmanager.Var.Constants;
 
 import java.util.Date;
@@ -126,12 +115,11 @@ public class AddTaskFragment extends DialogFragment {
                         throw new EmptyFieldException();
 
                     Repository.getInstance().getUserByUsername(getArguments().getString("arg_username")).addTask(new Task(taskTitle, taskDescription, taskDate, TaskStatus.TODO));
-                    fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
-
                 } catch (EmptyFieldException e) {
                     intent.putExtra("dialog_error",e.getMessage() );
-                    fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_CANCELED, intent);
+                    intent.putExtra("has_error",1 );
                 } finally {
+                    fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
                     dismiss();
                 }
 
@@ -141,7 +129,6 @@ public class AddTaskFragment extends DialogFragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent.putExtra("dialog_error", getResources().getString(R.string.cancel_add_item));
                 fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_CANCELED, intent);
                 dismiss();
             }

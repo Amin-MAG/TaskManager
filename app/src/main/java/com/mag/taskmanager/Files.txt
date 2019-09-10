@@ -15,3 +15,6 @@ Fragment Pop Up:
                 EditTaskFragment
 layouts:
                 TaskLayout
+
+Note:
+                need to declare global vars for username for example !
