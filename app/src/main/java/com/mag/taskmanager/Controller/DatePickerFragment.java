@@ -81,7 +81,7 @@ public class DatePickerFragment extends DialogFragment {
         Dialog dialog = new AlertDialog.Builder(getActivity())
                 .setView(view)
                 .create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor(getResources().getString(R.color.task_app_dark))));
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor(getResources().getString(R.color.task_app_darkest))));
 
 
         final Fragment fragment = getTargetFragment();
