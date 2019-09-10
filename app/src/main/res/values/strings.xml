@@ -14,5 +14,6 @@
     <string name="title">Title</string>
     <string name="create">Create</string>
     <string name="description">Description</string>
+    <string name="cancel_add_item">Nothing Added</string>
 
 </resources>

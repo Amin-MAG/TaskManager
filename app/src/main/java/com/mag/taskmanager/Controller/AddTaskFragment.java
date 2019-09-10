@@ -141,7 +141,8 @@ public class AddTaskFragment extends DialogFragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+                intent.putExtra("dialog_error", getResources().getString(R.string.cancel_add_item));
+                fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_CANCELED, intent);
                 dismiss();
             }
         });
