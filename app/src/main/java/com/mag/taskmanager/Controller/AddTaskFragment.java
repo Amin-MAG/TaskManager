@@ -190,7 +190,7 @@ public class AddTaskFragment extends DialogFragment {
 
                 String taskTitle = title.getText().toString();
                 String taskDescription = description.getText().toString();
-                Date taskDate = new Date();
+                Date taskDate = selectedDate;
 
                 try {
                     if (taskTitle.equals(Constants.EMPTY_STRING) || taskDescription.equals(Constants.EMPTY_STRING))
