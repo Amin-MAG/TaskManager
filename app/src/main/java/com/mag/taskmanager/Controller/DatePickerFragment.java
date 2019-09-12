@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Var.Constants;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -91,6 +93,16 @@ public class DatePickerFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
 
+                Log.d("someBug", "" + datePicker.getYear());
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                int year = calendar.get(Calendar.YEAR);
+                int monthOfYear = calendar.get(Calendar.MONTH);
+                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                intent.putExtra("date_picker_result", new Date(year, monthOfYear, dayOfMonth));
+                fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
                 dismiss();
 
             }

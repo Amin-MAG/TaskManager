@@ -34,6 +34,12 @@ import java.util.HashMap;
 public class MainTaskPagerFragment extends Fragment {
 
     public static final int REQUEST_CODE_FOR_DIALOG = 100;
+    public static final String DIALOG_ERROR = "dialog_error";
+    public static final String ARG_USERNAME = "arg_username";
+    public static final String ADD_TASK_FRAGMENT = "add_task_fragment";
+    public static final String TO_DO = "To Do";
+    public static final String DOING = "Doing";
+    public static final String DONE = "Done";
 
     private HashMap<TaskStatus, TaskListFragment> taskListFragments = new HashMap<>();
 
@@ -71,10 +77,10 @@ public class MainTaskPagerFragment extends Fragment {
 
                 if (resultCode == Activity.RESULT_OK) {
                     if (data.getIntExtra("has_error", 0) == 1)
-                        UiUtil.showSnackbar(mainLayout, data.getStringExtra("dialog_error"), getResources().getString(R.color.task_app_red));
+                        UiUtil.showSnackbar(mainLayout, data.getStringExtra(DIALOG_ERROR), getResources().getString(R.color.task_app_red));
                     else {
                         taskListFragments.get(TaskStatus.TODO).update();
-                        UiUtil.showSnackbar(mainLayout, "Successfully Added.", getResources().getString(R.color.task_app_green_dark));
+                        UiUtil.showSnackbar(mainLayout, getResources().getString(R.string.successfully_added), getResources().getString(R.color.task_app_green_dark));
                     }
                 }
 
@@ -91,7 +97,7 @@ public class MainTaskPagerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Bundle bundle = getArguments();
-        final String username = bundle.getString("arg_username");
+        final String username = bundle.getString(ARG_USERNAME);
 
         mainLayout = view.findViewById(R.id.pagerFragment_mainLayout);
 
@@ -104,7 +110,7 @@ public class MainTaskPagerFragment extends Fragment {
             public void onClick(View view) {
                 AddTaskFragment addTaskFragment = AddTaskFragment.newInstance(username);
                 addTaskFragment.setTargetFragment(MainTaskPagerFragment.this, REQUEST_CODE_FOR_DIALOG);
-                addTaskFragment.show(getFragmentManager(), "add_task_fragment");
+                addTaskFragment.show(getFragmentManager(), ADD_TASK_FRAGMENT);
             }
         });
 
@@ -113,10 +119,10 @@ public class MainTaskPagerFragment extends Fragment {
 
         statusTabLayout = view.findViewById(R.id.pagerFragment_statusTabLayout);
 
-        statusTabLayout.addTab(statusTabLayout.newTab().setText("To Do"));
-        statusTabLayout.addTab(statusTabLayout.newTab().setText("Doing"));
+        statusTabLayout.addTab(statusTabLayout.newTab().setText(TO_DO));
+        statusTabLayout.addTab(statusTabLayout.newTab().setText(DOING));
         statusTabLayout.getTabAt(1).select();
-        statusTabLayout.addTab(statusTabLayout.newTab().setText("Done"));
+        statusTabLayout.addTab(statusTabLayout.newTab().setText(DONE));
 
         statusTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 

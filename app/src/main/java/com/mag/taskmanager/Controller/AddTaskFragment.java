@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
+import com.mag.taskmanager.Util.UiUtil;
 import com.mag.taskmanager.Var.Constants;
 
 import java.util.Date;
@@ -41,9 +43,16 @@ public class AddTaskFragment extends DialogFragment {
     public static final int ONE_DAY_MILI_SECONDS = 24 * 60 * 60 * 1000;
     public static final int REQUEST_CODE_FOR_DATE_PICKER = 1001;
     public static final int REQUEST_CODE_FOR_TIME_PICKER = 1002;
+    public static final String ARG_USERNAME = "arg_username";
+    public static final String ADD_TASK_FRAGMENT_DATE_PICKER = "add_task_fragment_date_picker";
+    public static final String ADD_TASK_FRAGMENT_TIME_PICKER = "add_task_fragment_time_picker";
+    public static final String DIALOG_ERROR = "dialog_error";
+    public static final String HAS_ERROR = "has_error";
 
-    TextInputEditText title, description;
-    MaterialButton cancel, create, date, time;
+    private TextInputEditText title, description;
+    private MaterialButton cancel, create, date, time;
+
+    private Date selectedDate;
 
     public static AddTaskFragment newInstance(String username) {
 
@@ -60,6 +69,54 @@ public class AddTaskFragment extends DialogFragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQUEST_CODE_FOR_DATE_PICKER:
+
+                if (resultCode == Activity.RESULT_OK) {
+
+                    Date sTime = (Date) data.getSerializableExtra("date_picker_result");
+                    selectedDate.setDate(sTime.getDate());
+                    selectedDate.setMonth(sTime.getMonth());
+                    selectedDate.setYear(sTime.getYear());
+                    date.setText(Constants.DATE_FORMAT.format(selectedDate));
+
+                }
+
+                break;
+            case REQUEST_CODE_FOR_TIME_PICKER:
+
+
+//                if (resultCode == Activity.RESULT_OK) {
+//
+//                    Date sTime = (Date) data.getSerializableExtra("time_picker_result");
+//                    selectedDate.setMinutes(sTime.getMinutes());
+//                    selectedDate.setHours(sTime.getHours());
+//                    Log.d("should_change","should_change time");
+//                    time.setText(Constants.CLOCK_FORMAT.format(selectedDate));
+//
+//                }
+
+
+                break;
+            default:
+                break;
+        }
+
+
+
+
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        selectedDate = new Date(System.currentTimeMillis());
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_add_task, container, false);
     }
@@ -71,7 +128,7 @@ public class AddTaskFragment extends DialogFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_add_task, null, false);
 
 
-        final String username = getArguments().getString("arg_username");
+        final String username = getArguments().getString(ARG_USERNAME);
 
         // Title
 
@@ -108,7 +165,7 @@ public class AddTaskFragment extends DialogFragment {
             public void onClick(View view) {
                 DatePickerFragment datePickerFragment = DatePickerFragment.newInstance(new Date(System.currentTimeMillis() + ONE_DAY_MILI_SECONDS));
                 datePickerFragment.setTargetFragment(AddTaskFragment.this, REQUEST_CODE_FOR_DATE_PICKER);
-                datePickerFragment.show(getFragmentManager(), "add_task_fragment_date_picker");
+                datePickerFragment.show(getFragmentManager(), ADD_TASK_FRAGMENT_DATE_PICKER);
             }
         });
 
@@ -119,7 +176,7 @@ public class AddTaskFragment extends DialogFragment {
             public void onClick(View view) {
                 TimePickerFragment timePickerFragment= TimePickerFragment.newInstance(new Date(System.currentTimeMillis() + ONE_DAY_MILI_SECONDS));
                 timePickerFragment.setTargetFragment(AddTaskFragment.this, REQUEST_CODE_FOR_TIME_PICKER);
-                timePickerFragment.show(getFragmentManager(), "add_task_fragment_time_picker");
+                timePickerFragment.show(getFragmentManager(), ADD_TASK_FRAGMENT_TIME_PICKER);
             }
         });
 
@@ -140,8 +197,8 @@ public class AddTaskFragment extends DialogFragment {
                         throw new EmptyFieldException();
                     Repository.getInstance().getUserByUsername(username).addTask(new Task(taskTitle, taskDescription, taskDate, TaskStatus.TODO));
                 } catch (EmptyFieldException e) {
-                    intent.putExtra("dialog_error",e.getMessage() );
-                    intent.putExtra("has_error",1 );
+                    intent.putExtra(DIALOG_ERROR,e.getMessage() );
+                    intent.putExtra(HAS_ERROR,1 );
                 } finally {
                     fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
                     dismiss();

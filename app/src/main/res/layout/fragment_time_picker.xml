@@ -32,6 +32,7 @@
         android:paddingRight="64dp"
         android:paddingBottom="24dp"
         android:text="@android:string/ok"
+        android:backgroundTint="@color/task_app_white"
         android:textColor="@color/task_app_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:backgroundTint="@color/task_app_white"
         android:textColor="@color/task_app_dark"
         app:layout_constraintEnd_toEndOf="@+id/addTaskFragment_textInputLayout2"
         app:layout_constraintStart_toStartOf="@+id/addTaskFragment_textInputLayout2"
@@ -24,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:backgroundTint="@color/task_app_white"
         android:textColor="@color/task_app_dark"
         app:layout_constraintEnd_toEndOf="@+id/addTaskFragment_dateBtn"
         app:layout_constraintStart_toStartOf="@+id/addTaskFragment_dateBtn"
@@ -35,6 +37,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
         android:text="@string/create"
+        android:backgroundTint="@color/task_app_white"
         android:textColor="@color/task_app_dark"
         app:layout_constraintEnd_toEndOf="@+id/addTaskFragment_timeBtn"
         app:layout_constraintTop_toBottomOf="@+id/addTaskFragment_timeBtn" />
@@ -46,6 +49,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
         android:text="@android:string/cancel"
+        android:backgroundTint="@color/task_app_white"
         android:textColor="@color/task_app_dark"
         app:layout_constraintStart_toStartOf="@+id/addTaskFragment_timeBtn"
         app:layout_constraintTop_toBottomOf="@+id/addTaskFragment_timeBtn" />

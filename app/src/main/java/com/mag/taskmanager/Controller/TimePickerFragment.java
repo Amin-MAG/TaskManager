@@ -2,6 +2,7 @@ package com.mag.taskmanager.Controller;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -34,6 +35,8 @@ import java.util.Date;
  */
 public class TimePickerFragment extends DialogFragment {
 
+    public static final String TIME_PICKER_RESULT = "time_picker_result";
+    public static final String ARG_DATE = "arg_date";
     private TimePicker timePicker;
     private MaterialButton set;
 
@@ -43,7 +46,7 @@ public class TimePickerFragment extends DialogFragment {
     public static TimePickerFragment newInstance(Date date) {
 
         Bundle args = new Bundle();
-        args.putSerializable("arg_time", date);
+        args.putSerializable(ARG_DATE, date);
 
         TimePickerFragment fragment = new TimePickerFragment();
         fragment.setArguments(args);
@@ -56,7 +59,7 @@ public class TimePickerFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        date = (Date) getArguments().getSerializable("arg_date");
+        date = (Date) getArguments().getSerializable(ARG_DATE);
     }
 
     @Override
@@ -86,6 +89,8 @@ public class TimePickerFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
 
+                intent.putExtra(TIME_PICKER_RESULT, date);
+                fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK,intent);
                 dismiss();
 
             }
