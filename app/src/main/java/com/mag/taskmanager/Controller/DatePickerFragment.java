@@ -4,11 +4,14 @@ package com.mag.taskmanager.Controller;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,24 +19,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.DatePicker;
-
 import com.google.android.material.button.MaterialButton;
-import com.mag.taskmanager.Exception.EmptyFieldException;
-import com.mag.taskmanager.Model.Repository;
-import com.mag.taskmanager.Model.Task;
-import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Var.Constants;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -42,6 +30,8 @@ import java.util.GregorianCalendar;
  */
 public class DatePickerFragment extends DialogFragment {
 
+    public static final String ARG_DATE = "arg_date";
+    public static final String DATE_PICKER_RESULT = "date_picker_result";
     private DatePicker datePicker;
     private MaterialButton set;
 
@@ -50,7 +40,7 @@ public class DatePickerFragment extends DialogFragment {
     public static DatePickerFragment newInstance(Date date) {
 
         Bundle args = new Bundle();
-        args.putSerializable("arg_date", date);
+        args.putSerializable(ARG_DATE, date);
 
         DatePickerFragment fragment = new DatePickerFragment();
         fragment.setArguments(args);
@@ -63,7 +53,7 @@ public class DatePickerFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        date = (Date) getArguments().getSerializable("arg_date");
+        date = (Date) getArguments().getSerializable(ARG_DATE);
     }
 
     @Nullable
@@ -94,16 +84,8 @@ public class DatePickerFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
 
-                int year = datePicker.getYear();
-                int monthOfYear = datePicker.getMonth();
-                int dayOfMonth = datePicker.getDayOfMonth();
-
-                GregorianCalendar calendar = new GregorianCalendar(year, monthOfYear, dayOfMonth);
-
-//                intent.putExtra("date_picker_result", new Date(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth()));
-                intent.putExtra("date_picker_result", calendar.getTime());
+                intent.putExtra(DATE_PICKER_RESULT, getTime());
                 fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
-                Log.d("someBug", "" + datePicker.getYear());
                 dismiss();
 
             }
@@ -111,6 +93,15 @@ public class DatePickerFragment extends DialogFragment {
 
 
         return dialog;
+    }
+
+    private Date getTime() {
+        int year = datePicker.getYear();
+        int monthOfYear = datePicker.getMonth();
+        int dayOfMonth = datePicker.getDayOfMonth();
+
+        GregorianCalendar calendar = new GregorianCalendar(year, monthOfYear, dayOfMonth);
+        return calendar.getTime();
     }
 
 }

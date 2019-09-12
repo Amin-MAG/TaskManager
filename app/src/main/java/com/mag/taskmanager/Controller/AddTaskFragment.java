@@ -48,6 +48,8 @@ public class AddTaskFragment extends DialogFragment {
     public static final String ADD_TASK_FRAGMENT_TIME_PICKER = "add_task_fragment_time_picker";
     public static final String DIALOG_ERROR = "dialog_error";
     public static final String HAS_ERROR = "has_error";
+    public static final String DATE_PICKER_RESULT = "date_picker_result";
+    public static final String TIME_PICKER_RESULT = "time_picker_result";
 
     private TextInputEditText title, description;
     private MaterialButton cancel, create, date, time;
@@ -57,7 +59,7 @@ public class AddTaskFragment extends DialogFragment {
     public static AddTaskFragment newInstance(String username) {
 
         Bundle args = new Bundle();
-        args.putString("arg_username", username);
+        args.putString(AddTaskFragment.ARG_USERNAME, username);
 
         AddTaskFragment fragment = new AddTaskFragment();
         fragment.setArguments(args);
@@ -74,30 +76,19 @@ public class AddTaskFragment extends DialogFragment {
 
         switch (requestCode) {
             case REQUEST_CODE_FOR_DATE_PICKER:
-
                 if (resultCode == Activity.RESULT_OK) {
-
-                    Date sTime = (Date) data.getSerializableExtra("date_picker_result" );
+                    Date sTime = (Date) data.getSerializableExtra(DATE_PICKER_RESULT);
                     selectedDate.setDate(sTime.getDate());
                     selectedDate.setMonth(sTime.getMonth());
                     selectedDate.setYear(sTime.getYear());
-
                 }
-
                 break;
             case REQUEST_CODE_FOR_TIME_PICKER:
-
-
                 if (resultCode == Activity.RESULT_OK) {
-
-//                    Log.d("should_change","should_change time");
-                    Date sTime = (Date) data.getSerializableExtra("time_picker_result");
+                    Date sTime = (Date) data.getSerializableExtra(TIME_PICKER_RESULT);
                     selectedDate.setHours(sTime.getHours());
                     selectedDate.setMinutes(sTime.getMinutes());
-
                 }
-
-
                 break;
             default:
                 break;
@@ -132,7 +123,7 @@ public class AddTaskFragment extends DialogFragment {
 
         // Title
 
-        String titleText = "Add Task";
+        String titleText = getString(R.string.add_task);
         ForegroundColorSpan foregroundColorSpanTtile = new ForegroundColorSpan(Color.parseColor(getResources().getString(R.color.task_app_white)));
         SpannableStringBuilder titleString = new SpannableStringBuilder(titleText);
         titleString.setSpan(

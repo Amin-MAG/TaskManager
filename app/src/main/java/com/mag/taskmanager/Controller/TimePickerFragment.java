@@ -9,6 +9,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,19 +21,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.DatePicker;
-import android.widget.TimePicker;
-
 import com.google.android.material.button.MaterialButton;
 import com.mag.taskmanager.R;
 
-import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -92,8 +86,8 @@ public class TimePickerFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
 
-                intent.putExtra(TIME_PICKER_RESULT, new Date(0,0,0,timePicker.getHour(),timePicker.getMinute()));
-                fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK,intent);
+                intent.putExtra(TIME_PICKER_RESULT, new Date(0, 0, 0, timePicker.getHour(), timePicker.getMinute()));
+                fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
                 dismiss();
 
             }

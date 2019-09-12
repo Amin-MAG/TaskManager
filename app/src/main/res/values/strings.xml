@@ -16,5 +16,6 @@
     <string name="description">Description</string>
     <string name="cancel_add_item">Nothing Added</string>
     <string name="successfully_added"> Successfully Added.</string>
+    <string name="add_task">Add Task</string>
 
 </resources>

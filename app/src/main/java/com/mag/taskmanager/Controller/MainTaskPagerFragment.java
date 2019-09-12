@@ -40,6 +40,7 @@ public class MainTaskPagerFragment extends Fragment {
     public static final String TO_DO = "To Do";
     public static final String DOING = "Doing";
     public static final String DONE = "Done";
+    public static final String HAS_ERROR = "has_error";
 
     private HashMap<TaskStatus, TaskListFragment> taskListFragments = new HashMap<>();
 
@@ -52,7 +53,7 @@ public class MainTaskPagerFragment extends Fragment {
     public static MainTaskPagerFragment newInstance(String username) {
 
         Bundle args = new Bundle();
-        args.putString("arg_username", username);
+        args.putString(ARG_USERNAME, username);
 
         MainTaskPagerFragment fragment = new MainTaskPagerFragment();
         fragment.setArguments(args);
@@ -76,7 +77,7 @@ public class MainTaskPagerFragment extends Fragment {
             case REQUEST_CODE_FOR_DIALOG:
 
                 if (resultCode == Activity.RESULT_OK) {
-                    if (data.getIntExtra("has_error", 0) == 1)
+                    if (data.getIntExtra(HAS_ERROR, 0) == 1)
                         UiUtil.showSnackbar(mainLayout, data.getStringExtra(DIALOG_ERROR), getResources().getString(R.color.task_app_red));
                     else {
                         taskListFragments.get(TaskStatus.TODO).update();
@@ -140,6 +141,7 @@ public class MainTaskPagerFragment extends Fragment {
             }
 
         });
+
         // 3 Recycler
 
         for (int i = 0; i < 3; i++)
