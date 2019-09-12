@@ -78,7 +78,9 @@ public class AddTaskFragment extends DialogFragment {
                 if (resultCode == Activity.RESULT_OK) {
 
                     Date sTime = (Date) data.getSerializableExtra("date_picker_result" );
-                    date.setText(Constants.DATE_FORMAT.format(sTime));
+                    selectedDate.setDate(sTime.getDate());
+                    selectedDate.setMonth(sTime.getMonth());
+                    selectedDate.setYear(sTime.getYear());
 
                 }
 
@@ -86,15 +88,14 @@ public class AddTaskFragment extends DialogFragment {
             case REQUEST_CODE_FOR_TIME_PICKER:
 
 
-//                if (resultCode == Activity.RESULT_OK) {
-//
-//                    Date sTime = (Date) data.getSerializableExtra("time_picker_result");
-//                    selectedDate.setMinutes(sTime.getMinutes());
-//                    selectedDate.setHours(sTime.getHours());
+                if (resultCode == Activity.RESULT_OK) {
+
 //                    Log.d("should_change","should_change time");
-//                    time.setText(Constants.CLOCK_FORMAT.format(selectedDate));
-//
-//                }
+                    Date sTime = (Date) data.getSerializableExtra("time_picker_result");
+                    selectedDate.setHours(sTime.getHours());
+                    selectedDate.setMinutes(sTime.getMinutes());
+
+                }
 
 
                 break;
@@ -102,15 +103,17 @@ public class AddTaskFragment extends DialogFragment {
                 break;
         }
 
-
-
+        if (resultCode == Activity.RESULT_OK){
+            date.setText(Constants.DATE_FORMAT.format(selectedDate));
+            time.setText(Constants.CLOCK_FORMAT.format(selectedDate));
+        }
 
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        selectedDate = new Date(0,0,0,0,0,0);
+        selectedDate = new Date(System.currentTimeMillis());
     }
 
     @Override
