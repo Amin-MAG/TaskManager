@@ -77,11 +77,8 @@ public class AddTaskFragment extends DialogFragment {
 
                 if (resultCode == Activity.RESULT_OK) {
 
-                    Date sTime = (Date) data.getSerializableExtra("date_picker_result");
-                    selectedDate.setDate(sTime.getDate());
-                    selectedDate.setMonth(sTime.getMonth());
-                    selectedDate.setYear(sTime.getYear());
-                    date.setText(Constants.DATE_FORMAT.format(selectedDate));
+                    Date sTime = (Date) data.getSerializableExtra("date_picker_result" );
+                    date.setText(Constants.DATE_FORMAT.format(sTime));
 
                 }
 
@@ -113,7 +110,7 @@ public class AddTaskFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        selectedDate = new Date(System.currentTimeMillis());
+        selectedDate = new Date(0,0,0,0,0,0);
     }
 
     @Override

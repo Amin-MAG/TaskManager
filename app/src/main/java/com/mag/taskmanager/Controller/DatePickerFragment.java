@@ -35,6 +35,7 @@ import com.mag.taskmanager.Var.Constants;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,16 +94,16 @@ public class DatePickerFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
 
-                Log.d("someBug", "" + datePicker.getYear());
+                int year = datePicker.getYear();
+                int monthOfYear = datePicker.getMonth();
+                int dayOfMonth = datePicker.getDayOfMonth();
 
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                int year = calendar.get(Calendar.YEAR);
-                int monthOfYear = calendar.get(Calendar.MONTH);
-                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+                GregorianCalendar calendar = new GregorianCalendar(year, monthOfYear, dayOfMonth);
 
-                intent.putExtra("date_picker_result", new Date(year, monthOfYear, dayOfMonth));
+//                intent.putExtra("date_picker_result", new Date(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth()));
+                intent.putExtra("date_picker_result", calendar.getTime());
                 fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+                Log.d("someBug", "" + datePicker.getYear());
                 dismiss();
 
             }
