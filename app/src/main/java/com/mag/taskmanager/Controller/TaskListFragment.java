@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.RecyclerAdapters.TaskRecyclerAdapter;
+import com.mag.taskmanager.Controller.RecyclerAdapters.TaskRecyclerAdapter;
+
+import java.util.Date;
 
 
 /**
@@ -23,6 +25,8 @@ import com.mag.taskmanager.RecyclerAdapters.TaskRecyclerAdapter;
  */
 public class TaskListFragment extends Fragment {
 
+    public static final int REQUEST_CODE_FOR_EDIT_DIALOG = 1005;
+    public static final String EDIT_TASK_FRAGMENT = "edit_task_fragment";
     private TaskRecyclerAdapter taskRecyclerAdapter;
     private RecyclerView recyclerView;
 
@@ -68,7 +72,14 @@ public class TaskListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.taskListFragment_recyclerview);
-        taskRecyclerAdapter = new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername(username).getTaskByStatus(status));
+        taskRecyclerAdapter = new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername(username).getTaskByStatus(status), new TaskRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void showEditDialog() {
+                EditTaskFragment editTaskFragment = EditTaskFragment.newInstance(username);
+                editTaskFragment.setTargetFragment(TaskListFragment.this, REQUEST_CODE_FOR_EDIT_DIALOG);
+                editTaskFragment.show(getFragmentManager(), EDIT_TASK_FRAGMENT);
+            }
+        });
 
         recyclerView.setAdapter(taskRecyclerAdapter);
 

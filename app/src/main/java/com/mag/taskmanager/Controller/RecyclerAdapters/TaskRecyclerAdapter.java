@@ -1,15 +1,20 @@
-package com.mag.taskmanager.RecyclerAdapters;
+package com.mag.taskmanager.Controller.RecyclerAdapters;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.button.MaterialButton;
+import com.mag.taskmanager.Controller.AddTaskFragment;
+import com.mag.taskmanager.Controller.EditTaskFragment;
+import com.mag.taskmanager.Controller.MainTaskPagerFragment;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Var.Constants;
@@ -18,16 +23,25 @@ import java.util.List;
 
 public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapter.TaskRecycleHolder> {
 
+
+
+    public  interface OnItemClickListener {
+        void showEditDialog();
+    }
+
+    private OnItemClickListener listener;
     private List<Task> tasks;
 
-    public TaskRecyclerAdapter(List<Task> tasks) {
+    public TaskRecyclerAdapter(List<Task> tasks, OnItemClickListener listener)  {
         this.tasks = tasks;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
     public TaskRecycleHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        Activity activity = (Activity) parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(activity);
         View view = inflater.inflate(R.layout.layout_task, parent, false);
         return new TaskRecycleHolder(view);
     }
@@ -54,6 +68,13 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
             imageView = itemView.findViewById(R.id.taskLayout_image);
             taskTitle = itemView.findViewById(R.id.taskLayout_title);
             taskDate = itemView.findViewById(R.id.taskLayout_date);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.showEditDialog();
+                }
+            });
 
         }
 

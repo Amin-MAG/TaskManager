@@ -17,5 +17,11 @@
     <string name="cancel_add_item">Nothing Added</string>
     <string name="successfully_added"> Successfully Added.</string>
     <string name="add_task">Add Task</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="to_do">To Do</string>
+    <string name="doing">Doing</string>
+    <string name="done">Done</string>
 
 </resources>

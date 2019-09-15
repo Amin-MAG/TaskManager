@@ -1,9 +1,6 @@
 package com.mag.taskmanager.Model;
 
-import android.util.Log;
-
-import com.mag.taskmanager.Exception.BadAuthorizationException;
-import com.mag.taskmanager.Exception.EmptyFieldException;
+import com.mag.taskmanager.Model.Exception.BadAuthorizationException;
 
 import java.util.ArrayList;
 import java.util.Date;

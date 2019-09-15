@@ -2,7 +2,6 @@ package com.mag.taskmanager.Controller;
 
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,12 +14,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.mag.taskmanager.Exception.DuplicateUsernameException;
-import com.mag.taskmanager.Exception.EmptyFieldException;
-import com.mag.taskmanager.Exception.ShortPasswordException;
-import com.mag.taskmanager.Exception.WrongRepeatedPasswordException;
+import com.mag.taskmanager.Model.Exception.DuplicateUsernameException;
+import com.mag.taskmanager.Model.Exception.EmptyFieldException;
+import com.mag.taskmanager.Model.Exception.ShortPasswordException;
+import com.mag.taskmanager.Model.Exception.WrongRepeatedPasswordException;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.User;

@@ -33,7 +33,7 @@ import java.util.HashMap;
  */
 public class MainTaskPagerFragment extends Fragment {
 
-    public static final int REQUEST_CODE_FOR_DIALOG = 100;
+    public static final int REQUEST_CODE_FOR_ADD_DIALOG = 100;
     public static final String DIALOG_ERROR = "dialog_error";
     public static final String ARG_USERNAME = "arg_username";
     public static final String ADD_TASK_FRAGMENT = "add_task_fragment";
@@ -74,7 +74,7 @@ public class MainTaskPagerFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
-            case REQUEST_CODE_FOR_DIALOG:
+            case REQUEST_CODE_FOR_ADD_DIALOG:
 
                 if (resultCode == Activity.RESULT_OK) {
                     if (data.getIntExtra(HAS_ERROR, 0) == 1)
@@ -110,7 +110,7 @@ public class MainTaskPagerFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 AddTaskFragment addTaskFragment = AddTaskFragment.newInstance(username);
-                addTaskFragment.setTargetFragment(MainTaskPagerFragment.this, REQUEST_CODE_FOR_DIALOG);
+                addTaskFragment.setTargetFragment(MainTaskPagerFragment.this, REQUEST_CODE_FOR_ADD_DIALOG);
                 addTaskFragment.show(getFragmentManager(), ADD_TASK_FRAGMENT);
             }
         });
