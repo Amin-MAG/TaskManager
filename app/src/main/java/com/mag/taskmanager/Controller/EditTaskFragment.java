@@ -39,17 +39,24 @@ import java.util.Date;
 public class EditTaskFragment extends DialogFragment {
 
     public static final String ARG_USERNAME = "arg_username";
+    public static final String ARG_TASK = "arg_task";
+    public static final int REQUEST_CODE_FOR_DATE_PICKER = 1001;
+    public static final int REQUEST_CODE_FOR_TIME_PICKER = 1002;
+    public static final String ADD_TASK_FRAGMENT_DATE_PICKER = "add_task_fragment_date_picker";
+    public static final String ADD_TASK_FRAGMENT_TIME_PICKER = "add_task_fragment_time_picker";
+    public static final String DATE_PICKER_RESULT = "date_picker_result";
+    public static final String TIME_PICKER_RESULT = "time_picker_result";
 
     private TextInputEditText title, description;
     private MaterialButton edit, delete, cancel, date, time;
 
-    private Date selectedDate;
+    private Task selectedTask;
 
-
-    public static EditTaskFragment newInstance(String username) {
+    public static EditTaskFragment newInstance(String username, Task task) {
 
         Bundle args = new Bundle();
         args.putString(ARG_USERNAME, username);
+        args.putSerializable(ARG_TASK, task);
 
         EditTaskFragment fragment = new EditTaskFragment();
         fragment.setArguments(args);
@@ -59,42 +66,42 @@ public class EditTaskFragment extends DialogFragment {
     public EditTaskFragment() {
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        switch (requestCode) {
-//            case REQUEST_CODE_FOR_DATE_PICKER:
-//                if (resultCode == Activity.RESULT_OK) {
-//                    Date sTime = (Date) data.getSerializableExtra(DATE_PICKER_RESULT);
-//                    selectedDate.setDate(sTime.getDate());
-//                    selectedDate.setMonth(sTime.getMonth());
-//                    selectedDate.setYear(sTime.getYear());
-//                }
-//                break;
-//            case REQUEST_CODE_FOR_TIME_PICKER:
-//                if (resultCode == Activity.RESULT_OK) {
-//                    Date sTime = (Date) data.getSerializableExtra(TIME_PICKER_RESULT);
-//                    selectedDate.setHours(sTime.getHours());
-//                    selectedDate.setMinutes(sTime.getMinutes());
-//                }
-//                break;
-//            default:
-//                break;
-//        }
-//
-//        if (resultCode == Activity.RESULT_OK){
-//            date.setText(Constants.DATE_FORMAT.format(selectedDate));
-//            date.setText(Constants.DATE_FORMAT.format(selectedDate));
-//            time.setText(Constants.CLOCK_FORMAT.format(selectedDate));
-//        }
-//
-//    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQUEST_CODE_FOR_DATE_PICKER:
+                if (resultCode == Activity.RESULT_OK) {
+                    Date sTime = (Date) data.getSerializableExtra(DATE_PICKER_RESULT);
+                    selectedTask.getDate().setDate(sTime.getDate());
+                    selectedTask.getDate().setMonth(sTime.getMonth());
+                    selectedTask.getDate().setYear(sTime.getYear());
+                }
+                break;
+            case REQUEST_CODE_FOR_TIME_PICKER:
+                if (resultCode == Activity.RESULT_OK) {
+                    Date sTime = (Date) data.getSerializableExtra(TIME_PICKER_RESULT);
+                    selectedTask.getDate().setHours(sTime.getHours());
+                    selectedTask.getDate().setMinutes(sTime.getMinutes());
+                }
+                break;
+            default:
+                break;
+        }
+
+        if (resultCode == Activity.RESULT_OK){
+            date.setText(Constants.DATE_FORMAT.format(selectedTask.getDate()));
+            date.setText(Constants.DATE_FORMAT.format(selectedTask.getDate()));
+            time.setText(Constants.CLOCK_FORMAT.format(selectedTask.getDate()));
+        }
+
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        selectedDate = new Date(System.currentTimeMillis());
+        selectedTask = (Task) getArguments().getSerializable(ARG_TASK);
     }
 
     @Override
@@ -107,7 +114,6 @@ public class EditTaskFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_edit_task, null, false);
-
 
         final String username = getArguments().getString(ARG_USERNAME);
 
@@ -122,7 +128,6 @@ public class EditTaskFragment extends DialogFragment {
                 titleText.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         );
-
 
 
         // Dialog Box
@@ -142,27 +147,28 @@ public class EditTaskFragment extends DialogFragment {
         cancel = view.findViewById(R.id.editTaskFragment_cancel);
         delete = view.findViewById(R.id.editTaskFragment_delete);
 
+        title.setText(selectedTask.getTitle());
+        description.setText(selectedTask.getDescription());
+        date.setText(Constants.DATE_FORMAT.format(selectedTask.getDate()));
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerFragment datePickerFragment = DatePickerFragment.newInstance(selectedTask.getDate());
+                datePickerFragment.setTargetFragment(EditTaskFragment.this, REQUEST_CODE_FOR_DATE_PICKER);
+                datePickerFragment.show(getFragmentManager(), ADD_TASK_FRAGMENT_DATE_PICKER);
+            }
+        });
 
-//        date.setText(Constants.DATE_FORMAT.format(new Date(System.currentTimeMillis() + ONE_DAY_MILI_SECONDS)));
-//        date.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                DatePickerFragment datePickerFragment = DatePickerFragment.newInstance(new Date(System.currentTimeMillis() + ONE_DAY_MILI_SECONDS));
-//                datePickerFragment.setTargetFragment(EditTaskFragment.this, REQUEST_CODE_FOR_DATE_PICKER);
-//                datePickerFragment.show(getFragmentManager(), ADD_TASK_FRAGMENT_DATE_PICKER);
-//            }
-//        });
-//
-//
-//        time.setText(Constants.CLOCK_FORMAT.format(new Date(System.currentTimeMillis() + ONE_DAY_MILI_SECONDS)));
-//        time.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                TimePickerFragment timePickerFragment= TimePickerFragment.newInstance(new Date(System.currentTimeMillis() + ONE_DAY_MILI_SECONDS));
-//                timePickerFragment.setTargetFragment(EditTaskFragment.this, REQUEST_CODE_FOR_TIME_PICKER);
-//                timePickerFragment.show(getFragmentManager(), ADD_TASK_FRAGMENT_TIME_PICKER);
-//            }
-//        });
+
+        time.setText(Constants.CLOCK_FORMAT.format(selectedTask.getDate()));
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerFragment timePickerFragment = TimePickerFragment.newInstance(selectedTask.getDate());
+                timePickerFragment.setTargetFragment(EditTaskFragment.this, REQUEST_CODE_FOR_TIME_PICKER);
+                timePickerFragment.show(getFragmentManager(), ADD_TASK_FRAGMENT_TIME_PICKER);
+            }
+        });
 
 
         final Fragment fragment = getTargetFragment();

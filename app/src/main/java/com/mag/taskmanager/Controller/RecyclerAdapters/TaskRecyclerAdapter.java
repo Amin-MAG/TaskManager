@@ -26,7 +26,7 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
 
 
     public  interface OnItemClickListener {
-        void showEditDialog();
+        void showEditDialog(Task task);
     }
 
     private OnItemClickListener listener;
@@ -69,18 +69,20 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
             taskTitle = itemView.findViewById(R.id.taskLayout_title);
             taskDate = itemView.findViewById(R.id.taskLayout_date);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.showEditDialog();
-                }
-            });
-
         }
 
         public  void bind(final  Task task) {
+
             taskTitle.setText(task.getTitle());
             taskDate.setText(Constants.TIME_FORMAT.format(task.getDate()));
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.showEditDialog(task);
+                }
+            });
+
         }
 
     }

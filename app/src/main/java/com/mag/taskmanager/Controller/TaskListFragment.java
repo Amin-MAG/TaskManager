@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mag.taskmanager.Model.Repository;
+import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Controller.RecyclerAdapters.TaskRecyclerAdapter;
@@ -27,6 +28,8 @@ public class TaskListFragment extends Fragment {
 
     public static final int REQUEST_CODE_FOR_EDIT_DIALOG = 1005;
     public static final String EDIT_TASK_FRAGMENT = "edit_task_fragment";
+    public static final String ARG_USERNAME = "arg_username";
+    public static final String ARG_STATUS = "arg_status";
     private TaskRecyclerAdapter taskRecyclerAdapter;
     private RecyclerView recyclerView;
 
@@ -37,8 +40,8 @@ public class TaskListFragment extends Fragment {
     public static TaskListFragment newInstance(TaskStatus status, String username) {
 
         Bundle args = new Bundle();
-        args.putSerializable("arg_status", status);
-        args.putString("arg_username", username);
+        args.putSerializable(ARG_STATUS, status);
+        args.putString(ARG_USERNAME, username);
 
         TaskListFragment fragment = new TaskListFragment();
         fragment.setArguments(args);
@@ -52,8 +55,8 @@ public class TaskListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.status = (TaskStatus) getArguments().getSerializable("arg_status");
-        this.username = getArguments().getString("arg_username");
+        this.status = (TaskStatus) getArguments().getSerializable(ARG_STATUS);
+        this.username = getArguments().getString(ARG_USERNAME);
     }
 
     @Override
@@ -74,8 +77,8 @@ public class TaskListFragment extends Fragment {
         recyclerView = view.findViewById(R.id.taskListFragment_recyclerview);
         taskRecyclerAdapter = new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername(username).getTaskByStatus(status), new TaskRecyclerAdapter.OnItemClickListener() {
             @Override
-            public void showEditDialog() {
-                EditTaskFragment editTaskFragment = EditTaskFragment.newInstance(username);
+            public void showEditDialog(Task task) {
+                EditTaskFragment editTaskFragment = EditTaskFragment.newInstance(username, task);
                 editTaskFragment.setTargetFragment(TaskListFragment.this, REQUEST_CODE_FOR_EDIT_DIALOG);
                 editTaskFragment.show(getFragmentManager(), EDIT_TASK_FRAGMENT);
             }
