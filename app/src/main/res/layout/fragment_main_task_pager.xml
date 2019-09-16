@@ -8,34 +8,6 @@
     tools:context=".Controller.MainTaskPagerFragment">
 
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/pagerFragment_viewPager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#00000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pagerFragment_statusTabLayout"
-        tools:context=".Controller.MainTaskPagerFragment" />
-
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/pagerFragment_statusTabLayout"
-        android:layout_width="0dp"
-        android:layout_height="46dp"
-        android:background="@color/task_app_dark"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tabGravity="fill"
-        app:tabIndicatorColor="@color/task_app_yellow"
-        app:tabMode="fixed"
-        app:tabTextColor="#FFFFFF" />
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
@@ -57,5 +29,33 @@
             app:fabCustomSize="64dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pagerFragment_viewPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pagerFragment_statusTabLayout"
+        tools:context=".Controller.MainTaskPagerFragment" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/pagerFragment_statusTabLayout"
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        android:background="@color/task_app_dark"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/task_app_yellow"
+        app:tabMode="fixed"
+        app:tabTextColor="#FFFFFF" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

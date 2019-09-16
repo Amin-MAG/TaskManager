@@ -102,7 +102,6 @@ public class MainTaskPagerFragment extends Fragment {
 
         mainLayout = view.findViewById(R.id.pagerFragment_mainLayout);
 
-
         // Floating Action bar
 
         fab = view.findViewById(R.id.taskActivity_fab);
@@ -163,7 +162,7 @@ public class MainTaskPagerFragment extends Fragment {
 
             @Override
             public int getCount() {
-                return 3;
+                return taskListFragments.size();
             }
 
         });

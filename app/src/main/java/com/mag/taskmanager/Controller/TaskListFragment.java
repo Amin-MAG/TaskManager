@@ -2,13 +2,19 @@ package com.mag.taskmanager.Controller;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,8 +23,10 @@ import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Controller.RecyclerAdapters.TaskRecyclerAdapter;
+import com.mag.taskmanager.Util.UiUtil;
 
 import java.util.Date;
+import java.util.HashMap;
 
 
 /**
@@ -30,6 +38,13 @@ public class TaskListFragment extends Fragment {
     public static final String EDIT_TASK_FRAGMENT = "edit_task_fragment";
     public static final String ARG_USERNAME = "arg_username";
     public static final String ARG_STATUS = "arg_status";
+    public static final String DIALOG_ERROR = "dialog_error";
+    public static final String HAS_ERROR = "has_error";
+    public static final String MAIN_TASK_PAGER_LAYOUT = "main_task_pager_layout";
+    public static final String DELETE_TASK = "delete_task";
+    public static final String EDIT_TASK = "edit_task";
+    public static final String ACTION_STRING = "action_string";
+
     private TaskRecyclerAdapter taskRecyclerAdapter;
     private RecyclerView recyclerView;
 
@@ -37,7 +52,7 @@ public class TaskListFragment extends Fragment {
     private String username;
     private TaskStatus status;
 
-    public static TaskListFragment newInstance(TaskStatus status, String username) {
+    public static TaskListFragment newInstance(TaskStatus status, String username ) {
 
         Bundle args = new Bundle();
         args.putSerializable(ARG_STATUS, status);
@@ -48,7 +63,44 @@ public class TaskListFragment extends Fragment {
         return fragment;
     }
 
-    TaskListFragment(){
+    TaskListFragment() {
+
+    }
+
+    @SuppressLint("ResourceType")
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQUEST_CODE_FOR_EDIT_DIALOG:
+
+                if (resultCode == Activity.RESULT_OK) {
+                    if (data.getIntExtra(HAS_ERROR, 0) == 1) {
+                        UiUtil.showSnackbar(recyclerView, data.getStringExtra(DIALOG_ERROR), getResources().getString(R.color.task_app_red));
+                    } else {
+
+                        update();
+
+                        switch (data.getStringExtra(ACTION_STRING)) {
+                            case DELETE_TASK:
+                                UiUtil.showSnackbar(recyclerView, getResources().getString(R.string.successfully_deleted), getResources().getString(R.color.task_app_green_dark));
+                                break;
+                            case EDIT_TASK:
+                                UiUtil.showSnackbar(recyclerView, getResources().getString(R.string.successfully_edited), getResources().getString(R.color.task_app_green_dark));
+                                break;
+                            default:
+                                break;
+                        }
+
+                    }
+
+                }
+
+                break;
+            default:
+                break;
+        }
 
     }
 
@@ -69,6 +121,7 @@ public class TaskListFragment extends Fragment {
         super.onResume();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("ResourceType")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

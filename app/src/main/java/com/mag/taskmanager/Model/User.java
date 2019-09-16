@@ -49,4 +49,26 @@ public class User {
         tasks.add(task);
     }
 
+    public void deleteTaskWithId(UUID uuid) {
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getTaskId() == uuid){
+                tasks.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void updateTask(Task task) {
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getTaskId() == task.getTaskId()){
+                tasks.get(i).setTitle(task.getTitle());
+                tasks.get(i).setDescription(task.getDescription());
+                tasks.get(i).setDate(task.getDate());
+                tasks.get(i).setTaskStatus(task.getTaskStatus());
+                break;
+            }
+        }
+    }
+
+
 }
