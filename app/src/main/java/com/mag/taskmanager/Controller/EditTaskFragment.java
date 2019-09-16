@@ -9,17 +9,17 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -31,6 +31,7 @@ import com.mag.taskmanager.R;
 import com.mag.taskmanager.Var.Constants;
 
 import java.util.Date;
+import java.util.HashMap;
 
 
 /**
@@ -48,13 +49,14 @@ public class EditTaskFragment extends DialogFragment {
     public static final String HAS_ERROR = "has_error";
     public static final String DATE_PICKER_RESULT = "date_picker_result";
     public static final String TIME_PICKER_RESULT = "time_picker_result";
-    public static final String ACTION_STRING= "action_string";
+    public static final String ACTION_STRING = "action_string";
     public static final String DELETE_TASK = "delete_task";
     public static final String ACTION_STRING1 = "action_string";
     public static final String EDIT_TASK = "edit_task";
 
     private TextInputEditText title, description;
     private MaterialButton edit, delete, cancel, date, time;
+    private HashMap<TaskStatus, RadioButton> radioButtons = new HashMap<>();
 
     private Task selectedTask;
     private Date selectedDate;
@@ -154,6 +156,9 @@ public class EditTaskFragment extends DialogFragment {
         edit = view.findViewById(R.id.editTaskFragment_edit);
         cancel = view.findViewById(R.id.editTaskFragment_cancel);
         delete = view.findViewById(R.id.editTaskFragment_delete);
+        radioButtons.put(TaskStatus.TODO,  (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_todo));
+        radioButtons.put(TaskStatus.DOING,  (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_doing));
+        radioButtons.put(TaskStatus.DONE,  (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_done));
 
         title.setText(selectedTask.getTitle());
         description.setText(selectedTask.getDescription());
@@ -198,7 +203,12 @@ public class EditTaskFragment extends DialogFragment {
                     selectedTask.setTitle(taskTitle);
                     selectedTask.setDescription(taskDescription);
                     selectedTask.setDate(taskDate);
-                    selectedTask.setTaskStatus(taskStatus);
+                    for (TaskStatus key : radioButtons.keySet()) {
+                        if (radioButtons.get(key).isChecked()){
+                            selectedTask.setTaskStatus(key);
+                            break;
+                        }
+                    }
 
                 } catch (EmptyFieldException e) {
                     intent.putExtra(DIALOG_ERROR, e.getMessage());

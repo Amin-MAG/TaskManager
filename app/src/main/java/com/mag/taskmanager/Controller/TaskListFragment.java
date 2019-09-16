@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +13,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mag.taskmanager.Controller.RecyclerAdapters.TaskRecyclerAdapter;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Controller.RecyclerAdapters.TaskRecyclerAdapter;
 import com.mag.taskmanager.Util.UiUtil;
 
-import java.util.Date;
 import java.util.HashMap;
 
 
@@ -34,7 +31,7 @@ import java.util.HashMap;
  */
 public class TaskListFragment extends Fragment {
 
-    private  static final int REQUEST_CODE_FOR_EDIT_DIALOG = 1005;
+    private static final int REQUEST_CODE_FOR_EDIT_DIALOG = 1005;
     private static final String EDIT_TASK_FRAGMENT = "edit_task_fragment";
     private static final String ARG_USERNAME = "arg_username";
     private static final String ARG_STATUS = "arg_status";
@@ -63,7 +60,7 @@ public class TaskListFragment extends Fragment {
         return fragment;
     }
 
-    TaskListFragment( ) {
+    TaskListFragment() {
     }
 
     @SuppressLint("ResourceType")
@@ -86,7 +83,7 @@ public class TaskListFragment extends Fragment {
                                 UiUtil.showSnackbar(recyclerView, getResources().getString(R.string.successfully_deleted), getResources().getString(R.color.task_app_green_dark));
                                 break;
                             case EDIT_TASK:
-                                for (TaskListFragment taskListFragment: taskListFragments.values())
+                                for (TaskListFragment taskListFragment : taskListFragments.values())
                                     taskListFragment.update();
                                 UiUtil.showSnackbar(recyclerView, getResources().getString(R.string.successfully_edited), getResources().getString(R.color.task_app_green_dark));
                                 break;
@@ -142,7 +139,7 @@ public class TaskListFragment extends Fragment {
 
     }
 
-    public  void  setFragmentListGetter(GetFragmentList getter) {
+    public void setFragmentListGetter(GetFragmentList getter) {
         taskListFragments = getter.getFragmentList();
     }
 
@@ -157,7 +154,7 @@ public class TaskListFragment extends Fragment {
         return username == null;
     }
 
-    public  interface  GetFragmentList {
+    public interface GetFragmentList {
         HashMap<TaskStatus, TaskListFragment> getFragmentList();
     }
 
