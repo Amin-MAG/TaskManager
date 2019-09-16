@@ -195,7 +195,10 @@ public class EditTaskFragment extends DialogFragment {
                     if (taskTitle.equals(Constants.EMPTY_STRING) || taskDescription.equals(Constants.EMPTY_STRING))
                         throw new EmptyFieldException();
 
-                    Repository.getInstance().getUserByUsername(username).updateTask(new Task(taskTitle, taskDescription, selectedDate, taskStatus));
+                    selectedTask.setTitle(taskTitle);
+                    selectedTask.setDescription(taskDescription);
+                    selectedTask.setDate(taskDate);
+                    selectedTask.setTaskStatus(taskStatus);
 
                 } catch (EmptyFieldException e) {
                     intent.putExtra(DIALOG_ERROR, e.getMessage());

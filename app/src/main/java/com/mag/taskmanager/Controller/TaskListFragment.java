@@ -34,17 +34,17 @@ import java.util.HashMap;
  */
 public class TaskListFragment extends Fragment {
 
-    public static final int REQUEST_CODE_FOR_EDIT_DIALOG = 1005;
-    public static final String EDIT_TASK_FRAGMENT = "edit_task_fragment";
-    public static final String ARG_USERNAME = "arg_username";
-    public static final String ARG_STATUS = "arg_status";
-    public static final String DIALOG_ERROR = "dialog_error";
-    public static final String HAS_ERROR = "has_error";
-    public static final String MAIN_TASK_PAGER_LAYOUT = "main_task_pager_layout";
-    public static final String DELETE_TASK = "delete_task";
-    public static final String EDIT_TASK = "edit_task";
-    public static final String ACTION_STRING = "action_string";
+    private  static final int REQUEST_CODE_FOR_EDIT_DIALOG = 1005;
+    private static final String EDIT_TASK_FRAGMENT = "edit_task_fragment";
+    private static final String ARG_USERNAME = "arg_username";
+    private static final String ARG_STATUS = "arg_status";
+    private static final String DIALOG_ERROR = "dialog_error";
+    private static final String HAS_ERROR = "has_error";
+    private static final String DELETE_TASK = "delete_task";
+    private static final String EDIT_TASK = "edit_task";
+    private static final String ACTION_STRING = "action_string";
 
+    private HashMap<TaskStatus, TaskListFragment> taskListFragments;
     private TaskRecyclerAdapter taskRecyclerAdapter;
     private RecyclerView recyclerView;
 
@@ -52,7 +52,7 @@ public class TaskListFragment extends Fragment {
     private String username;
     private TaskStatus status;
 
-    public static TaskListFragment newInstance(TaskStatus status, String username ) {
+    public static TaskListFragment newInstance(TaskStatus status, String username) {
 
         Bundle args = new Bundle();
         args.putSerializable(ARG_STATUS, status);
@@ -63,8 +63,7 @@ public class TaskListFragment extends Fragment {
         return fragment;
     }
 
-    TaskListFragment() {
-
+    TaskListFragment( ) {
     }
 
     @SuppressLint("ResourceType")
@@ -87,6 +86,8 @@ public class TaskListFragment extends Fragment {
                                 UiUtil.showSnackbar(recyclerView, getResources().getString(R.string.successfully_deleted), getResources().getString(R.color.task_app_green_dark));
                                 break;
                             case EDIT_TASK:
+                                for (TaskListFragment taskListFragment: taskListFragments.values())
+                                    taskListFragment.update();
                                 UiUtil.showSnackbar(recyclerView, getResources().getString(R.string.successfully_edited), getResources().getString(R.color.task_app_green_dark));
                                 break;
                             default:
@@ -141,9 +142,23 @@ public class TaskListFragment extends Fragment {
 
     }
 
+    public  void  setFragmentListGetter(GetFragmentList getter) {
+        taskListFragments = getter.getFragmentList();
+    }
+
     public void update() {
-        taskRecyclerAdapter.setTasks(Repository.getInstance().getUserByUsername(username).getTaskByStatus(status));
-        taskRecyclerAdapter.notifyDataSetChanged();
+        if (!isEmpty()) {
+            taskRecyclerAdapter.setTasks(Repository.getInstance().getUserByUsername(username).getTaskByStatus(status));
+            taskRecyclerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public boolean isEmpty() {
+        return username == null;
+    }
+
+    public  interface  GetFragmentList {
+        HashMap<TaskStatus, TaskListFragment> getFragmentList();
     }
 
 }

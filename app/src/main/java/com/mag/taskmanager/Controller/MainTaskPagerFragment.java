@@ -145,6 +145,13 @@ public class MainTaskPagerFragment extends Fragment {
 
         for (int i = 0; i < 3; i++)
             taskListFragments.put(TaskStatus.values()[i], TaskListFragment.newInstance(TaskStatus.values()[i], username));
+        for (TaskListFragment taskListFragment : taskListFragments.values())
+            taskListFragment.setFragmentListGetter(new TaskListFragment.GetFragmentList() {
+                @Override
+                public HashMap<TaskStatus, TaskListFragment> getFragmentList() {
+                    return taskListFragments;
+                }
+            });
 
         // View Pager
 

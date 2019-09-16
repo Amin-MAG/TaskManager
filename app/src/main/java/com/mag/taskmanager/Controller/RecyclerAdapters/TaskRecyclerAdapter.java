@@ -23,12 +23,6 @@ import java.util.List;
 
 public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapter.TaskRecycleHolder> {
 
-
-
-    public  interface OnItemClickListener {
-        void showEditDialog(Task task);
-    }
-
     private OnItemClickListener listener;
     private List<Task> tasks;
 
@@ -89,6 +83,10 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public  interface OnItemClickListener {
+        void showEditDialog(Task task);
     }
 
 }
