@@ -53,10 +53,9 @@ public class AddTaskFragment extends DialogFragment {
 
     private Date selectedDate;
 
-    public static AddTaskFragment newInstance(String username) {
+    public static AddTaskFragment newInstance() {
 
         Bundle args = new Bundle();
-        args.putString(AddTaskFragment.ARG_USERNAME, username);
 
         AddTaskFragment fragment = new AddTaskFragment();
         fragment.setArguments(args);
@@ -116,8 +115,6 @@ public class AddTaskFragment extends DialogFragment {
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_add_task, null, false);
 
-
-        final String username = getArguments().getString(ARG_USERNAME);
 
         // Title
 
@@ -184,7 +181,7 @@ public class AddTaskFragment extends DialogFragment {
                 try {
                     if (taskTitle.equals(Constants.EMPTY_STRING) || taskDescription.equals(Constants.EMPTY_STRING))
                         throw new EmptyFieldException();
-                    Repository.getInstance().getUserByUsername(username).addTask(new Task(taskTitle, taskDescription, taskDate, TaskStatus.TODO));
+                    Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).addTask(new Task(taskTitle, taskDescription, taskDate, TaskStatus.TODO));
                 } catch (EmptyFieldException e) {
                     intent.putExtra(DIALOG_ERROR,e.getMessage() );
                     intent.putExtra(HAS_ERROR,1 );

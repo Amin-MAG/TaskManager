@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.mag.taskmanager.R;
 
@@ -27,9 +28,8 @@ public class TaskActivity extends AppCompatActivity {
 
     private FrameLayout mainFrame;
 
-    public static Intent newIntent(Context context, String username) {
+    public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, TaskActivity.class);
-        intent.putExtra(Constants.EXTRA_USERNAME, username);
         return intent;
     }
 
@@ -41,16 +41,13 @@ public class TaskActivity extends AppCompatActivity {
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.fragment_user_info);
-
-//        Intent intent = getIntent();
-//        String username = intent.getStringExtra(Constants.EXTRA_USERNAME);
-        final String username = "amin";
+        ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.userInfoFragment_username)).setText(Global.getOnlineUsername());
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         mainFrame = findViewById(R.id.taskActivity_mainFrame);
 
-        UiUtil.changeFragment(fragmentManager, MainTaskPagerFragment.newInstance(username), mainFrame.getId());
+        UiUtil.changeFragment(fragmentManager, MainTaskPagerFragment.newInstance(), mainFrame.getId());
 
     }
 
@@ -66,8 +63,7 @@ public class TaskActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mainMenu_delete:
-                DeleteAllFragment deleteAllFragment = DeleteAllFragment.newInstance(getIntent().getStringExtra("extra_username"));
-//                deleteAllFragment.setTargetFragment(TaskActivity.this, REQUEST_CODE_FOR_DELETE_DIALOG);
+                DeleteAllFragment deleteAllFragment = DeleteAllFragment.newInstance();
                 deleteAllFragment.show(getSupportFragmentManager(), DELETE_ALL_TASK_FRAGMENT);
                 return true;
             case R.id.mainMenu_logout:
@@ -78,7 +74,7 @@ public class TaskActivity extends AppCompatActivity {
                     }
                 };
                 UiUtil.showSnackbar(mainFrame, getResources().getString(R.string.logout), getResources().getString(R.color.task_app_red));
-//                Repository.getInstance().setActiveUser(null);
+                Global.setOnlineUsername(null);
                 Constants.TIME_HANDLER.postDelayed(updater, 2000);
                 return true;
             default:

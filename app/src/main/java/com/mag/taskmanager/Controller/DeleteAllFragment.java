@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import com.google.android.material.button.MaterialButton;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.R;
+import com.mag.taskmanager.Var.Global;
 
 
 /**
@@ -29,10 +30,9 @@ public class DeleteAllFragment extends DialogFragment {
 
     private MaterialButton yesBtn, noBtn;
 
-    public static DeleteAllFragment newInstance(String username) {
+    public static DeleteAllFragment newInstance() {
 
         Bundle args = new Bundle();
-        args.putString("arg_username", username);
 
         DeleteAllFragment fragment = new DeleteAllFragment();
         fragment.setArguments(args);
@@ -40,7 +40,6 @@ public class DeleteAllFragment extends DialogFragment {
     }
 
     public DeleteAllFragment() {
-        // Required empty public constructor
     }
 
 
@@ -70,9 +69,9 @@ public class DeleteAllFragment extends DialogFragment {
         yesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Repository.getInstance().getUserByUsername("amin").clearTasks();
+                Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).clearTasks();
                 dismiss();
-                startActivity(TaskActivity.newIntent(getActivity(), "amin"));
+                startActivity(TaskActivity.newIntent(getActivity()));
                 getActivity().finish();
             }
         });

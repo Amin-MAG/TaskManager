@@ -61,10 +61,9 @@ public class EditTaskFragment extends DialogFragment {
     private Task selectedTask;
     private Date selectedDate;
 
-    public static EditTaskFragment newInstance(String username, Task task) {
+    public static EditTaskFragment newInstance( Task task) {
 
         Bundle args = new Bundle();
-        args.putString(ARG_USERNAME, username);
         args.putSerializable(ARG_TASK, task);
 
         EditTaskFragment fragment = new EditTaskFragment();
@@ -226,7 +225,7 @@ public class EditTaskFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
 
-                Repository.getInstance().getUserByUsername(username).deleteTaskWithId(selectedTask.getTaskId());
+                Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).deleteTaskWithId(selectedTask.getTaskId());
                 intent.putExtra(ACTION_STRING, DELETE_TASK);
                 intent.putExtra(HAS_ERROR, 0);
                 fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);

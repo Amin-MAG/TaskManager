@@ -17,10 +17,9 @@ import com.mag.taskmanager.R;
  */
 public class TaskFragment extends Fragment {
 
-    public static TaskFragment newInstance(String username) {
+    public static TaskFragment newInstance() {
         
         Bundle args = new Bundle();
-        args.putString("arg_username", username);
 
         TaskFragment fragment = new TaskFragment();
         fragment.setArguments(args);

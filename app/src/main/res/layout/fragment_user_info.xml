@@ -11,7 +11,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/userInfoFragment_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/task_manager"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/userInfoFragment_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -29,10 +29,9 @@
         android:layout_marginTop="4dp"
         android:background="@color/task_app_red"
         android:padding="4dp"
-        android:text="Maktab"
         android:textColor="@color/task_app_white"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/userInfoFragment_title"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

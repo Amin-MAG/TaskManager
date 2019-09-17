@@ -53,10 +53,9 @@ public class MainTaskPagerFragment extends Fragment {
     private FloatingActionButton fab;
 
 
-    public static MainTaskPagerFragment newInstance(String username) {
+    public static MainTaskPagerFragment newInstance() {
 
         Bundle args = new Bundle();
-        args.putString(ARG_USERNAME, username);
 
         MainTaskPagerFragment fragment = new MainTaskPagerFragment();
         fragment.setArguments(args);
@@ -111,7 +110,7 @@ public class MainTaskPagerFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddTaskFragment addTaskFragment = AddTaskFragment.newInstance(username);
+                AddTaskFragment addTaskFragment = AddTaskFragment.newInstance();
                 addTaskFragment.setTargetFragment(MainTaskPagerFragment.this, REQUEST_CODE_FOR_ADD_DIALOG);
                 addTaskFragment.show(getFragmentManager(), ADD_TASK_FRAGMENT);
             }
@@ -147,7 +146,7 @@ public class MainTaskPagerFragment extends Fragment {
         // 3 Recycler
 
         for (int i = 0; i < 3; i++)
-            taskListFragments.put(TaskStatus.values()[i], TaskListFragment.newInstance(TaskStatus.values()[i], username));
+            taskListFragments.put(TaskStatus.values()[i], TaskListFragment.newInstance(TaskStatus.values()[i]));
         for (final Fragment taskListFragment : taskListFragments.values())
             ((TaskListFragment) taskListFragment).setGetView(new TaskListFragment.GetViews() {
                 @Override
@@ -170,7 +169,7 @@ public class MainTaskPagerFragment extends Fragment {
         // View Pager
 
         taskViewPager = view.findViewById(R.id.pagerFragment_viewPager);
-        taskViewPagerAdapter = new TaskViewPagerAdapter(getFragmentManager(), username, taskListFragments);
+        taskViewPagerAdapter = new TaskViewPagerAdapter(getFragmentManager(), taskListFragments);
         taskViewPager.setAdapter(taskViewPagerAdapter);
         taskViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

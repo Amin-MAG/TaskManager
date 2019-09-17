@@ -1,4 +1,3 @@
 Note:
-                need to declare global vars for username for example !
                 orientation
                 * admin page :|

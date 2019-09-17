@@ -24,6 +24,7 @@ import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Util.*;
+import com.mag.taskmanager.Var.Global;
 
 import java.util.HashMap;
 
@@ -55,11 +56,10 @@ public class TaskListFragment extends Fragment {
     private String username;
     private TaskStatus status;
 
-    public static TaskListFragment newInstance(TaskStatus status, String username) {
+    public static TaskListFragment newInstance(TaskStatus status) {
 
         Bundle args = new Bundle();
         args.putSerializable(ARG_STATUS, status);
-        args.putString(ARG_USERNAME, username);
 
         TaskListFragment fragment = new TaskListFragment();
         fragment.setArguments(args);
@@ -114,7 +114,6 @@ public class TaskListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.status = (TaskStatus) getArguments().getSerializable(ARG_STATUS);
-        this.username = getArguments().getString(ARG_USERNAME);
     }
 
     @Override
@@ -137,10 +136,10 @@ public class TaskListFragment extends Fragment {
         empty = view.findViewById(R.id.taskListFragment_empty);
 
         recyclerView = view.findViewById(R.id.taskListFragment_recyclerview);
-        taskRecyclerAdapter = new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername(username).getTaskByStatus(status), new TaskRecyclerAdapter.OnItemClickListener() {
+        taskRecyclerAdapter = new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).getTaskByStatus(status), new TaskRecyclerAdapter.OnItemClickListener() {
             @Override
             public void showEditDialog(Task task) {
-                EditTaskFragment editTaskFragment = EditTaskFragment.newInstance(username, task);
+                EditTaskFragment editTaskFragment = EditTaskFragment.newInstance(task);
                 editTaskFragment.setTargetFragment(TaskListFragment.this, REQUEST_CODE_FOR_EDIT_DIALOG);
                 editTaskFragment.show(getFragmentManager(), EDIT_TASK_FRAGMENT);
             }
@@ -158,19 +157,14 @@ public class TaskListFragment extends Fragment {
     }
 
     public void update() {
-        if (!isEmpty()) {
-            taskRecyclerAdapter.setTasks(Repository.getInstance().getUserByUsername(username).getTaskByStatus(status));
-            taskRecyclerAdapter.notifyDataSetChanged();
-            if (Repository.getInstance().getUserByUsername(username).getTaskByStatus(status).size() == 0)
-                empty.setVisibility(View.VISIBLE);
-            else if (empty.getVisibility() == View.VISIBLE)
-                empty.setVisibility(View.GONE);
-        }
+        taskRecyclerAdapter.setTasks(Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).getTaskByStatus(status));
+        taskRecyclerAdapter.notifyDataSetChanged();
+        if (Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).getTaskByStatus(status).size() == 0)
+            empty.setVisibility(View.VISIBLE);
+        else if (empty.getVisibility() == View.VISIBLE)
+            empty.setVisibility(View.GONE);
     }
 
-    public boolean isEmpty() {
-        return username == null;
-    }
 
     public interface GetViews {
         HashMap<TaskStatus, Fragment> getFragmentList();

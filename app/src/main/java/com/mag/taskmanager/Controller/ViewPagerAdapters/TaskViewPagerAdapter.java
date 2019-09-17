@@ -10,22 +10,17 @@ import java.util.HashMap;
 
 public class TaskViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private String username;
     private HashMap<TaskStatus, Fragment> taskListFragments;
 
-    public TaskViewPagerAdapter(FragmentManager fm, String username, HashMap<TaskStatus, Fragment> taskListFragments) {
+    public TaskViewPagerAdapter(FragmentManager fm, HashMap<TaskStatus, Fragment> taskListFragments) {
         super(fm);
-        this.username = username;
         this.taskListFragments = taskListFragments;
     }
 
     @Override
     public Fragment getItem(int position) {
-//        if (Repository.getInstance().getUserByUsername(username).getTaskByStatus(TaskStatus.values()[position]).size() != 0) {
             TaskStatus status = TaskStatus.values()[position];
             return taskListFragments.get(status);
-//        } else
-//            return EmptyListFragment.newInstance();
     }
 
     @Override

@@ -81,10 +81,11 @@ public class LoginFragment extends Fragment {
                     if (Repository.getInstance().checkAuthorization(username, password)) {
 
                         UiUtil.showSnackbar(mainLayout, LOGIN_SUCCESSFULLY, getResources().getString(R.color.task_app_green_dark));
+                        Global.setOnlineUsername(username);
                         Constants.TIME_HANDLER.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                startActivity(TaskActivity.newIntent(getActivity(), username));
+                                startActivity(TaskActivity.newIntent(getActivity()));
                             }
                         }, 2000);
 
