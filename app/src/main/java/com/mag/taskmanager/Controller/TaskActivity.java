@@ -12,12 +12,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.mag.taskmanager.DeleteAllFragment;
 import com.mag.taskmanager.R;
 
 import com.mag.taskmanager.Util.*;

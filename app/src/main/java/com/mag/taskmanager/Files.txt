@@ -1,25 +1,4 @@
-
-Activities:
-                LoginActivity(*)
-                RegisterActivity
-                TaskActivity
-Fragment:
-                LoginFragment
-                RegisterFragment
-                UserInfoFragment
-                TaskFragment
-                EmptyListFragment
-                TaskListFragment(recycler view)
-Fragment Pop Up:
-                AddTaskFragment
-                EditTaskFragment
-layouts:
-                TaskLayout
-
 Note:
                 need to declare global vars for username for example !
-                logout button
-                task images
                 orientation
-                * delete all button (with dialog yes/no)
                 * admin page :|

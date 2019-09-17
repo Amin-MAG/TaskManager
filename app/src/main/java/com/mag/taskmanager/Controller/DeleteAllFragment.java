@@ -1,11 +1,9 @@
-package com.mag.taskmanager;
+package com.mag.taskmanager.Controller;
 
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -15,23 +13,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.button.MaterialButton;
-import com.mag.taskmanager.Controller.LoginFragment;
-import com.mag.taskmanager.Controller.TaskActivity;
-import com.mag.taskmanager.Model.Exception.EmptyFieldException;
 import com.mag.taskmanager.Model.Repository;
-import com.mag.taskmanager.Model.Task;
-import com.mag.taskmanager.Model.TaskStatus;
-import com.mag.taskmanager.Var.Constants;
-
-import java.util.Date;
+import com.mag.taskmanager.R;
 
 
 /**
