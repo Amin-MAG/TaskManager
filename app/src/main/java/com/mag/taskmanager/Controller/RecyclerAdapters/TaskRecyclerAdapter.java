@@ -2,7 +2,6 @@ package com.mag.taskmanager.Controller.RecyclerAdapters;
 
 import android.app.Activity;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +52,13 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
 
     public class TaskRecycleHolder extends RecyclerView.ViewHolder {
 
+        public static final String EN_ALPHA_0 = "en_alpha0";
+        public static final String EN_ALPHA = "en_alpha";
+        public static final String DRAWABLE = "drawable";
+        public static final int TWO_DIGIT = 10;
+        public static final int NUMBER_OF_ALPHABET = 27;
+        public static final int SPECEFIC_ASCI_CODE_OF_A = 96;
+
         private ImageView imageView;
         private TextView taskTitle, taskDate;
 
@@ -85,12 +91,11 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
         private void setImage(String titile) {
 
             String buttonFileName;
-            int buttonFileNum = (int) titile.toLowerCase().charAt(0) - 96;
-            if (buttonFileNum < 10) buttonFileName = "en_alpha0" + buttonFileNum;
-            else buttonFileName = "en_alpha" + buttonFileNum;
-            Log.d("imageLog", buttonFileName);
-            if (buttonFileNum < 27 && buttonFileNum > 0) {
-                int resID = activity.getResources().getIdentifier(buttonFileName, "drawable", activity.getPackageName());
+            int buttonFileNum = (int) titile.toLowerCase().charAt(0) - SPECEFIC_ASCI_CODE_OF_A;
+            if (buttonFileNum < TWO_DIGIT) buttonFileName = EN_ALPHA_0 + buttonFileNum;
+            else buttonFileName = EN_ALPHA + buttonFileNum;
+            if (buttonFileNum < NUMBER_OF_ALPHABET && buttonFileNum > 0) {
+                int resID = activity.getResources().getIdentifier(buttonFileName, DRAWABLE, activity.getPackageName());
                 imageView.setImageResource(resID);
             } else
                 imageView.setImageResource(R.drawable.alpha);

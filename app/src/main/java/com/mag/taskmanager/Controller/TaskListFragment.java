@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mag.taskmanager.Controller.RecyclerAdapters.TaskRecyclerAdapter;
-import com.mag.taskmanager.Controller.ViewPagerAdapters.TaskViewPagerAdapter;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
@@ -36,7 +35,6 @@ public class TaskListFragment extends Fragment {
 
     private static final int REQUEST_CODE_FOR_EDIT_DIALOG = 1005;
     private static final String EDIT_TASK_FRAGMENT = "edit_task_fragment";
-    private static final String ARG_USERNAME = "arg_username";
     private static final String ARG_STATUS = "arg_status";
     private static final String DIALOG_ERROR = "dialog_error";
     private static final String HAS_ERROR = "has_error";
@@ -53,7 +51,6 @@ public class TaskListFragment extends Fragment {
     private GetViews getViews;
 
     // Note
-    private String username;
     private TaskStatus status;
 
     public static TaskListFragment newInstance(TaskStatus status) {
@@ -168,10 +165,6 @@ public class TaskListFragment extends Fragment {
 
     public interface GetViews {
         HashMap<TaskStatus, Fragment> getFragmentList();
-
-        TaskViewPagerAdapter getViewPagerAdapter();
-
-        void setAdapter(TaskViewPagerAdapter taskViewPagerAdapter);
     }
 
 }

@@ -28,11 +28,4 @@ public class TaskViewPagerAdapter extends FragmentStatePagerAdapter {
         return taskListFragments.size();
     }
 
-    public void setTaskListFragments(HashMap<TaskStatus, Fragment> taskListFragments) {
-        this.taskListFragments = taskListFragments;
-    }
-
-    public HashMap<TaskStatus, Fragment> getTaskListFragments() {
-        return taskListFragments;
-    }
 }

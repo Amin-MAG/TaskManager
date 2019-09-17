@@ -40,7 +40,6 @@ public class AddTaskFragment extends DialogFragment {
     public static final int ONE_DAY_MILI_SECONDS = 24 * 60 * 60 * 1000;
     public static final int REQUEST_CODE_FOR_DATE_PICKER = 1001;
     public static final int REQUEST_CODE_FOR_TIME_PICKER = 1002;
-    public static final String ARG_USERNAME = "arg_username";
     public static final String ADD_TASK_FRAGMENT_DATE_PICKER = "add_task_fragment_date_picker";
     public static final String ADD_TASK_FRAGMENT_TIME_PICKER = "add_task_fragment_time_picker";
     public static final String DIALOG_ERROR = "dialog_error";

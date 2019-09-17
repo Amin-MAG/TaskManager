@@ -28,8 +28,7 @@ import com.mag.taskmanager.Var.*;
  */
 public class LoginFragment extends Fragment {
 
-    public static final String LOGIN_SUCCESSFULLY = "Login Successfully.";
-
+    public static final int DELAY_MILLIS = 2000;
     private LinearLayout mainLayout;
     private MaterialButton loginBtn, registerBtn;
     private TextInputEditText usernameEditText, passwordEditText;
@@ -80,14 +79,14 @@ public class LoginFragment extends Fragment {
 
                     if (Repository.getInstance().checkAuthorization(username, password)) {
 
-                        UiUtil.showSnackbar(mainLayout, LOGIN_SUCCESSFULLY, getResources().getString(R.color.task_app_green_dark));
+                        UiUtil.showSnackbar(mainLayout, getResources().getString(R.string.login_successfully), getResources().getString(R.color.task_app_green_dark));
                         Global.setOnlineUsername(username);
                         Constants.TIME_HANDLER.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 startActivity(TaskActivity.newIntent(getActivity()));
                             }
-                        }, 2000);
+                        }, DELAY_MILLIS);
 
                     }
 

@@ -55,8 +55,6 @@ public class DeleteAllFragment extends DialogFragment {
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_delete_all, null, false);
 
-        final String username = getArguments().getString("arg_username");
-
         Dialog dialog = new AlertDialog.Builder(getActivity())
                 .setView(view)
                 .create();

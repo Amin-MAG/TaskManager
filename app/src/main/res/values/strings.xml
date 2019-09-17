@@ -18,6 +18,7 @@
     <string name="successfully_added"> Successfully Added.</string>
     <string name="successfully_edited"> Successfully Edited.</string>
     <string name="successfully_deleted"> Successfully Deleted.</string>
+    <string name="login_successfully"> Login Successfully.</string>
     <string name="add_task">Add Task</string>
     <string name="edit_task">Edit Task</string>
     <string name="delete">Delete</string>

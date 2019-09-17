@@ -124,8 +124,6 @@ public class EditTaskFragment extends DialogFragment {
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_edit_task, null, false);
 
-        final String username = getArguments().getString(ARG_USERNAME);
-
         // Title
 
         String titleText = getString(R.string.edit_task);
@@ -193,7 +191,6 @@ public class EditTaskFragment extends DialogFragment {
                 String taskTitle = title.getText().toString();
                 String taskDescription = description.getText().toString();
                 Date taskDate = selectedDate;
-                TaskStatus taskStatus = TaskStatus.TODO;
 
                 try {
                     if (taskTitle.equals(Constants.EMPTY_STRING) || taskDescription.equals(Constants.EMPTY_STRING))

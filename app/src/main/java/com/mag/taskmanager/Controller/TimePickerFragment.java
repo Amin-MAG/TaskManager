@@ -36,9 +36,6 @@ public class TimePickerFragment extends DialogFragment {
     private TimePicker timePicker;
     private MaterialButton set;
 
-    private Date date;
-
-
     public static TimePickerFragment newInstance(Date date) {
 
         Bundle args = new Bundle();
@@ -55,7 +52,6 @@ public class TimePickerFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        date = (Date) getArguments().getSerializable(ARG_DATE);
     }
 
     @Override

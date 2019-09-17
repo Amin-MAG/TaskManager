@@ -35,6 +35,7 @@ import java.util.ArrayList;
 public class RegisterFragment extends Fragment {
 
     public static final String REGISTRATION_COMPLETED = "Registration completed";
+    public static final int DELAY_MILLIS = 2000;
 
     private LinearLayout mainLayout;
     private TextInputEditText usernameEditText, passwordEditText, passwordRepeatEditText;
@@ -97,7 +98,7 @@ public class RegisterFragment extends Fragment {
                         public void run() {
                             getActivity().finish();
                         }
-                    }, 2000);
+                    }, DELAY_MILLIS);
 
                 } catch (EmptyFieldException e) {
                     UiUtil.showSnackbar(mainLayout,e.getMessage(), getResources().getString(R.color.task_app_red));

@@ -7,11 +7,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,7 +34,6 @@ public class MainTaskPagerFragment extends Fragment {
 
     public static final int REQUEST_CODE_FOR_ADD_DIALOG = 100;
     public static final String DIALOG_ERROR = "dialog_error";
-    public static final String ARG_USERNAME = "arg_username";
     public static final String ADD_TASK_FRAGMENT = "add_task_fragment";
     public static final String TO_DO = "To Do";
     public static final String DOING = "Doing";
@@ -99,9 +95,6 @@ public class MainTaskPagerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Bundle bundle = getArguments();
-        final String username = bundle.getString(ARG_USERNAME);
-
         mainLayout = view.findViewById(R.id.pagerFragment_mainLayout);
 
         // Floating Action bar
@@ -152,17 +145,6 @@ public class MainTaskPagerFragment extends Fragment {
                 @Override
                 public HashMap<TaskStatus, Fragment> getFragmentList() {
                     return taskListFragments;
-                }
-
-                @Override
-                public TaskViewPagerAdapter getViewPagerAdapter() {
-                    return taskViewPagerAdapter;
-                }
-
-                @Override
-                public void setAdapter(TaskViewPagerAdapter taskViewPagerAdapter) {
-                    taskViewPager.setAdapter(taskViewPagerAdapter);
-//                    taskViewPager.setCurrentItem(1);
                 }
             });
 

@@ -22,8 +22,8 @@ import com.mag.taskmanager.Var.*;
 
 public class TaskActivity extends AppCompatActivity {
 
-    private final static int REQUEST_CODE_FOR_DELETE_DIALOG = 1010;
     private final static String DELETE_ALL_TASK_FRAGMENT = "delete_all_task_fragment";
+    public static final int DELAY_MILLIS = 2000;
 
 
     private FrameLayout mainFrame;
@@ -75,7 +75,7 @@ public class TaskActivity extends AppCompatActivity {
                 };
                 UiUtil.showSnackbar(mainFrame, getResources().getString(R.string.logout), getResources().getString(R.color.task_app_red));
                 Global.setOnlineUsername(null);
-                Constants.TIME_HANDLER.postDelayed(updater, 2000);
+                Constants.TIME_HANDLER.postDelayed(updater, DELAY_MILLIS);
                 return true;
             default:
                 break;
