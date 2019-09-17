@@ -70,5 +70,9 @@ public class User {
         }
     }
 
+    public void  clearTasks() {
+        tasks = new ArrayList<>();
+    }
+
 
 }
