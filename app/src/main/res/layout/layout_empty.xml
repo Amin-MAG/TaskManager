@@ -7,8 +7,14 @@
     android:background="@color/task_app_black"
     android:gravity="top"
     android:orientation="vertical"
-    android:padding="48dp"
-    tools:context=".Controller.EmptyListFragment">
+    android:padding="48dp">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/empty_task_list_image" />
 
     <TextView
         android:id="@+id/textView3"

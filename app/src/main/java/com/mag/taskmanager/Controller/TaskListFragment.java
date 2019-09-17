@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,11 +18,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mag.taskmanager.Controller.RecyclerAdapters.TaskRecyclerAdapter;
+import com.mag.taskmanager.Controller.ViewPagerAdapters.TaskViewPagerAdapter;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Util.UiUtil;
+import com.mag.taskmanager.Util.*;
 
 import java.util.HashMap;
 
@@ -41,9 +43,13 @@ public class TaskListFragment extends Fragment {
     private static final String EDIT_TASK = "edit_task";
     private static final String ACTION_STRING = "action_string";
 
-    private HashMap<TaskStatus, TaskListFragment> taskListFragments;
+    private FrameLayout mainFrame;
+    private HashMap<TaskStatus, Fragment> taskListFragments;
     private TaskRecyclerAdapter taskRecyclerAdapter;
     private RecyclerView recyclerView;
+    private View empty;
+
+    private GetViews getViews;
 
     // Note
     private String username;
@@ -80,12 +86,14 @@ public class TaskListFragment extends Fragment {
 
                         switch (data.getStringExtra(ACTION_STRING)) {
                             case DELETE_TASK:
-                                UiUtil.showSnackbar(recyclerView, getResources().getString(R.string.successfully_deleted), getResources().getString(R.color.task_app_green_dark));
+                                if (recyclerView != null)
+                                    UiUtil.showSnackbar(recyclerView, getResources().getString(R.string.successfully_deleted), getResources().getString(R.color.task_app_green_dark));
                                 break;
                             case EDIT_TASK:
-                                for (TaskListFragment taskListFragment : taskListFragments.values())
-                                    taskListFragment.update();
-                                UiUtil.showSnackbar(recyclerView, getResources().getString(R.string.successfully_edited), getResources().getString(R.color.task_app_green_dark));
+                                for (Fragment taskListFragment : taskListFragments.values())
+                                    ((TaskListFragment) taskListFragment).update();
+                                if (recyclerView != null)
+                                    UiUtil.showSnackbar(recyclerView, getResources().getString(R.string.successfully_edited), getResources().getString(R.color.task_app_green_dark));
                                 break;
                             default:
                                 break;
@@ -125,6 +133,9 @@ public class TaskListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mainFrame = view.findViewById(R.id.taskListFragment_mainFrame);
+        empty = view.findViewById(R.id.taskListFragment_empty);
+
         recyclerView = view.findViewById(R.id.taskListFragment_recyclerview);
         taskRecyclerAdapter = new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername(username).getTaskByStatus(status), new TaskRecyclerAdapter.OnItemClickListener() {
             @Override
@@ -137,9 +148,12 @@ public class TaskListFragment extends Fragment {
 
         recyclerView.setAdapter(taskRecyclerAdapter);
 
+        update();
+
     }
 
-    public void setFragmentListGetter(GetFragmentList getter) {
+    public void setGetView(GetViews getter) {
+        getViews = getter;
         taskListFragments = getter.getFragmentList();
     }
 
@@ -147,6 +161,10 @@ public class TaskListFragment extends Fragment {
         if (!isEmpty()) {
             taskRecyclerAdapter.setTasks(Repository.getInstance().getUserByUsername(username).getTaskByStatus(status));
             taskRecyclerAdapter.notifyDataSetChanged();
+            if (Repository.getInstance().getUserByUsername(username).getTaskByStatus(status).size() == 0)
+                empty.setVisibility(View.VISIBLE);
+            else if (empty.getVisibility() == View.VISIBLE)
+                empty.setVisibility(View.GONE);
         }
     }
 
@@ -154,8 +172,12 @@ public class TaskListFragment extends Fragment {
         return username == null;
     }
 
-    public interface GetFragmentList {
-        HashMap<TaskStatus, TaskListFragment> getFragmentList();
+    public interface GetViews {
+        HashMap<TaskStatus, Fragment> getFragmentList();
+
+        TaskViewPagerAdapter getViewPagerAdapter();
+
+        void setAdapter(TaskViewPagerAdapter taskViewPagerAdapter);
     }
 
 }

@@ -8,29 +8,6 @@
     tools:context=".Controller.MainTaskPagerFragment">
 
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinatorLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <!-- Main content -->
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/taskActivity_fab"
-            style="@style/Widget.Design.FloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="32dp"
-            android:backgroundTint="@color/task_app_yellow"
-            android:src="@drawable/ic_add_image"
-            app:borderWidth="0dp"
-            app:elevation="32dp"
-            app:fabCustomSize="64dp" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pagerFragment_viewPager"
         android:layout_width="0dp"
@@ -57,5 +34,27 @@
         app:tabIndicatorColor="@color/task_app_yellow"
         app:tabMode="fixed"
         app:tabTextColor="#FFFFFF" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Main content -->
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/taskActivity_fab"
+            style="@style/Widget.Design.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="32dp"
+            android:backgroundTint="@color/task_app_yellow"
+            android:src="@drawable/ic_add_image"
+            app:borderWidth="0dp"
+            app:elevation="32dp"
+            app:fabCustomSize="64dp" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

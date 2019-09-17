@@ -23,8 +23,8 @@ import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.User;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Util.UiUtil;
-import com.mag.taskmanager.Var.Constants;
+import com.mag.taskmanager.Util.*;
+import com.mag.taskmanager.Var.*;
 
 import java.util.ArrayList;
 

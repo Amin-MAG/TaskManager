@@ -19,7 +19,6 @@ layouts:
 Note:
                 need to declare global vars for username for example !
                 logout button
-                edit dialog
                 task images
                 orientation
                 * delete all button (with dialog yes/no)

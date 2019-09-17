@@ -9,21 +9,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
-import com.mag.taskmanager.Model.Repository;
+import com.mag.taskmanager.Controller.ViewPagerAdapters.TaskViewPagerAdapter;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Util.UiUtil;
+import com.mag.taskmanager.Util.*;
 
 import java.util.HashMap;
 
@@ -42,7 +42,8 @@ public class MainTaskPagerFragment extends Fragment {
     public static final String DONE = "Done";
     public static final String HAS_ERROR = "has_error";
 
-    private HashMap<TaskStatus, TaskListFragment> taskListFragments = new HashMap<>();
+    private HashMap<TaskStatus, Fragment> taskListFragments = new HashMap<>();
+    private TaskViewPagerAdapter taskViewPagerAdapter;
 
     private ConstraintLayout mainLayout;
     private TabLayout statusTabLayout;
@@ -80,7 +81,7 @@ public class MainTaskPagerFragment extends Fragment {
                     if (data.getIntExtra(HAS_ERROR, 0) == 1)
                         UiUtil.showSnackbar(mainLayout, data.getStringExtra(DIALOG_ERROR), getResources().getString(R.color.task_app_red));
                     else {
-                        taskListFragments.get(TaskStatus.TODO).update();
+                        ((TaskListFragment) taskListFragments.get(TaskStatus.TODO)).update();
                         UiUtil.showSnackbar(mainLayout, getResources().getString(R.string.successfully_added), getResources().getString(R.color.task_app_green_dark));
                     }
                 }
@@ -145,34 +146,30 @@ public class MainTaskPagerFragment extends Fragment {
 
         for (int i = 0; i < 3; i++)
             taskListFragments.put(TaskStatus.values()[i], TaskListFragment.newInstance(TaskStatus.values()[i], username));
-        for (TaskListFragment taskListFragment : taskListFragments.values())
-            taskListFragment.setFragmentListGetter(new TaskListFragment.GetFragmentList() {
+        for (final Fragment taskListFragment : taskListFragments.values())
+            ((TaskListFragment) taskListFragment).setGetView(new TaskListFragment.GetViews() {
                 @Override
-                public HashMap<TaskStatus, TaskListFragment> getFragmentList() {
+                public HashMap<TaskStatus, Fragment> getFragmentList() {
                     return taskListFragments;
+                }
+
+                @Override
+                public TaskViewPagerAdapter getViewPagerAdapter() {
+                    return taskViewPagerAdapter;
+                }
+
+                @Override
+                public void setAdapter(TaskViewPagerAdapter taskViewPagerAdapter) {
+                    taskViewPager.setAdapter(taskViewPagerAdapter);
+//                    taskViewPager.setCurrentItem(1);
                 }
             });
 
         // View Pager
 
         taskViewPager = view.findViewById(R.id.pagerFragment_viewPager);
-        taskViewPager.setAdapter(new FragmentStatePagerAdapter(getFragmentManager()) {
-
-            @Override
-            public Fragment getItem(int position) {
-                if (Repository.getInstance().getUserByUsername(username).getTaskByStatus(TaskStatus.values()[position]).size() != 0) {
-                    TaskStatus status = TaskStatus.values()[position];
-                    return taskListFragments.get(status);
-                } else
-                    return EmptyListFragment.newInstance();
-            }
-
-            @Override
-            public int getCount() {
-                return taskListFragments.size();
-            }
-
-        });
+        taskViewPagerAdapter = new TaskViewPagerAdapter(getFragmentManager(), username, taskListFragments);
+        taskViewPager.setAdapter(taskViewPagerAdapter);
         taskViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -189,7 +186,7 @@ public class MainTaskPagerFragment extends Fragment {
 
         });
         taskViewPager.setCurrentItem(1);
-    }
 
+    }
 
 }

@@ -6,13 +6,13 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.FrameLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Util.UiUtil;
-import com.mag.taskmanager.Var.Constants;
+
+import com.mag.taskmanager.Util.*;
+import com.mag.taskmanager.Var.*;
 
 public class TaskActivity extends AppCompatActivity {
 

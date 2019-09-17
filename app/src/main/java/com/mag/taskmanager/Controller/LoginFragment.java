@@ -19,8 +19,8 @@ import com.mag.taskmanager.Model.Exception.BadAuthorizationException;
 import com.mag.taskmanager.Model.Exception.EmptyFieldException;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Util.UiUtil;
-import com.mag.taskmanager.Var.Constants;
+import com.mag.taskmanager.Util.*;
+import com.mag.taskmanager.Var.*;
 
 
 /**

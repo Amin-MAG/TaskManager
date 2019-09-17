@@ -4,20 +4,15 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mag.taskmanager.Controller.AddTaskFragment;
-import com.mag.taskmanager.Controller.EditTaskFragment;
-import com.mag.taskmanager.Controller.MainTaskPagerFragment;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Var.Constants;
+import com.mag.taskmanager.Var.*;
 
 import java.util.List;
 
