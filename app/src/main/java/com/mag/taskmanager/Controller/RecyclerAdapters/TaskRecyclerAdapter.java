@@ -1,6 +1,8 @@
 package com.mag.taskmanager.Controller.RecyclerAdapters;
 
 import android.app.Activity;
+import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mag.taskmanager.Model.Task;
@@ -18,10 +21,11 @@ import java.util.List;
 
 public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapter.TaskRecycleHolder> {
 
+    private Activity activity;
     private OnItemClickListener listener;
     private List<Task> tasks;
 
-    public TaskRecyclerAdapter(List<Task> tasks, OnItemClickListener listener)  {
+    public TaskRecyclerAdapter(List<Task> tasks, OnItemClickListener listener) {
         this.tasks = tasks;
         this.listener = listener;
     }
@@ -29,12 +33,13 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
     @NonNull
     @Override
     public TaskRecycleHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Activity activity = (Activity) parent.getContext();
+        activity = (Activity) parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(activity);
         View view = inflater.inflate(R.layout.layout_task, parent, false);
         return new TaskRecycleHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(@NonNull TaskRecycleHolder holder, int position) {
         Task task = tasks.get(position);
@@ -60,10 +65,13 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
 
         }
 
-        public  void bind(final  Task task) {
+        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+        public void bind(final Task task) {
 
             taskTitle.setText(task.getTitle());
             taskDate.setText(Constants.TIME_FORMAT.format(task.getDate()));
+
+            setImage(task.getTitle());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -74,13 +82,28 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
 
         }
 
+        private void setImage(String titile) {
+
+            String buttonFileName;
+            int buttonFileNum = (int) titile.toLowerCase().charAt(0) - 96;
+            if (buttonFileNum < 10) buttonFileName = "en_alpha0" + buttonFileNum;
+            else buttonFileName = "en_alpha" + buttonFileNum;
+            Log.d("imageLog", buttonFileName);
+            if (buttonFileNum < 27 && buttonFileNum > 0) {
+                int resID = activity.getResources().getIdentifier(buttonFileName, "drawable", activity.getPackageName());
+                imageView.setImageResource(resID);
+            } else
+                imageView.setImageResource(R.drawable.alpha);
+
+        }
+
     }
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
 
-    public  interface OnItemClickListener {
+    public interface OnItemClickListener {
         void showEditDialog(Task task);
     }
 

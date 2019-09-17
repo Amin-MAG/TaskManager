@@ -135,7 +135,7 @@
             android:layout_marginRight="16dp"
             android:buttonTint="@color/task_app_yellow"
             android:checked="true"
-            android:enabled="false"
+            android:enabled="true"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:text="@string/to_do"

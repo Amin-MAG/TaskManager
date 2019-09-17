@@ -25,7 +25,7 @@
             android:layout_height="51dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/task_layout_image" />
+            app:srcCompat="@drawable/alpha" />
 
         <TextView
             android:id="@+id/taskLayout_date"
