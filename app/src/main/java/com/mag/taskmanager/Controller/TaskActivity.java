@@ -38,6 +38,12 @@ public class TaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
 
+        // Test
+
+        Global.setOnlineUsername("amin");
+
+        //
+
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.fragment_user_info);

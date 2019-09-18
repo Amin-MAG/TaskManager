@@ -10,17 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Controller.RegisterActivity"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
+            android:theme="@style/AppNoActionBarTheme"/>
         <activity android:name=".Controller.SingleFragmentActivity" />
-        <activity android:name=".Controller.TaskActivity"/>
+        <activity android:name=".Controller.TaskActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Controller.LoginActivity"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN"/>
+            android:theme="@style/AppNoActionBarTheme">
+<!--             <intent-filter>-->
+<!--             <action android:name="android.intent.action.MAIN"/>-->
 
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+<!--             <category android:name="android.intent.category.LAUNCHER" />-->
+<!--             </intent-filter>-->
         </activity>
     </application>
 

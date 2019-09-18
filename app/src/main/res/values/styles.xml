@@ -2,12 +2,24 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/task_app_darkest</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/task_app_red</item>
+        <item name="colorAccent">@color/task_app_white</item>
 
         <item name="actionBarSize">56dp</item>
     </style>
+
+    <style name="AppPickerTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/task_app_darkest</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/task_app_red</item>
+    </style>
+
+    <style name="AppNoActionBarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/task_app_darkest</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/task_app_white</item>
+    </style>
+
 
 </resources>
