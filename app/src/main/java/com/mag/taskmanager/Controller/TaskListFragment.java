@@ -3,6 +3,7 @@ package com.mag.taskmanager.Controller;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ public class TaskListFragment extends Fragment {
     private TaskRecyclerAdapter taskRecyclerAdapter;
     private RecyclerView recyclerView;
     private View empty;
+    private EditTaskFragment editTaskFragment;
 
     private GetViews getViews;
 
@@ -63,8 +65,24 @@ public class TaskListFragment extends Fragment {
         return fragment;
     }
 
-    TaskListFragment() {
+    public TaskListFragment() {
     }
+
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        mainFragmentInterface = (MainFragmentInterface) context;
+//        TaskDialogFragment taskDialogFragment = (TaskDialogFragment) getFragmentManager()
+//                .findFragmentByTag(Const.ADD_DIALOG_FRAGMENT_TAG);
+//        DeleteAllTasksFragment deleteAllTasksFragment = (DeleteAllTasksFragment) getFragmentManager()
+//                .findFragmentByTag(Const.DELETE_ALL_TASK_DIALOG_FRAGMENT_TAG);
+//        if (taskDialogFragment != null ) {
+//            taskDialogFragment.setTargetFragment(this, Const.TARGET_REQUSET_CODE_MAIN_FRAGMENT);
+//        }
+//        if (deleteAllTasksFragment != null) {
+//            deleteAllTasksFragment.setTargetFragment(this , Const.TARGET_REQUSET_CODE_MAIN_FRAGMENT);
+//        }
+//    }
 
     @SuppressLint("ResourceType")
     @Override
@@ -87,6 +105,8 @@ public class TaskListFragment extends Fragment {
                                     UiUtil.showSnackbar(recyclerView, getResources().getString(R.string.successfully_deleted), getResources().getString(R.color.task_app_green_dark));
                                 break;
                             case EDIT_TASK:
+                                if (taskListFragments == null)
+                                    getViews.getFragmentList();
                                 for (Fragment taskListFragment : taskListFragments.values())
                                     ((TaskListFragment) taskListFragment).update();
                                 if (recyclerView != null)
@@ -134,11 +154,15 @@ public class TaskListFragment extends Fragment {
         empty = view.findViewById(R.id.taskListFragment_empty);
 
         recyclerView = view.findViewById(R.id.taskListFragment_recyclerview);
-        taskRecyclerAdapter = new TaskRecyclerAdapter(Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).getTaskByStatus(status), new TaskRecyclerAdapter.OnItemClickListener() {
+        taskRecyclerAdapter = new TaskRecyclerAdapter(Repository
+                .getInstance()
+                .getUserByUsername(Global.getOnlineUsername())
+                .getTaskByStatus(status)
+                , new TaskRecyclerAdapter.OnItemClickListener() {
             @Override
             public void showEditDialog(Task task) {
-                EditTaskFragment editTaskFragment = EditTaskFragment.newInstance(task);
-                editTaskFragment.setTargetFragment(TaskListFragment.this, REQUEST_CODE_FOR_EDIT_DIALOG);
+                editTaskFragment = EditTaskFragment.newInstance(task);
+                    editTaskFragment.setTargetFragment(TaskListFragment.this, REQUEST_CODE_FOR_EDIT_DIALOG);
                 editTaskFragment.show(getFragmentManager(), EDIT_TASK_FRAGMENT);
             }
         });
