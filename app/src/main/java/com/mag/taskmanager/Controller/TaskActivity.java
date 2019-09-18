@@ -3,6 +3,7 @@ package com.mag.taskmanager.Controller;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
@@ -25,7 +26,6 @@ public class TaskActivity extends AppCompatActivity {
     private final static String DELETE_ALL_TASK_FRAGMENT = "delete_all_task_fragment";
     public static final int DELAY_MILLIS = 2000;
 
-
     private FrameLayout mainFrame;
 
     public static Intent newIntent(Context context) {
@@ -47,13 +47,11 @@ public class TaskActivity extends AppCompatActivity {
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.fragment_user_info);
-        ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.userInfoFragment_username)).setText(Global.getOnlineUsername());
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.userInfoFragment_username)).setText(Global.getOnlineUsername());
 
         mainFrame = findViewById(R.id.taskActivity_mainFrame);
 
-        UiUtil.changeFragment(fragmentManager, MainTaskPagerFragment.newInstance(), mainFrame.getId());
+        UiUtil.changeFragment(getSupportFragmentManager(), MainTaskPagerFragment.newInstance(), mainFrame.getId());
 
     }
 
