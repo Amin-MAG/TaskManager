@@ -27,13 +27,14 @@ import com.mag.taskmanager.R;
 import com.mag.taskmanager.Util.*;
 import com.mag.taskmanager.Var.Global;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TaskListFragment extends Fragment {
+public class TaskListFragment extends Fragment implements Serializable {
 
     private static final int REQUEST_CODE_FOR_EDIT_DIALOG = 1005;
     private static final String EDIT_TASK_FRAGMENT = "edit_task_fragment";
@@ -90,9 +91,6 @@ public class TaskListFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.d("lifeCycle", "on Activity Result : " + status);
-
-
         switch (requestCode) {
             case REQUEST_CODE_FOR_EDIT_DIALOG:
 
@@ -140,17 +138,20 @@ public class TaskListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_task_list, container, false);
     }
 
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        update();
+//    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("ResourceType")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Log.d("askdjkla", "on created: " + this);
+
 
         mainFrame = view.findViewById(R.id.taskListFragment_mainFrame);
         empty = view.findViewById(R.id.taskListFragment_empty);
@@ -184,8 +185,6 @@ public class TaskListFragment extends Fragment {
     }
 
     public void update() {
-        if (taskRecyclerAdapter == null)
-            taskRecyclerAdapter = getNewRecycleAdapter();
 
         taskRecyclerAdapter.setTasks(Repository
                 .getInstance()
@@ -193,7 +192,6 @@ public class TaskListFragment extends Fragment {
                 .getTaskByStatus(status));
 
         taskRecyclerAdapter.notifyDataSetChanged();
-
         if (Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).getTaskByStatus(status).size() == 0)
             empty.setVisibility(View.VISIBLE);
         else if (empty.getVisibility() == View.VISIBLE)
@@ -202,9 +200,24 @@ public class TaskListFragment extends Fragment {
     }
 
 
-
     public interface GetViews {
         HashMap<TaskStatus, Fragment> getFragmentList();
+    }
+
+
+    ///
+
+
+    public TaskStatus getStatus() {
+        return status;
+    }
+
+    public View getEmpty() {
+        return empty;
+    }
+
+    public TaskRecyclerAdapter getTaskRecyclerAdapter() {
+        return taskRecyclerAdapter;
     }
 
 }

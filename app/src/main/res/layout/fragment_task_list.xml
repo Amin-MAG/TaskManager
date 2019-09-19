@@ -16,9 +16,11 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+
     <include
         android:id="@+id/taskListFragment_empty"
         layout="@layout/layout_empty"
         android:visibility="gone"/>
+
 
 </FrameLayout>
