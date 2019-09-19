@@ -61,7 +61,7 @@ public class EditTaskFragment extends DialogFragment {
     private Task selectedTask;
     private Date selectedDate;
 
-    public static EditTaskFragment newInstance( Task task) {
+    public static EditTaskFragment newInstance(Task task) {
 
         Bundle args = new Bundle();
         args.putSerializable(ARG_TASK, task);

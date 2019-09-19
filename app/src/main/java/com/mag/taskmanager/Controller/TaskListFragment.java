@@ -46,7 +46,6 @@ public class TaskListFragment extends Fragment implements Serializable {
     private static final String ACTION_STRING = "action_string";
 
     private FrameLayout mainFrame;
-    private HashMap<TaskStatus, Fragment> taskListFragments;
     private TaskRecyclerAdapter taskRecyclerAdapter;
     private RecyclerView recyclerView;
     private View empty;
@@ -70,22 +69,6 @@ public class TaskListFragment extends Fragment implements Serializable {
     public TaskListFragment() {
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        mainFragmentInterface = (MainFragmentInterface) context;
-//        TaskDialogFragment taskDialogFragment = (TaskDialogFragment) getFragmentManager()
-//                .findFragmentByTag(Const.ADD_DIALOG_FRAGMENT_TAG);
-//        DeleteAllTasksFragment deleteAllTasksFragment = (DeleteAllTasksFragment) getFragmentManager()
-//                .findFragmentByTag(Const.DELETE_ALL_TASK_DIALOG_FRAGMENT_TAG);
-//        if (taskDialogFragment != null ) {
-//            taskDialogFragment.setTargetFragment(this, Const.TARGET_REQUSET_CODE_MAIN_FRAGMENT);
-//        }
-//        if (deleteAllTasksFragment != null) {
-//            deleteAllTasksFragment.setTargetFragment(this , Const.TARGET_REQUSET_CODE_MAIN_FRAGMENT);
-//        }
-//    }
-
     @SuppressLint("ResourceType")
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -95,11 +78,16 @@ public class TaskListFragment extends Fragment implements Serializable {
             case REQUEST_CODE_FOR_EDIT_DIALOG:
 
                 if (resultCode == Activity.RESULT_OK) {
+
                     if (data.getIntExtra(HAS_ERROR, 0) == 1) {
                         UiUtil.showSnackbar(recyclerView, data.getStringExtra(DIALOG_ERROR), getResources().getString(R.color.task_app_red));
                     } else {
 
+                        // Update
+
                         update();
+
+                        // Show snackbar
 
                         switch (data.getStringExtra(ACTION_STRING)) {
                             case DELETE_TASK:
@@ -107,8 +95,7 @@ public class TaskListFragment extends Fragment implements Serializable {
                                     UiUtil.showSnackbar(recyclerView, getResources().getString(R.string.successfully_deleted), getResources().getString(R.color.task_app_green_dark));
                                 break;
                             case EDIT_TASK:
-                                for (Fragment taskListFragment : taskListFragments.values())
-                                    ((TaskListFragment) taskListFragment).update();
+                                getViews.updateTaskList();
                                 if (recyclerView != null)
                                     UiUtil.showSnackbar(recyclerView, getResources().getString(R.string.successfully_edited), getResources().getString(R.color.task_app_green_dark));
                                 break;
@@ -181,7 +168,6 @@ public class TaskListFragment extends Fragment implements Serializable {
 
     public void setGetView(GetViews getter) {
         getViews = getter;
-        taskListFragments = getter.getFragmentList();
     }
 
     public void update() {
@@ -200,24 +186,9 @@ public class TaskListFragment extends Fragment implements Serializable {
     }
 
 
-    public interface GetViews {
-        HashMap<TaskStatus, Fragment> getFragmentList();
+    public interface GetViews  {
+        void updateTaskList();
     }
 
-
-    ///
-
-
-    public TaskStatus getStatus() {
-        return status;
-    }
-
-    public View getEmpty() {
-        return empty;
-    }
-
-    public TaskRecyclerAdapter getTaskRecyclerAdapter() {
-        return taskRecyclerAdapter;
-    }
 
 }

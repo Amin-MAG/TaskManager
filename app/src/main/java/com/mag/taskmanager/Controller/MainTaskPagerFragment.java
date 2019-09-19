@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTabHost;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -154,8 +155,6 @@ public class MainTaskPagerFragment extends Fragment {
         });
 
         // 3 Recycler
-
-        //
         if (recyclerExistance) {
                 taskListFragments.put(TaskStatus.TODO, (TaskListFragment)savedInstanceState.getSerializable(SAVE_TASK_LIST_FRAGMENT+TaskStatus.TODO));
                 taskListFragments.put(TaskStatus.DOING, (TaskListFragment)savedInstanceState.getSerializable(SAVE_TASK_LIST_FRAGMENT+TaskStatus.DOING));
@@ -167,14 +166,14 @@ public class MainTaskPagerFragment extends Fragment {
             for (final Fragment taskListFragment : taskListFragments.values())
                 ((TaskListFragment) taskListFragment).setGetView(new TaskListFragment.GetViews() {
                     @Override
-                    public HashMap<TaskStatus, Fragment> getFragmentList() {
-                        return taskListFragments;
+                    public void updateTaskList() {
+                        for (Fragment fragment : taskListFragments.values())
+                            ((TaskListFragment) fragment).update();
                     }
                 });
 
             recyclerExistance = true;
         }
-        //
 
 
         // View Pager
