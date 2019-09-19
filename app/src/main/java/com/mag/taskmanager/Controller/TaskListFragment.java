@@ -51,7 +51,11 @@ public class TaskListFragment extends Fragment implements Serializable {
     private View empty;
     private EditTaskFragment editTaskFragment;
 
-    private GetViews getViews;
+    private static GetViews getViews;
+
+    public static void setGetView(GetViews getter) {
+        getViews = getter;
+    }
 
     // Note
     private TaskStatus status;
@@ -166,10 +170,6 @@ public class TaskListFragment extends Fragment implements Serializable {
         });
     }
 
-    public void setGetView(GetViews getter) {
-        getViews = getter;
-    }
-
     public void update() {
 
         taskRecyclerAdapter.setTasks(Repository
@@ -186,7 +186,7 @@ public class TaskListFragment extends Fragment implements Serializable {
     }
 
 
-    public interface GetViews  {
+    public interface GetViews {
         void updateTaskList();
     }
 

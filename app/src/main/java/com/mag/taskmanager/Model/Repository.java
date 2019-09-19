@@ -51,14 +51,18 @@ public class Repository {
 
     // Repository
 
-    private List<User> users;
+    private List<User> users = new ArrayList<>();
 
-    private Repository() {
-
-        users = new ArrayList<User>();
-
-    }
-
+//
+//    private List<User> users;
+//
+//    private Repository() {
+//
+//        users = new ArrayList<User>();
+//
+//    }
+//
+    
     public List<User> getUsers() {
         return users;
     }

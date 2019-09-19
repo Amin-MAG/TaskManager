@@ -163,8 +163,17 @@ public class MainTaskPagerFragment extends Fragment {
             for (int i = 0; i < 3; i++)
                 taskListFragments.put(TaskStatus.values()[i], TaskListFragment.newInstance(TaskStatus.values()[i]));
 
-            for (final Fragment taskListFragment : taskListFragments.values())
-                ((TaskListFragment) taskListFragment).setGetView(new TaskListFragment.GetViews() {
+//            for (final Fragment taskListFragment : taskListFragments.values())
+//                ((TaskListFragment) taskListFragment).setGetView(new TaskListFragment.GetViews() {
+//                    @Override
+//                    public void updateTaskList() {
+//                        for (Fragment fragment : taskListFragments.values())
+//                            ((TaskListFragment) fragment).update();
+//                    }
+//                });
+
+
+            TaskListFragment.setGetView(new TaskListFragment.GetViews() {
                     @Override
                     public void updateTaskList() {
                         for (Fragment fragment : taskListFragments.values())
