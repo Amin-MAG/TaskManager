@@ -105,8 +105,6 @@ public class TaskListFragment extends Fragment {
                                     UiUtil.showSnackbar(recyclerView, getResources().getString(R.string.successfully_deleted), getResources().getString(R.color.task_app_green_dark));
                                 break;
                             case EDIT_TASK:
-                                if (taskListFragments == null)
-                                    getViews.getFragmentList();
                                 for (Fragment taskListFragment : taskListFragments.values())
                                     ((TaskListFragment) taskListFragment).update();
                                 if (recyclerView != null)

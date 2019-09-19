@@ -1,104 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/addTaskFragment_mainLayout"
-    android:theme="@style/AppPickerTheme"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".Controller.AddTaskFragment">
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/addTaskFragment_dateBtn"
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/addTaskFragment_mainLayout"
+        android:theme="@style/AppPickerTheme"
+        android:padding="16dp"
+        tools:context=".Controller.AddTaskFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="@color/task_app_white"
-        android:textColor="@color/task_app_dark"
-        app:layout_constraintEnd_toEndOf="@+id/addTaskFragment_textInputLayout2"
-        app:layout_constraintStart_toStartOf="@+id/addTaskFragment_textInputLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/addTaskFragment_textInputLayout2" />
+        android:layout_height="match_parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/addTaskFragment_timeBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/task_app_white"
-        android:textColor="@color/task_app_dark"
-        app:layout_constraintEnd_toEndOf="@+id/addTaskFragment_dateBtn"
-        app:layout_constraintStart_toStartOf="@+id/addTaskFragment_dateBtn"
-        app:layout_constraintTop_toBottomOf="@+id/addTaskFragment_dateBtn" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/addTaskFragment_create"
-        android:layout_width="100dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/create"
-        android:backgroundTint="@color/task_app_white"
-        android:textColor="@color/task_app_dark"
-        app:layout_constraintEnd_toEndOf="@+id/addTaskFragment_timeBtn"
-        app:layout_constraintTop_toBottomOf="@+id/addTaskFragment_timeBtn" />
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/addTaskFragment_cancel"
-        android:layout_width="100dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:text="@android:string/cancel"
-        android:backgroundTint="@color/task_app_white"
-        android:textColor="@color/task_app_dark"
-        app:layout_constraintStart_toStartOf="@+id/addTaskFragment_timeBtn"
-        app:layout_constraintTop_toBottomOf="@+id/addTaskFragment_timeBtn" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/addTaskFragment_textInputLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/title"
-        android:textColorHint="@color/task_app_white"
-        app:boxStrokeColor="@color/task_app_red"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.843"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/addTaskFragment_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textImeMultiLine"
-            android:textColor="@color/task_app_white"
-            android:textSize="14dp" />
+            android:orientation="vertical" >
 
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/addTaskFragment_textInputLayout2"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="@string/description"
-        android:textColorHint="@color/task_app_white"
-        app:boxStrokeColor="@color/task_app_red"
-        app:layout_constraintEnd_toEndOf="@+id/addTaskFragment_textInputLayout"
-        app:layout_constraintStart_toStartOf="@+id/addTaskFragment_textInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/addTaskFragment_textInputLayout">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addTaskFragment_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/title"
+                android:textColorHint="@color/task_app_white"
+                app:boxStrokeColor="@color/task_app_red">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/addTaskFragment_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textImeMultiLine"
-            android:textColor="@color/task_app_white"
-            android:textSize="14dp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addTaskFragment_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textImeMultiLine"
+                    android:textColor="@color/task_app_white"
+                    android:textSize="14dp" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addTaskFragment_textInputLayout2"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/description"
+                android:textColorHint="@color/task_app_white"
+                app:boxStrokeColor="@color/task_app_red">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addTaskFragment_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textImeMultiLine"
+                    android:textColor="@color/task_app_white"
+                    android:textSize="14dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addTaskFragment_dateBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="@color/task_app_white"
+                android:textColor="@color/task_app_dark" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addTaskFragment_timeBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/task_app_white"
+                android:textColor="@color/task_app_dark" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/addTaskFragment_cancel"
+                    android:layout_width="96dp"
+                    android:layout_height="48dp"
+                    android:backgroundTint="@color/task_app_white"
+                    android:text="@android:string/cancel"
+                    android:textColor="@color/task_app_dark"
+                    android:textSize="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/addTaskFragment_create"
+                    android:layout_width="96dp"
+                    android:layout_height="48dp"
+                    android:backgroundTint="@color/task_app_white"
+                    android:text="@string/create"
+                    android:textColor="@color/task_app_dark"
+                    android:textSize="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
