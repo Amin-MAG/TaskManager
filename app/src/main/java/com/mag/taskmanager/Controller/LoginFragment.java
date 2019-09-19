@@ -15,8 +15,8 @@ import android.widget.LinearLayout;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.mag.taskmanager.Model.Exception.BadAuthorizationException;
-import com.mag.taskmanager.Model.Exception.EmptyFieldException;
+import com.mag.taskmanager.Model.Exceptions.BadAuthorizationException;
+import com.mag.taskmanager.Model.Exceptions.EmptyFieldException;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Util.*;

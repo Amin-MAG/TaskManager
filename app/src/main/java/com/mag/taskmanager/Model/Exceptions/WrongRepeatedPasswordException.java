@@ -1,4 +1,4 @@
-package com.mag.taskmanager.Model.Exception;
+package com.mag.taskmanager.Model.Exceptions;
 
 import androidx.annotation.Nullable;
 

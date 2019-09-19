@@ -1,4 +1,4 @@
-package com.mag.taskmanager.Controller.ViewPagerAdapters;
+package com.mag.taskmanager.Controller.Adapters;
 
 import android.os.Bundle;
 import android.os.Parcel;
@@ -11,9 +11,10 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.mag.taskmanager.Controller.TaskListFragment;
 import com.mag.taskmanager.Model.TaskStatus;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class TaskViewPagerAdapter extends FragmentStatePagerAdapter {
+public class TaskViewPagerAdapter extends FragmentStatePagerAdapter implements Serializable {
 
     private HashMap<TaskStatus, Fragment> taskListFragments;
 
@@ -32,6 +33,10 @@ public class TaskViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return taskListFragments.size();
+    }
+
+    public void setTaskListFragments(HashMap<TaskStatus, Fragment> taskListFragments) {
+        this.taskListFragments = taskListFragments;
     }
 
 }

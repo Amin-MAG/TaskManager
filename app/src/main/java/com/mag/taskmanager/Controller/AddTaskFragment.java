@@ -12,19 +12,17 @@ import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.mag.taskmanager.Model.Exception.EmptyFieldException;
+import com.mag.taskmanager.Model.Exceptions.EmptyFieldException;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;

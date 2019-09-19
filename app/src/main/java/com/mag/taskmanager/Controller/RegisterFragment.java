@@ -15,10 +15,10 @@ import android.widget.LinearLayout;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.mag.taskmanager.Model.Exception.DuplicateUsernameException;
-import com.mag.taskmanager.Model.Exception.EmptyFieldException;
-import com.mag.taskmanager.Model.Exception.ShortPasswordException;
-import com.mag.taskmanager.Model.Exception.WrongRepeatedPasswordException;
+import com.mag.taskmanager.Model.Exceptions.DuplicateUsernameException;
+import com.mag.taskmanager.Model.Exceptions.EmptyFieldException;
+import com.mag.taskmanager.Model.Exceptions.ShortPasswordException;
+import com.mag.taskmanager.Model.Exceptions.WrongRepeatedPasswordException;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.User;

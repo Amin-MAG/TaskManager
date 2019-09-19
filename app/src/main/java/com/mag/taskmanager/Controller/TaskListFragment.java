@@ -3,7 +3,6 @@ package com.mag.taskmanager.Controller;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,7 +18,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mag.taskmanager.Controller.RecyclerAdapters.TaskRecyclerAdapter;
+import com.mag.taskmanager.Controller.Adapters.TaskRecyclerAdapter;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
@@ -28,7 +27,6 @@ import com.mag.taskmanager.Util.*;
 import com.mag.taskmanager.Var.Global;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 
 /**

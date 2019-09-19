@@ -1,4 +1,4 @@
-package com.mag.taskmanager.Controller.RecyclerAdapters;
+package com.mag.taskmanager.Controller.Adapters;
 
 import android.app.Activity;
 import android.os.Build;

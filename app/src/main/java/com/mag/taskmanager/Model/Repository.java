@@ -1,6 +1,6 @@
 package com.mag.taskmanager.Model;
 
-import com.mag.taskmanager.Model.Exception.BadAuthorizationException;
+import com.mag.taskmanager.Model.Exceptions.BadAuthorizationException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,7 +62,7 @@ public class Repository {
 //
 //    }
 //
-    
+
     public List<User> getUsers() {
         return users;
     }

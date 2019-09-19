@@ -16,16 +16,14 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTabHost;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
-import com.mag.taskmanager.Controller.ViewPagerAdapters.TaskViewPagerAdapter;
+import com.mag.taskmanager.Controller.Adapters.TaskViewPagerAdapter;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Util.*;
-import com.mag.taskmanager.Var.Constants;
+import com.mag.taskmanager.Util.UiUtil;
 
 import java.util.HashMap;
 
@@ -44,6 +42,8 @@ public class MainTaskPagerFragment extends Fragment {
     public static final String HAS_ERROR = "has_error";
     public static final String SAVE_RECYCLER_EXISTANCE = "save_recycler_existance";
     public static final String SAVE_TASK_LIST_FRAGMENT = "save_task_list_fragment_";
+    public static final String SAVE_TASK_VIEW_PAGER_ADAPTER = "save_task_view_pager";
+    public static final String SAVE_VIEW_PAGER_ADAPTER_EXISTANCE = "save_view_pager_adapter_existance";
 
     private HashMap<TaskStatus, Fragment> taskListFragments = new HashMap<>();
     private TaskViewPagerAdapter taskViewPagerAdapter;
@@ -52,7 +52,9 @@ public class MainTaskPagerFragment extends Fragment {
     private TabLayout statusTabLayout;
     private ViewPager taskViewPager;
     private FloatingActionButton fab;
+
     private boolean recyclerExistance;
+    private boolean viewPagerAdapterExistance;
 
 
     public static MainTaskPagerFragment newInstance() {
@@ -71,6 +73,7 @@ public class MainTaskPagerFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         recyclerExistance = false;
+        viewPagerAdapterExistance = false;
     }
 
     @Override
@@ -111,6 +114,7 @@ public class MainTaskPagerFragment extends Fragment {
         // Bundle Data
         if (savedInstanceState != null) {
             recyclerExistance = savedInstanceState.getBoolean(SAVE_RECYCLER_EXISTANCE);
+            viewPagerAdapterExistance = savedInstanceState.getBoolean(SAVE_VIEW_PAGER_ADAPTER_EXISTANCE);
         }
 
         mainLayout = view.findViewById(R.id.pagerFragment_mainLayout);
@@ -156,24 +160,14 @@ public class MainTaskPagerFragment extends Fragment {
 
         // 3 Recycler
         if (recyclerExistance) {
-                taskListFragments.put(TaskStatus.TODO, (TaskListFragment)savedInstanceState.getSerializable(SAVE_TASK_LIST_FRAGMENT+TaskStatus.TODO));
-                taskListFragments.put(TaskStatus.DOING, (TaskListFragment)savedInstanceState.getSerializable(SAVE_TASK_LIST_FRAGMENT+TaskStatus.DOING));
-                taskListFragments.put(TaskStatus.DONE, (TaskListFragment)savedInstanceState.getSerializable(SAVE_TASK_LIST_FRAGMENT+TaskStatus.DONE));
+            taskListFragments.put(TaskStatus.TODO, (TaskListFragment) savedInstanceState.getSerializable(SAVE_TASK_LIST_FRAGMENT + TaskStatus.TODO));
+            taskListFragments.put(TaskStatus.DOING, (TaskListFragment) savedInstanceState.getSerializable(SAVE_TASK_LIST_FRAGMENT + TaskStatus.DOING));
+            taskListFragments.put(TaskStatus.DONE, (TaskListFragment) savedInstanceState.getSerializable(SAVE_TASK_LIST_FRAGMENT + TaskStatus.DONE));
         } else {
-            for (int i = 0; i < 3; i++)
-                taskListFragments.put(TaskStatus.values()[i], TaskListFragment.newInstance(TaskStatus.values()[i]));
 
-//            for (final Fragment taskListFragment : taskListFragments.values())
-//                ((TaskListFragment) taskListFragment).setGetView(new TaskListFragment.GetViews() {
-//                    @Override
-//                    public void updateTaskList() {
-//                        for (Fragment fragment : taskListFragments.values())
-//                            ((TaskListFragment) fragment).update();
-//                    }
-//                });
+            for (int i = 0; i < 3; i++) {
 
-
-            TaskListFragment.setGetView(new TaskListFragment.GetViews() {
+                TaskListFragment.setGetView(new TaskListFragment.GetViews() {
                     @Override
                     public void updateTaskList() {
                         for (Fragment fragment : taskListFragments.values())
@@ -181,14 +175,21 @@ public class MainTaskPagerFragment extends Fragment {
                     }
                 });
 
-            recyclerExistance = true;
+                taskListFragments.put(TaskStatus.values()[i], TaskListFragment.newInstance(TaskStatus.values()[i]));
+
+                recyclerExistance = true;
+            }
         }
 
 
         // View Pager
-
         taskViewPager = view.findViewById(R.id.pagerFragment_viewPager);
-        taskViewPagerAdapter = new TaskViewPagerAdapter(getFragmentManager(), taskListFragments);
+//        if (viewPagerAdapterExistance) {
+//            taskViewPagerAdapter = (TaskViewPagerAdapter) savedInstanceState.getSerializable(SAVE_TASK_VIEW_PAGER_ADAPTER);
+//        } else {
+            taskViewPagerAdapter = new TaskViewPagerAdapter(getFragmentManager(), taskListFragments);
+//            viewPagerAdapterExistance = true;
+//        }
         taskViewPager.setAdapter(taskViewPagerAdapter);
         taskViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -206,6 +207,7 @@ public class MainTaskPagerFragment extends Fragment {
 
         });
         taskViewPager.setCurrentItem(1);
+        Log.d("view_pager", "hello");
 
     }
 
@@ -214,9 +216,12 @@ public class MainTaskPagerFragment extends Fragment {
         super.onSaveInstanceState(outState);
 
         outState.putBoolean(SAVE_RECYCLER_EXISTANCE, recyclerExistance);
+        outState.putBoolean(SAVE_VIEW_PAGER_ADAPTER_EXISTANCE, viewPagerAdapterExistance);
 
-        for (TaskStatus taskStatus : taskListFragments.keySet()){
-            outState.putSerializable(SAVE_TASK_LIST_FRAGMENT + taskStatus, (TaskListFragment)taskListFragments.get(taskStatus));
+        outState.putSerializable(SAVE_TASK_VIEW_PAGER_ADAPTER, taskViewPagerAdapter);
+
+        for (TaskStatus taskStatus : taskListFragments.keySet()) {
+            outState.putSerializable(SAVE_TASK_LIST_FRAGMENT + taskStatus, (TaskListFragment) taskListFragments.get(taskStatus));
         }
 
     }
