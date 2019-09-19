@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,6 +90,9 @@ public class TaskListFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        Log.d("lifeCycle", "on Activity Result : " + status);
+
+
         switch (requestCode) {
             case REQUEST_CODE_FOR_EDIT_DIALOG:
 
@@ -136,11 +140,11 @@ public class TaskListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_task_list, container, false);
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        update();
-//    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("ResourceType")
@@ -152,23 +156,26 @@ public class TaskListFragment extends Fragment {
         empty = view.findViewById(R.id.taskListFragment_empty);
 
         recyclerView = view.findViewById(R.id.taskListFragment_recyclerview);
-        taskRecyclerAdapter = new TaskRecyclerAdapter(Repository
-                .getInstance()
+        taskRecyclerAdapter = getNewRecycleAdapter();
+
+        recyclerView.setAdapter(taskRecyclerAdapter);
+
+        update();
+
+    }
+
+    private TaskRecyclerAdapter getNewRecycleAdapter() {
+        return new TaskRecyclerAdapter(Repository.getInstance()
                 .getUserByUsername(Global.getOnlineUsername())
                 .getTaskByStatus(status)
                 , new TaskRecyclerAdapter.OnItemClickListener() {
             @Override
             public void showEditDialog(Task task) {
                 editTaskFragment = EditTaskFragment.newInstance(task);
-                    editTaskFragment.setTargetFragment(TaskListFragment.this, REQUEST_CODE_FOR_EDIT_DIALOG);
+                editTaskFragment.setTargetFragment(TaskListFragment.this, REQUEST_CODE_FOR_EDIT_DIALOG);
                 editTaskFragment.show(getFragmentManager(), EDIT_TASK_FRAGMENT);
             }
         });
-
-        recyclerView.setAdapter(taskRecyclerAdapter);
-
-        update();
-
     }
 
     public void setGetView(GetViews getter) {
@@ -177,13 +184,23 @@ public class TaskListFragment extends Fragment {
     }
 
     public void update() {
-        taskRecyclerAdapter.setTasks(Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).getTaskByStatus(status));
+        if (taskRecyclerAdapter == null)
+            taskRecyclerAdapter = getNewRecycleAdapter();
+
+        taskRecyclerAdapter.setTasks(Repository
+                .getInstance()
+                .getUserByUsername(Global.getOnlineUsername())
+                .getTaskByStatus(status));
+
         taskRecyclerAdapter.notifyDataSetChanged();
+
         if (Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).getTaskByStatus(status).size() == 0)
             empty.setVisibility(View.VISIBLE);
         else if (empty.getVisibility() == View.VISIBLE)
             empty.setVisibility(View.GONE);
+
     }
+
 
 
     public interface GetViews {
