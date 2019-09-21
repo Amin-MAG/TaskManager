@@ -1,0 +1,41 @@
+package com.mag.taskmanager.Model.Database;
+
+
+public class TaskManagerDBSchema {
+
+    public static final String NAME = "task_manager.db";
+
+
+    // Tables
+
+    public static final class Users {
+
+        public static final String NAME = "users";
+
+        public static final class Cols {
+
+            public static final String _ID = "_id";
+            public static final String USERNAME= "username";
+            public static final String PASSWORD = "password";
+
+        }
+
+    }
+
+    public static final class Tasks {
+
+        public static final String NAME = "tasks";
+
+        public static final class Cols {
+
+            public static final String _ID = "_id";
+            public static final String TITLE= "_id";
+            public static final String DESCRIPTION = "_id";
+            public static final String DATE = "_id";
+            public static final String STATUS = "_id";
+
+        }
+
+    }
+
+}
