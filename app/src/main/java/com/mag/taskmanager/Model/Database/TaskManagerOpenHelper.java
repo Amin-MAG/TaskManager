@@ -31,6 +31,14 @@ public class TaskManagerOpenHelper extends SQLiteOpenHelper {
                 TaskManagerDBSchema.Tasks.Cols.STATUS +
                 ");");
 
+        sqLiteDatabase.execSQL("CREATE TABLE " + TaskManagerDBSchema.TaskManager.NAME + "(" +
+                TaskManagerDBSchema.Tasks.Cols._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                TaskManagerDBSchema.TaskManager.Cols.USER_ID+ ", " +
+                TaskManagerDBSchema.TaskManager.Cols.TASK_ID + ", " +
+                "FOREIGN  KEY(" + TaskManagerDBSchema.TaskManager.Cols.USER_ID + ") REFERENCES " + TaskManagerDBSchema.Users.NAME + "(" +  TaskManagerDBSchema.Users.Cols._ID + ")," +
+                "FOREIGN  KEY(" + TaskManagerDBSchema.TaskManager.Cols.TASK_ID + ") REFERENCES " + TaskManagerDBSchema.Tasks.NAME+ "(" + TaskManagerDBSchema.Tasks.Cols._ID + ")" +
+                ");");
+
 
     }
 

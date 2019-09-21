@@ -15,7 +15,7 @@ public class TaskManagerDBSchema {
         public static final class Cols {
 
             public static final String _ID = "_id";
-            public static final String USERNAME= "username";
+            public static final String USERNAME = "username";
             public static final String PASSWORD = "password";
 
         }
@@ -29,7 +29,7 @@ public class TaskManagerDBSchema {
         public static final class Cols {
 
             public static final String _ID = "_id";
-            public static final String TITLE= "_id";
+            public static final String TITLE = "_id";
             public static final String DESCRIPTION = "_id";
             public static final String DATE = "_id";
             public static final String STATUS = "_id";
@@ -38,4 +38,17 @@ public class TaskManagerDBSchema {
 
     }
 
+    public static final class TaskManager {
+
+        public static final String NAME = "task_manager";
+
+        public static final class Cols {
+
+            public static final String _ID = "_id";
+            public static final String USER_ID = "user_id";
+            public static final String TASK_ID = "task_id";
+
+        }
+
+    }
 }
