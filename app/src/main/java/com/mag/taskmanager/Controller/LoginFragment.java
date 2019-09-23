@@ -46,6 +46,11 @@ public class LoginFragment extends Fragment {
     public LoginFragment() {
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Repository.getInstance(getContext());
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,7 +82,7 @@ public class LoginFragment extends Fragment {
                     if (username.equals(Constants.EMPTY_STRING) || password.equals(Constants.EMPTY_STRING))
                         throw new EmptyFieldException();
 
-                    if (Repository.getInstance().checkAuthorization(username, password)) {
+                    if (Repository.getInstance(getContext()).checkAuthorization(username, password)) {
 
                         UiUtil.showSnackbar(mainLayout, getResources().getString(R.string.login_successfully), getResources().getString(R.color.task_app_green_dark));
                         Global.setOnlineUsername(username);

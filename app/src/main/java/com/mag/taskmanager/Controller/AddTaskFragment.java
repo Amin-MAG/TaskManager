@@ -179,7 +179,7 @@ public class AddTaskFragment extends DialogFragment {
                 try {
                     if (taskTitle.equals(Constants.EMPTY_STRING) || taskDescription.equals(Constants.EMPTY_STRING))
                         throw new EmptyFieldException();
-                    Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).addTask(new Task(taskTitle, taskDescription, taskDate, TaskStatus.TODO));
+                    Repository.getInstance(getContext()).getUserByUsername(Global.getOnlineUsername()).addTask(new Task(taskTitle, taskDescription, taskDate.getTime(), TaskStatus.TODO));
                 } catch (EmptyFieldException e) {
                     intent.putExtra(DIALOG_ERROR,e.getMessage() );
                     intent.putExtra(HAS_ERROR,1 );

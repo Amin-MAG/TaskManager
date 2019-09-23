@@ -29,10 +29,10 @@ public class TaskManagerDBSchema {
         public static final class Cols {
 
             public static final String _ID = "_id";
-            public static final String TITLE = "_id";
-            public static final String DESCRIPTION = "_id";
-            public static final String DATE = "_id";
-            public static final String STATUS = "_id";
+            public static final String TITLE = "title";
+            public static final String DESCRIPTION = "description";
+            public static final String DATE = "date";
+            public static final String STATUS = "status";
 
         }
 

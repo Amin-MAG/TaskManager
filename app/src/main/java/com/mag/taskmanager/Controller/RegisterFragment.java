@@ -82,14 +82,14 @@ public class RegisterFragment extends Fragment {
 
                     if (usernameText.equals(Constants.EMPTY_STRING) || passwordText.equals(Constants.EMPTY_STRING) || passwordRepeatText.equals(Constants.EMPTY_STRING))
                         throw new EmptyFieldException();
-                    if (Repository.getInstance().getUserByUsername(usernameText) != null)
+                    if (Repository.getInstance(getContext()).getUserByUsername(usernameText) != null)
                         throw new DuplicateUsernameException();
                     if (!passwordRepeatText.equals(passwordText))
                         throw new WrongRepeatedPasswordException();
                     if (passwordText.length() < 5)
                         throw new ShortPasswordException();
 
-                    Repository.getInstance().addUser(new User(usernameText, passwordText, new ArrayList<Task>()));
+                    Repository.getInstance(getContext()).addUser(new User(usernameText, passwordText));
 
                     UiUtil.showSnackbar(mainLayout,REGISTRATION_COMPLETED, getResources().getString(R.color.task_app_green_dark));
 

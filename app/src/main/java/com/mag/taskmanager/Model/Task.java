@@ -12,11 +12,11 @@ public class Task implements Serializable {
     private Date date;
     private TaskStatus taskStatus;
 
-    public Task(String title, String description, Date date, TaskStatus taskStatus) {
+    public Task(String title, String description, long date, TaskStatus taskStatus) {
         this.taskId = UUID.randomUUID();
         this.title = title;
         this.description = description;
-        this.date = date;
+        this.date = new Date(date);
         this.taskStatus = taskStatus;
     }
 
@@ -46,6 +46,10 @@ public class Task implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public void setDate(long date) {
+        this.date = new Date(date);
     }
 
     public TaskStatus getTaskStatus() {
