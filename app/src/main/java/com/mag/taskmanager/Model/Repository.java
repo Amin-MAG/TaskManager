@@ -1,10 +1,12 @@
 package com.mag.taskmanager.Model;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.mag.taskmanager.Model.Database.TaskManagerCursorWrapper;
 import com.mag.taskmanager.Model.Database.TaskManagerDBSchema;
 import com.mag.taskmanager.Model.Database.TaskManagerOpenHelper;
 import com.mag.taskmanager.Model.Exceptions.BadAuthorizationException;
@@ -69,7 +71,7 @@ public class Repository {
 
 
     public List<User> getUsers() {
-        Cursor cursor = database.query(TaskManagerDBSchema.Users.NAME,null,null,null,null,null,null);
+        Cursor cursor = database.query(TaskManagerDBSchema.Users.NAME, null, null, null, null, null, null);
         CursorWrapper cursorWrapper = new CursorWrapper(cursor);
         return null;
     }
@@ -94,16 +96,41 @@ public class Repository {
     }
 
     public void addUser(User user) {
+        database.insertOrThrow(TaskManagerDBSchema.Users.NAME, null, getContentValues(user));
 //        users.add(user);
     }
 
     public boolean checkAuthorization(String username, String password) throws BadAuthorizationException {
         User user = getUserByUsername(username);
 
-        if (user==null || !user.getPassword().equals(password))
+        if (user == null || !user.getPassword().equals(password))
             throw new BadAuthorizationException();
 
         return true;
+    }
+
+    // Get Content Values
+
+    private ContentValues getContentValues(Task task) {
+        ContentValues values = new ContentValues();
+        values.put(TaskManagerDBSchema.Tasks.Cols._ID, task.getTaskId().toString());
+        values.put(TaskManagerDBSchema.Tasks.Cols.TITLE, task.getTitle());
+        values.put(TaskManagerDBSchema.Tasks.Cols.DESCRIPTION, task.getDescription());
+        values.put(TaskManagerDBSchema.Tasks.Cols.DATE, task.getDate().getTime());
+
+        int statusNumber = TaskManagerCursorWrapper.getStatusNumber(task.getTaskStatus());
+        values.put(TaskManagerDBSchema.Tasks.Cols.STATUS, statusNumber);
+
+        return values;
+    }
+
+    private ContentValues getContentValues(User user) {
+        ContentValues values = new ContentValues();
+        values.put(TaskManagerDBSchema.Users.Cols._ID,  user.getId());
+        values.put(TaskManagerDBSchema.Users.Cols.USERNAME,  user.getUsername());
+        values.put(TaskManagerDBSchema.Users.Cols.PASSWORD,  user.getPassword());
+
+        return values;
     }
 
 }

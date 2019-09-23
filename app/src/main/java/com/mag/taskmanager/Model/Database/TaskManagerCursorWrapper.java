@@ -23,6 +23,7 @@ public class TaskManagerCursorWrapper extends CursorWrapper {
         String username = getString(getColumnIndex(TaskManagerDBSchema.Users.Cols.USERNAME));
         String password = getString(getColumnIndex(TaskManagerDBSchema.Users.Cols.PASSWORD));
         User user = new User(username, password);
+
         return user;
     }
 
@@ -31,23 +32,38 @@ public class TaskManagerCursorWrapper extends CursorWrapper {
         String title = getString(getColumnIndex(TaskManagerDBSchema.Tasks.Cols.TITLE));
         String description = getString(getColumnIndex(TaskManagerDBSchema.Tasks.Cols.DESCRIPTION));
         long date = getLong(getColumnIndex(TaskManagerDBSchema.Tasks.Cols.DATE));
-        TaskStatus taskStatus = null;
-
-        switch (getInt(getColumnIndex(TaskManagerDBSchema.Tasks.Cols.STATUS))) {
-            case TODO_CODE:
-                taskStatus = TaskStatus.TODO;
-                break;
-            case DOING_CODE:
-                taskStatus = TaskStatus.DOING;
-                break;
-            case DONE_CODE:
-                taskStatus = TaskStatus.DONE;
-                break;
-            default:
-                break;
-        }
+        TaskStatus taskStatus = getStatus(getInt(getColumnIndex(TaskManagerDBSchema.Tasks.Cols.STATUS)));
 
         return new Task(title, description, date, taskStatus);
+    }
+
+
+    public static int getStatusNumber(TaskStatus taskStatus) {
+
+        switch (taskStatus) {
+            case DONE:
+                return TaskManagerCursorWrapper.DONE_CODE;
+            case DOING:
+                return TaskManagerCursorWrapper.DOING_CODE;
+            case TODO:
+                return TaskManagerCursorWrapper.TODO_CODE;
+        }
+
+        return -1;
+    }
+
+    public static TaskStatus getStatus(int number) {
+
+        switch (number) {
+            case TODO_CODE:
+                return TaskStatus.TODO;
+            case DOING_CODE:
+                return TaskStatus.DOING;
+            case DONE_CODE:
+                return TaskStatus.DONE;
+        }
+
+        return null;
     }
 
 }

@@ -8,17 +8,16 @@ import java.util.UUID;
 
 public class User {
 
-    private UUID id;
+    private String id;
     private String username;
     private String password;
 
     public User(String username, String password) {
-        this.id = UUID.randomUUID();
         this.username = username;
         this.password = password;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
@@ -45,7 +44,7 @@ public class User {
 //        tasks.add(task);
     }
 
-    public void deleteTaskWithId(UUID uuid) {
+    public void deleteTaskWithId(int uuid) {
 //        for (int i = 0; i < tasks.size(); i++) {
 //            if (tasks.get(i).getTaskId() == uuid){
 //                tasks.remove(i);

@@ -6,21 +6,20 @@ import java.util.UUID;
 
 public class Task implements Serializable {
 
-    private UUID taskId;
+    private String taskId;
     private String title;
     private String description;
     private Date date;
     private TaskStatus taskStatus;
 
     public Task(String title, String description, long date, TaskStatus taskStatus) {
-        this.taskId = UUID.randomUUID();
         this.title = title;
         this.description = description;
         this.date = new Date(date);
         this.taskStatus = taskStatus;
     }
 
-    public UUID getTaskId() {
+    public String getTaskId() {
         return taskId;
     }
 
