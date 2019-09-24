@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.mag.taskmanager.Model.Database.TaskManagerCursorWrapper;
 import com.mag.taskmanager.Model.Database.TaskManagerDBSchema;
@@ -87,20 +88,41 @@ public class Repository {
 
     public User getUserByUsername(String username) {
 
+        ArrayList<User> corresponding = new ArrayList<>();
 
-//        for (User user : users) {
-//            if (user.getUsername().equals(username))
-//                return user;
-//        }
+        Cursor cursor = database.query(TaskManagerDBSchema.Users.NAME, null, TaskManagerDBSchema.Users.Cols.USERNAME + " = ? ", new String[]{username}, null, null, null);
+        TaskManagerCursorWrapper cursorWrapper = new TaskManagerCursorWrapper(cursor);
+
+        try {
+
+            cursorWrapper.moveToFirst();
+
+            while (!cursorWrapper.isAfterLast()) {
+
+                corresponding.add((cursorWrapper).getUser());
+                cursor.moveToNext();
+
+            }
+
+        } finally {
+
+            cursor.close();
+            cursorWrapper.close();
+
+        }
+
+        if (corresponding.size() == 1)
+            return corresponding.get(0);
+
         return null;
     }
 
     public void addUser(User user) {
         database.insertOrThrow(TaskManagerDBSchema.Users.NAME, null, getContentValues(user));
-//        users.add(user);
     }
 
     public boolean checkAuthorization(String username, String password) throws BadAuthorizationException {
+
         User user = getUserByUsername(username);
 
         if (user == null || !user.getPassword().equals(password))
@@ -126,9 +148,9 @@ public class Repository {
 
     private ContentValues getContentValues(User user) {
         ContentValues values = new ContentValues();
-        values.put(TaskManagerDBSchema.Users.Cols._ID,  user.getId());
-        values.put(TaskManagerDBSchema.Users.Cols.USERNAME,  user.getUsername());
-        values.put(TaskManagerDBSchema.Users.Cols.PASSWORD,  user.getPassword());
+        values.put(TaskManagerDBSchema.Users.Cols._ID, user.getId());
+        values.put(TaskManagerDBSchema.Users.Cols.USERNAME, user.getUsername());
+        values.put(TaskManagerDBSchema.Users.Cols.PASSWORD, user.getPassword());
 
         return values;
     }

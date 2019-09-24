@@ -19,6 +19,7 @@ public class TaskManagerCursorWrapper extends CursorWrapper {
     }
 
     public User getUser() {
+
         int id = getInt(getColumnIndex(TaskManagerDBSchema.Users.Cols._ID));
         String username = getString(getColumnIndex(TaskManagerDBSchema.Users.Cols.USERNAME));
         String password = getString(getColumnIndex(TaskManagerDBSchema.Users.Cols.PASSWORD));
