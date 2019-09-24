@@ -79,6 +79,7 @@ public class TaskActivity extends SingleFragmentActivity {
                     }
                 };
                 UiUtil.showSnackbar(mainFrame, getResources().getString(R.string.logout), getResources().getString(R.color.task_app_red));
+                Global.setOnlineUserID(null);
                 Global.setOnlineUsername(null);
                 Constants.TIME_HANDLER.postDelayed(updater, DELAY_MILLIS);
                 return true;

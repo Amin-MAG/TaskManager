@@ -3,9 +3,7 @@ package com.mag.taskmanager.Model;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.mag.taskmanager.Model.Database.TaskManagerCursorWrapper;
 import com.mag.taskmanager.Model.Database.TaskManagerDBSchema;
@@ -20,39 +18,9 @@ public class Repository {
     private static Repository instance;
 
     public static Repository getInstance(Context context) {
-        if (instance == null) {
+        if (instance == null)
             instance = new Repository(context);
-//            setMockTest();
-        }
         return instance;
-    }
-
-    private static void setMockTest() {
-
-//        getInstance().addUser(new User("amin", "12345", new ArrayList<Task>() {{
-//           add(new Task("Wash Car", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Play Football", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Programming Android", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Make lunch", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Clean Room", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Wash Room", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Watch TV", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Feed Cat", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Read Books", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Do Homework", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Call Hamid", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Buy Shoes", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Buy Watch", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Attend BP Class", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Wash Window", "Something More", new Date(),TaskStatus.TODO));
-//            add(new Task("Sell Modem", "Something More", new Date(),TaskStatus.TODO));
-//            add(new Task("Pick up Reza", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Chat Zahra", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Wash the Dishes", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Planing For weekend", "Something More", new Date(),TaskStatus.DOING));
-//            add(new Task("Study", "Something More", new Date(),TaskStatus.DOING));
-//        }}));
-
     }
 
 
@@ -60,31 +28,14 @@ public class Repository {
 
     private SQLiteDatabase database;
     private Context context;
-//    private List<User> users = new ArrayList<>();
 
     private Repository(Context context) {
-//        users = new ArrayList<User>();
         this.context = context.getApplicationContext();
         this.database = new TaskManagerOpenHelper(context).getWritableDatabase();
     }
 
 
     // Users
-
-    public List<User> getUsers() {
-        Cursor cursor = database.query(TaskManagerDBSchema.Users.NAME, null, null, null, null, null, null);
-        CursorWrapper cursorWrapper = new CursorWrapper(cursor);
-        return null;
-    }
-
-//    public User getUserById(UUID uuid) {
-//        for (User user : users) {
-//            if (user.getId() == uuid)
-//                return user;
-//        }
-//        return null;
-//    }
-
 
     public User getUserByUsername(String username) {
 
@@ -174,17 +125,16 @@ public class Repository {
     }
 
 
-    public void addTaskForUser(String username, Task task) {
+    public void addTaskForUser(String userId, Task task) {
         int id = addTask(task);
         ContentValues contentValues = new ContentValues();
         contentValues.put(TaskManagerDBSchema.TaskManager.Cols.TASK_ID, id);
-        contentValues.put(TaskManagerDBSchema.TaskManager.Cols.USER_ID, Integer.parseInt(getUserByUsername(username).getId()));
-        Log.d("sql-debug", username + " " + id);
+        contentValues.put(TaskManagerDBSchema.TaskManager.Cols.USER_ID, Integer.parseInt(userId));
+
         database.insertOrThrow(TaskManagerDBSchema.TaskManager.NAME, null, contentValues);
     }
 
     public int addTask(Task task) {
-        Log.d("sql-debug", "SELECT " + TaskManagerDBSchema.Tasks.Cols._ID + " FROM " + TaskManagerDBSchema.Tasks.NAME + " ORDER BY " + TaskManagerDBSchema.Tasks.Cols._ID + " DESC;");
         database.insertOrThrow(TaskManagerDBSchema.Tasks.NAME, null, getContentValues(task));
         Cursor cursor = database.rawQuery("SELECT " + TaskManagerDBSchema.Tasks.Cols._ID + " FROM " + TaskManagerDBSchema.Tasks.NAME + " ORDER BY " + TaskManagerDBSchema.Tasks.Cols._ID + " DESC", new String[]{});
         TaskManagerCursorWrapper cursorWrapper = new TaskManagerCursorWrapper(cursor);
@@ -194,20 +144,18 @@ public class Repository {
         return cursorWrapper.getInt(0);
     }
 
-    public void deleteTaskForUser(String username, String id) {
+    public void deleteTaskForUser(String userId, String id) {
         database.delete(TaskManagerDBSchema.Tasks.NAME, TaskManagerDBSchema.Tasks.Cols._ID + " = ? ", new String[]{id});
-        database.delete(TaskManagerDBSchema.TaskManager.NAME, TaskManagerDBSchema.TaskManager.Cols.TASK_ID + " = ? AND " + TaskManagerDBSchema.TaskManager.Cols.USER_ID + " = ?", new String[]{id, getUserByUsername(username).getId()});
+        database.delete(TaskManagerDBSchema.TaskManager.NAME, TaskManagerDBSchema.TaskManager.Cols.TASK_ID + " = ? AND " + TaskManagerDBSchema.TaskManager.Cols.USER_ID + " = ?", new String[]{id, userId});
     }
 
     public void updateTaskForUser(Task task) {
         database.update(TaskManagerDBSchema.Tasks.NAME, getContentValues(task), TaskManagerDBSchema.Tasks.Cols._ID + " = ?", new String[]{task.getTaskId()});
     }
 
-    public void clearTasksForUser(String username) {
-        Log.d("sql-debug", TaskManagerDBSchema.TaskManager.NAME + " " + TaskManagerDBSchema.TaskManager.Cols.USER_ID + " = " + getUserByUsername(username).getId());
-//        database.delete(TaskManagerDBSchema.TaskManager.NAME,TaskManagerDBSchema.TaskManager.Cols.USER_ID +  " = ?", new String[]{getUserByUsername(username).getId()});
+    public void clearTasksForUser(String userId) {
         database.execSQL(
-                "DELETE FROM " + TaskManagerDBSchema.TaskManager.NAME + " WHERE " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.USER_ID + " = 1;");
+                "DELETE FROM " + TaskManagerDBSchema.TaskManager.NAME + " WHERE " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.USER_ID + " = " +  userId +";");
     }
 
     // Get Content Values
@@ -227,7 +175,6 @@ public class Repository {
 
     private ContentValues getContentValues(User user) {
         ContentValues values = new ContentValues();
-//        values.put(TaskManagerDBSchema.Users.Cols._ID, user.getId());
         values.put(TaskManagerDBSchema.Users.Cols.USERNAME, user.getUsername());
         values.put(TaskManagerDBSchema.Users.Cols.PASSWORD, user.getPassword());
 

@@ -86,6 +86,7 @@ public class LoginFragment extends Fragment {
 
                         UiUtil.showSnackbar(mainLayout, getResources().getString(R.string.login_successfully), getResources().getString(R.color.task_app_green_dark));
                         Global.setOnlineUsername(username);
+                        Global.setOnlineUserID(Repository.getInstance(getContext()).getUserByUsername(username).getId());
                         Constants.TIME_HANDLER.postDelayed(new Runnable() {
                             @Override
                             public void run() {

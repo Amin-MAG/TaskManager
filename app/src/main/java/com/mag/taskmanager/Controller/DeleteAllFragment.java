@@ -67,7 +67,7 @@ public class DeleteAllFragment extends DialogFragment {
         yesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Repository.getInstance(getContext()).clearTasksForUser(Global.getOnlineUsername());
+                Repository.getInstance(getContext()).clearTasksForUser(Global.getOnlineUserID());
                 dismiss();
                 startActivity(TaskActivity.newIntent(getActivity()));
                 getActivity().finish();

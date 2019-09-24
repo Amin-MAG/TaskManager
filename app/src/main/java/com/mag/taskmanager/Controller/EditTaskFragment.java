@@ -225,7 +225,7 @@ public class EditTaskFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
 
-                Repository.getInstance(getContext()).deleteTaskForUser(Global.getOnlineUsername(), selectedTask.getTaskId());
+                Repository.getInstance(getContext()).deleteTaskForUser(Global.getOnlineUserID(), selectedTask.getTaskId());
                 intent.putExtra(ACTION_STRING, DELETE_TASK);
                 intent.putExtra(HAS_ERROR, 0);
                 fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
