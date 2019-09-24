@@ -205,6 +205,11 @@ public class Repository {
         return cursorWrapper.getInt(0);
     }
 
+    public void deleteTaskForUser(String username, String id) {
+        database.delete(TaskManagerDBSchema.Tasks.NAME, TaskManagerDBSchema.Tasks.Cols._ID + " = ? ", new String[]{id});
+        database.delete(TaskManagerDBSchema.TaskManager.NAME, TaskManagerDBSchema.TaskManager.Cols.TASK_ID + " = ? AND " + TaskManagerDBSchema.TaskManager.Cols.USER_ID + " = ?", new String[]{id, getUserByUsername(username).getId()});
+    }
+
 
     // Get Content Values
 

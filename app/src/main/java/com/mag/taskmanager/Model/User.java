@@ -35,16 +35,6 @@ public class User {
         return password;
     }
 
-
-    public void deleteTaskWithId(int uuid) {
-//        for (int i = 0; i < tasks.size(); i++) {
-//            if (tasks.get(i).getTaskId() == uuid){
-//                tasks.remove(i);
-//                break;
-//            }
-//        }
-    }
-
 //    public void updateTask(Task task) {
 //        for (int i = 0; i < tasks.size(); i++) {
 //            if (tasks.get(i).getTaskId() == task.getTaskId()){
