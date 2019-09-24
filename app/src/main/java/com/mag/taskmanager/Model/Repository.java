@@ -72,6 +72,8 @@ public class Repository {
     }
 
 
+    // Users
+
     public List<User> getUsers() {
         Cursor cursor = database.query(TaskManagerDBSchema.Users.NAME, null, null, null, null, null, null);
         CursorWrapper cursorWrapper = new CursorWrapper(cursor);
@@ -132,17 +134,19 @@ public class Repository {
         return true;
     }
 
+    // Tasks
+
     public List<Task> getTasks(String username, TaskStatus status) {
 
         List<Task> speceficTasks = new ArrayList<>();
 
-//        Log.d("sql-debug",                 "SELECT * FROM " + TaskManagerDBSchema.TaskManager.NAME
-//                + " LEFT JOIN " + TaskManagerDBSchema.Users.NAME
-//                + " on " + TaskManagerDBSchema.Users.NAME + "." + TaskManagerDBSchema.Users.Cols._ID + " = " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.USER_ID
-//                + " LEFT JOIN " + TaskManagerDBSchema.Tasks.NAME
-//                + " on " + TaskManagerDBSchema.Tasks.NAME + "." + TaskManagerDBSchema.Tasks.Cols._ID + " = " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.TASK_ID
-//                + " WHERE " + TaskManagerDBSchema.Users.NAME + "." + TaskManagerDBSchema.Users.Cols.USERNAME + " = \"" + username + "\""
-//        );
+        Log.d("sql-debug",
+                status + " SELECT * FROM " + TaskManagerDBSchema.TaskManager.NAME
+                        + " LEFT JOIN " + TaskManagerDBSchema.Users.NAME
+                        + " on " + TaskManagerDBSchema.Users.NAME + "." + TaskManagerDBSchema.Users.Cols._ID + " = " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.USER_ID
+                        + " LEFT JOIN " + TaskManagerDBSchema.Tasks.NAME
+                        + " on " + TaskManagerDBSchema.Tasks.NAME + "." + TaskManagerDBSchema.Tasks.Cols._ID + " = " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.TASK_ID
+                        + " WHERE " + TaskManagerDBSchema.Users.NAME + "." + TaskManagerDBSchema.Users.Cols.USERNAME + " = \"" + username + "\"");
 
         Cursor cursor = database.rawQuery(
                 "SELECT * FROM " + TaskManagerDBSchema.TaskManager.NAME
@@ -180,11 +184,33 @@ public class Repository {
         return speceficTasks;
     }
 
+
+    public void addTaskForUser(String username, Task task) {
+        int id = addTask(task);
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TaskManagerDBSchema.TaskManager.Cols.TASK_ID, id);
+        contentValues.put(TaskManagerDBSchema.TaskManager.Cols.USER_ID, Integer.parseInt(getUserByUsername(username).getId()));
+        Log.d("sql-debug", username + " " + id);
+        database.insertOrThrow(TaskManagerDBSchema.TaskManager.NAME, null, contentValues);
+    }
+
+    public int addTask(Task task) {
+        Log.d("sql-debug", "SELECT " + TaskManagerDBSchema.Tasks.Cols._ID + " FROM " + TaskManagerDBSchema.Tasks.NAME + " ORDER BY " + TaskManagerDBSchema.Tasks.Cols._ID + " DESC;");
+        database.insertOrThrow(TaskManagerDBSchema.Tasks.NAME, null, getContentValues(task));
+        Cursor cursor = database.rawQuery("SELECT " + TaskManagerDBSchema.Tasks.Cols._ID + " FROM " + TaskManagerDBSchema.Tasks.NAME + " ORDER BY " + TaskManagerDBSchema.Tasks.Cols._ID + " DESC", new String[]{});
+        TaskManagerCursorWrapper cursorWrapper = new TaskManagerCursorWrapper(cursor);
+
+        cursorWrapper.moveToFirst();
+
+        return cursorWrapper.getInt(0);
+    }
+
+
     // Get Content Values
 
     private ContentValues getContentValues(Task task) {
         ContentValues values = new ContentValues();
-        values.put(TaskManagerDBSchema.Tasks.Cols._ID, task.getTaskId().toString());
+        values.put(TaskManagerDBSchema.Tasks.Cols._ID, task.getTaskId());
         values.put(TaskManagerDBSchema.Tasks.Cols.TITLE, task.getTitle());
         values.put(TaskManagerDBSchema.Tasks.Cols.DESCRIPTION, task.getDescription());
         values.put(TaskManagerDBSchema.Tasks.Cols.DATE, task.getDate().getTime());
@@ -197,7 +223,7 @@ public class Repository {
 
     private ContentValues getContentValues(User user) {
         ContentValues values = new ContentValues();
-        values.put(TaskManagerDBSchema.Users.Cols._ID, user.getId());
+//        values.put(TaskManagerDBSchema.Users.Cols._ID, user.getId());
         values.put(TaskManagerDBSchema.Users.Cols.USERNAME, user.getUsername());
         values.put(TaskManagerDBSchema.Users.Cols.PASSWORD, user.getPassword());
 

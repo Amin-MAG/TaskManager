@@ -13,6 +13,11 @@ public class User {
     private String username;
     private String password;
 
+    public User(int id, String username, String password) {
+        this(username, password);
+        this.id = String.valueOf(id);
+    }
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
@@ -30,9 +35,6 @@ public class User {
         return password;
     }
 
-    public void addTask(Task task) {
-//        tasks.add(task);
-    }
 
     public void deleteTaskWithId(int uuid) {
 //        for (int i = 0; i < tasks.size(); i++) {

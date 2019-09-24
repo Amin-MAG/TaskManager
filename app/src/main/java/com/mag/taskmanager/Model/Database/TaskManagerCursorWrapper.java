@@ -23,7 +23,7 @@ public class TaskManagerCursorWrapper extends CursorWrapper {
         int id = getInt(getColumnIndex(TaskManagerDBSchema.Users.Cols._ID));
         String username = getString(getColumnIndex(TaskManagerDBSchema.Users.Cols.USERNAME));
         String password = getString(getColumnIndex(TaskManagerDBSchema.Users.Cols.PASSWORD));
-        User user = new User(username, password);
+        User user = new User(id, username, password);
 
         return user;
     }
@@ -35,7 +35,7 @@ public class TaskManagerCursorWrapper extends CursorWrapper {
         long date = getLong(getColumnIndex(TaskManagerDBSchema.Tasks.Cols.DATE));
         TaskStatus taskStatus = getStatus(getInt(getColumnIndex(TaskManagerDBSchema.Tasks.Cols.STATUS)));
 
-        return new Task(title, description, date, taskStatus);
+        return new Task(id, title, description, date, taskStatus);
     }
 
 

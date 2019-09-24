@@ -12,6 +12,12 @@ public class Task implements Serializable {
     private Date date;
     private TaskStatus taskStatus;
 
+    public Task(int id, String title, String description, long date, TaskStatus taskStatus) {
+       this(title,description,date,taskStatus);
+        taskId = String.valueOf(id);
+    }
+
+
     public Task(String title, String description, long date, TaskStatus taskStatus) {
         this.title = title;
         this.description = description;
