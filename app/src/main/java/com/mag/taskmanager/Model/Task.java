@@ -2,7 +2,6 @@ package com.mag.taskmanager.Model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
 
 public class Task implements Serializable {
 

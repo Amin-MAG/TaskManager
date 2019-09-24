@@ -28,7 +28,8 @@ import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Var.*;
+import com.mag.taskmanager.Var.Constants;
+import com.mag.taskmanager.Var.Global;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -205,6 +206,8 @@ public class EditTaskFragment extends DialogFragment {
                             break;
                         }
                     }
+
+                    Repository.getInstance(getContext()).updateTaskForUser(selectedTask);
 
                 } catch (EmptyFieldException e) {
                     intent.putExtra(DIALOG_ERROR, e.getMessage());

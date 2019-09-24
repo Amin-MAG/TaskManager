@@ -11,12 +11,9 @@ import com.mag.taskmanager.Model.Database.TaskManagerCursorWrapper;
 import com.mag.taskmanager.Model.Database.TaskManagerDBSchema;
 import com.mag.taskmanager.Model.Database.TaskManagerOpenHelper;
 import com.mag.taskmanager.Model.Exceptions.BadAuthorizationException;
-import com.mag.taskmanager.Var.Global;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 public class Repository {
 
@@ -208,6 +205,10 @@ public class Repository {
     public void deleteTaskForUser(String username, String id) {
         database.delete(TaskManagerDBSchema.Tasks.NAME, TaskManagerDBSchema.Tasks.Cols._ID + " = ? ", new String[]{id});
         database.delete(TaskManagerDBSchema.TaskManager.NAME, TaskManagerDBSchema.TaskManager.Cols.TASK_ID + " = ? AND " + TaskManagerDBSchema.TaskManager.Cols.USER_ID + " = ?", new String[]{id, getUserByUsername(username).getId()});
+    }
+
+    public void updateTaskForUser(Task task) {
+        database.update(TaskManagerDBSchema.Tasks.NAME,getContentValues(task),TaskManagerDBSchema.Tasks.Cols._ID + " = ?" , new String[]{task.getTaskId()});
     }
 
 
