@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,7 @@ import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Util.*;
+import com.mag.taskmanager.Util.UiUtil;
 import com.mag.taskmanager.Var.Global;
 
 import java.io.Serializable;
@@ -127,31 +126,26 @@ public class TaskListFragment extends Fragment implements Serializable {
         return inflater.inflate(R.layout.fragment_task_list, container, false);
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        update();
-//    }
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("ResourceType")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.d("askdjkla", "on created: " + this);
 
+        findItems(view);
 
-        mainFrame = view.findViewById(R.id.taskListFragment_mainFrame);
-        empty = view.findViewById(R.id.taskListFragment_empty);
-
-        recyclerView = view.findViewById(R.id.taskListFragment_recyclerview);
         taskRecyclerAdapter = getNewRecycleAdapter();
-
         recyclerView.setAdapter(taskRecyclerAdapter);
 
         update();
 
+    }
+
+    private void findItems(@NonNull View view) {
+        mainFrame = view.findViewById(R.id.taskListFragment_mainFrame);
+        empty = view.findViewById(R.id.taskListFragment_empty);
+        recyclerView = view.findViewById(R.id.taskListFragment_recyclerview);
     }
 
     private TaskRecyclerAdapter getNewRecycleAdapter() {

@@ -135,15 +135,30 @@ public class AddTaskFragment extends DialogFragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor(getResources().getString(R.color.task_app_dark))));
 
 
+        findItems(view);
+
+        setText();
+
+        setEvents();
+
+        return dialog;
+    }
+
+    private void setText() {
+        time.setText(Constants.CLOCK_FORMAT.format(new Date(System.currentTimeMillis() + ONE_DAY_MILI_SECONDS)));
+        date.setText(Constants.DATE_FORMAT.format(new Date(System.currentTimeMillis() + ONE_DAY_MILI_SECONDS)));
+    }
+
+    private void findItems(View view) {
         title = view.findViewById(R.id.addTaskFragment_title);
         description = view.findViewById(R.id.addTaskFragment_description);
         date = view.findViewById(R.id.addTaskFragment_dateBtn);
         time = view.findViewById(R.id.addTaskFragment_timeBtn);
         create = view.findViewById(R.id.addTaskFragment_create);
         cancel = view.findViewById(R.id.addTaskFragment_cancel);
+    }
 
-
-        date.setText(Constants.DATE_FORMAT.format(new Date(System.currentTimeMillis() + ONE_DAY_MILI_SECONDS)));
+    private void setEvents() {
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -154,7 +169,6 @@ public class AddTaskFragment extends DialogFragment {
         });
 
 
-        time.setText(Constants.CLOCK_FORMAT.format(new Date(System.currentTimeMillis() + ONE_DAY_MILI_SECONDS)));
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -198,8 +212,6 @@ public class AddTaskFragment extends DialogFragment {
                 dismiss();
             }
         });
-
-        return dialog;
     }
 
 }

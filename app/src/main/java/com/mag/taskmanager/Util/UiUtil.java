@@ -10,11 +10,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class UiUtil {
 
-
-    public static void changeFragment(FragmentManager fragmentManager, Fragment fragment, int containerId) {
-        changeFragment(fragmentManager, fragment, containerId, true);
-    }
-
     public static void changeFragment(FragmentManager fragmentManager, Fragment fragment, int containerId, boolean isreplaced) {
 
         if (isreplaced)

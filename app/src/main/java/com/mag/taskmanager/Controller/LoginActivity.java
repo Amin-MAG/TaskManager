@@ -5,8 +5,6 @@ import android.content.Intent;
 
 import androidx.fragment.app.Fragment;
 
-import com.mag.taskmanager.Model.Repository;
-
 public class LoginActivity extends SingleFragmentActivity {
 
 

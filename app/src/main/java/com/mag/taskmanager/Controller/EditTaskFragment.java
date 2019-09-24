@@ -40,7 +40,6 @@ import java.util.HashMap;
  */
 public class EditTaskFragment extends DialogFragment {
 
-    public static final String ARG_USERNAME = "arg_username";
     public static final String ARG_TASK = "arg_task";
     public static final int REQUEST_CODE_FOR_DATE_PICKER = 1001;
     public static final int REQUEST_CODE_FOR_TIME_PICKER = 1002;
@@ -147,20 +146,17 @@ public class EditTaskFragment extends DialogFragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor(getResources().getString(R.color.task_app_dark))));
 
 
-        title = view.findViewById(R.id.editTaskFragment_title);
-        description = view.findViewById(R.id.editTaskFragment_description);
-        date = view.findViewById(R.id.editTaskFragment_dateBtn);
-        time = view.findViewById(R.id.editTaskFragment_timeBtn);
-        edit = view.findViewById(R.id.editTaskFragment_edit);
-        cancel = view.findViewById(R.id.editTaskFragment_cancel);
-        delete = view.findViewById(R.id.editTaskFragment_delete);
-        radioButtons.put(TaskStatus.TODO,  (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_todo));
-        radioButtons.put(TaskStatus.DOING,  (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_doing));
-        radioButtons.put(TaskStatus.DONE,  (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_done));
+        findItems(view);
 
-        title.setText(selectedTask.getTitle());
-        description.setText(selectedTask.getDescription());
-        date.setText(Constants.DATE_FORMAT.format(selectedTask.getDate()));
+        setText();
+
+        setEvents();
+
+
+        return dialog;
+    }
+
+    private void setEvents() {
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,7 +167,6 @@ public class EditTaskFragment extends DialogFragment {
         });
 
 
-        time.setText(Constants.CLOCK_FORMAT.format(selectedTask.getDate()));
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -243,9 +238,26 @@ public class EditTaskFragment extends DialogFragment {
 
             }
         });
+    }
 
+    private void setText() {
+        title.setText(selectedTask.getTitle());
+        description.setText(selectedTask.getDescription());
+        time.setText(Constants.CLOCK_FORMAT.format(selectedTask.getDate()));
+        date.setText(Constants.DATE_FORMAT.format(selectedTask.getDate()));
+    }
 
-        return dialog;
+    private void findItems(View view) {
+        title = view.findViewById(R.id.editTaskFragment_title);
+        description = view.findViewById(R.id.editTaskFragment_description);
+        date = view.findViewById(R.id.editTaskFragment_dateBtn);
+        time = view.findViewById(R.id.editTaskFragment_timeBtn);
+        edit = view.findViewById(R.id.editTaskFragment_edit);
+        cancel = view.findViewById(R.id.editTaskFragment_cancel);
+        delete = view.findViewById(R.id.editTaskFragment_delete);
+        radioButtons.put(TaskStatus.TODO,  (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_todo));
+        radioButtons.put(TaskStatus.DOING,  (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_doing));
+        radioButtons.put(TaskStatus.DONE,  (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_done));
     }
 
 }

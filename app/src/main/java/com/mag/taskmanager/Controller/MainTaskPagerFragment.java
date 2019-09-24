@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -120,20 +119,66 @@ public class MainTaskPagerFragment extends Fragment {
         mainLayout = view.findViewById(R.id.pagerFragment_mainLayout);
 
         // Floating Action bar
-
-        fab = view.findViewById(R.id.taskActivity_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AddTaskFragment addTaskFragment = AddTaskFragment.newInstance();
-                addTaskFragment.setTargetFragment(MainTaskPagerFragment.this, REQUEST_CODE_FOR_ADD_DIALOG);
-                addTaskFragment.show(getFragmentManager(), ADD_TASK_FRAGMENT);
-            }
-        });
-
+        floatingActionBar(view);
 
         // Tab Layout
+        tabLayout(view);
 
+        // 3 Recycler
+        recyclers(savedInstanceState);
+
+        // View Pager
+        viewPager(view);
+
+    }
+
+    private void viewPager(@NonNull View view) {
+        taskViewPager = view.findViewById(R.id.pagerFragment_viewPager);
+        taskViewPagerAdapter = new TaskViewPagerAdapter(getFragmentManager(), taskListFragments);
+        taskViewPager.setAdapter(taskViewPagerAdapter);
+        taskViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                statusTabLayout.getTabAt(position).select();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+
+        });
+        taskViewPager.setCurrentItem(1);
+    }
+
+    private void recyclers(@Nullable Bundle savedInstanceState) {
+        if (recyclerExistance) {
+            taskListFragments.put(TaskStatus.TODO, (TaskListFragment) savedInstanceState.getSerializable(SAVE_TASK_LIST_FRAGMENT + TaskStatus.TODO));
+            taskListFragments.put(TaskStatus.DOING, (TaskListFragment) savedInstanceState.getSerializable(SAVE_TASK_LIST_FRAGMENT + TaskStatus.DOING));
+            taskListFragments.put(TaskStatus.DONE, (TaskListFragment) savedInstanceState.getSerializable(SAVE_TASK_LIST_FRAGMENT + TaskStatus.DONE));
+        } else {
+
+            for (int i = 0; i < 3; i++) {
+
+                TaskListFragment.setGetView(new TaskListFragment.GetViews() {
+                    @Override
+                    public void updateTaskList() {
+                        for (Fragment fragment : taskListFragments.values())
+                            ((TaskListFragment) fragment).update();
+                    }
+                });
+
+                taskListFragments.put(TaskStatus.values()[i], TaskListFragment.newInstance(TaskStatus.values()[i]));
+
+                recyclerExistance = true;
+            }
+        }
+    }
+
+    private void tabLayout(@NonNull View view) {
         statusTabLayout = view.findViewById(R.id.pagerFragment_statusTabLayout);
 
         statusTabLayout.addTab(statusTabLayout.newTab().setText(TO_DO));
@@ -157,58 +202,18 @@ public class MainTaskPagerFragment extends Fragment {
             }
 
         });
+    }
 
-        // 3 Recycler
-        if (recyclerExistance) {
-            taskListFragments.put(TaskStatus.TODO, (TaskListFragment) savedInstanceState.getSerializable(SAVE_TASK_LIST_FRAGMENT + TaskStatus.TODO));
-            taskListFragments.put(TaskStatus.DOING, (TaskListFragment) savedInstanceState.getSerializable(SAVE_TASK_LIST_FRAGMENT + TaskStatus.DOING));
-            taskListFragments.put(TaskStatus.DONE, (TaskListFragment) savedInstanceState.getSerializable(SAVE_TASK_LIST_FRAGMENT + TaskStatus.DONE));
-        } else {
-
-            for (int i = 0; i < 3; i++) {
-
-                TaskListFragment.setGetView(new TaskListFragment.GetViews() {
-                    @Override
-                    public void updateTaskList() {
-                        for (Fragment fragment : taskListFragments.values())
-                            ((TaskListFragment) fragment).update();
-                    }
-                });
-
-                taskListFragments.put(TaskStatus.values()[i], TaskListFragment.newInstance(TaskStatus.values()[i]));
-
-                recyclerExistance = true;
-            }
-        }
-
-
-        // View Pager
-        taskViewPager = view.findViewById(R.id.pagerFragment_viewPager);
-//        if (viewPagerAdapterExistance) {
-//            taskViewPagerAdapter = (TaskViewPagerAdapter) savedInstanceState.getSerializable(SAVE_TASK_VIEW_PAGER_ADAPTER);
-//        } else {
-            taskViewPagerAdapter = new TaskViewPagerAdapter(getFragmentManager(), taskListFragments);
-//            viewPagerAdapterExistance = true;
-//        }
-        taskViewPager.setAdapter(taskViewPagerAdapter);
-        taskViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+    private void floatingActionBar(@NonNull View view) {
+        fab = view.findViewById(R.id.taskActivity_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onClick(View view) {
+                AddTaskFragment addTaskFragment = AddTaskFragment.newInstance();
+                addTaskFragment.setTargetFragment(MainTaskPagerFragment.this, REQUEST_CODE_FOR_ADD_DIALOG);
+                addTaskFragment.show(getFragmentManager(), ADD_TASK_FRAGMENT);
             }
-
-            @Override
-            public void onPageSelected(int position) {
-                statusTabLayout.getTabAt(position).select();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-
         });
-        taskViewPager.setCurrentItem(1);
-        Log.d("view_pager", "hello");
-
     }
 
     @Override

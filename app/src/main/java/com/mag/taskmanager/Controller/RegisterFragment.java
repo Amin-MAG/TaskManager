@@ -20,13 +20,10 @@ import com.mag.taskmanager.Model.Exceptions.EmptyFieldException;
 import com.mag.taskmanager.Model.Exceptions.ShortPasswordException;
 import com.mag.taskmanager.Model.Exceptions.WrongRepeatedPasswordException;
 import com.mag.taskmanager.Model.Repository;
-import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.User;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Util.*;
 import com.mag.taskmanager.Var.*;
-
-import java.util.ArrayList;
 
 
 /**
@@ -62,13 +59,13 @@ public class RegisterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mainLayout = view.findViewById(R.id.registerFragment_mainLayout);
-        usernameEditText = view.findViewById(R.id.registerFragment_username);
-        passwordEditText = view.findViewById(R.id.registerFragment_password);
-        passwordRepeatEditText = view.findViewById(R.id.registerFragment_passwordR);
-        submitBtn = view.findViewById(R.id.registerFragment_registerBtn);
+        findItems(view);
 
+        setEvents();
+        
+    }
 
+    private void setEvents() {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceType")
             @Override
@@ -113,8 +110,14 @@ public class RegisterFragment extends Fragment {
 
             }
         });
+    }
 
-
+    private void findItems(@NonNull View view) {
+        mainLayout = view.findViewById(R.id.registerFragment_mainLayout);
+        usernameEditText = view.findViewById(R.id.registerFragment_username);
+        passwordEditText = view.findViewById(R.id.registerFragment_password);
+        passwordRepeatEditText = view.findViewById(R.id.registerFragment_passwordR);
+        submitBtn = view.findViewById(R.id.registerFragment_registerBtn);
     }
 
 

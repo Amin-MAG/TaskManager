@@ -62,13 +62,14 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        mainLayout = view.findViewById(R.id.loginFragment_mainLayout);
-        usernameEditText = view.findViewById(R.id.loginFragment_username);
-        passwordEditText = view.findViewById(R.id.loginFragment_password);
-        loginBtn = view.findViewById(R.id.loginFragment_loginBtn);
-        registerBtn = view.findViewById(R.id.loginFragment_registerBtn);
+        findItems(view);
 
 
+        setEvents();
+
+    }
+
+    private void setEvents() {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceType")
             @Override
@@ -112,7 +113,14 @@ public class LoginFragment extends Fragment {
                 startActivity(RegisterActivity.newIntent(getActivity()));
             }
         });
+    }
 
+    private void findItems(@NonNull View view) {
+        mainLayout = view.findViewById(R.id.loginFragment_mainLayout);
+        usernameEditText = view.findViewById(R.id.loginFragment_username);
+        passwordEditText = view.findViewById(R.id.loginFragment_password);
+        loginBtn = view.findViewById(R.id.loginFragment_loginBtn);
+        registerBtn = view.findViewById(R.id.loginFragment_registerBtn);
     }
 
 
