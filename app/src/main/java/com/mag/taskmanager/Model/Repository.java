@@ -11,6 +11,7 @@ import com.mag.taskmanager.Model.Database.TaskManagerCursorWrapper;
 import com.mag.taskmanager.Model.Database.TaskManagerDBSchema;
 import com.mag.taskmanager.Model.Database.TaskManagerOpenHelper;
 import com.mag.taskmanager.Model.Exceptions.BadAuthorizationException;
+import com.mag.taskmanager.Var.Global;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -129,6 +130,54 @@ public class Repository {
             throw new BadAuthorizationException();
 
         return true;
+    }
+
+    public List<Task> getTasks(String username, TaskStatus status) {
+
+        List<Task> speceficTasks = new ArrayList<>();
+
+//        Log.d("sql-debug",                 "SELECT * FROM " + TaskManagerDBSchema.TaskManager.NAME
+//                + " LEFT JOIN " + TaskManagerDBSchema.Users.NAME
+//                + " on " + TaskManagerDBSchema.Users.NAME + "." + TaskManagerDBSchema.Users.Cols._ID + " = " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.USER_ID
+//                + " LEFT JOIN " + TaskManagerDBSchema.Tasks.NAME
+//                + " on " + TaskManagerDBSchema.Tasks.NAME + "." + TaskManagerDBSchema.Tasks.Cols._ID + " = " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.TASK_ID
+//                + " WHERE " + TaskManagerDBSchema.Users.NAME + "." + TaskManagerDBSchema.Users.Cols.USERNAME + " = \"" + username + "\""
+//        );
+
+        Cursor cursor = database.rawQuery(
+                "SELECT * FROM " + TaskManagerDBSchema.TaskManager.NAME
+                        + " LEFT JOIN " + TaskManagerDBSchema.Users.NAME
+                        + " on " + TaskManagerDBSchema.Users.NAME + "." + TaskManagerDBSchema.Users.Cols._ID + " = " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.USER_ID
+                        + " LEFT JOIN " + TaskManagerDBSchema.Tasks.NAME
+                        + " on " + TaskManagerDBSchema.Tasks.NAME + "." + TaskManagerDBSchema.Tasks.Cols._ID + " = " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.TASK_ID
+                        + " WHERE " + TaskManagerDBSchema.Users.NAME + "." + TaskManagerDBSchema.Users.Cols.USERNAME + " = \"" + username + "\""
+                , new String[]{});
+
+        TaskManagerCursorWrapper cursorWrapper = new TaskManagerCursorWrapper(cursor);
+
+        try {
+
+            cursorWrapper.moveToFirst();
+
+            while (!cursorWrapper.isAfterLast()) {
+
+                Task task = cursorWrapper.getTask();
+
+                if (task.getTaskStatus() == status)
+                    speceficTasks.add(task);
+
+                cursorWrapper.moveToNext();
+
+            }
+
+        } finally {
+
+            cursorWrapper.close();
+            cursor.close();
+
+        }
+
+        return speceficTasks;
     }
 
     // Get Content Values

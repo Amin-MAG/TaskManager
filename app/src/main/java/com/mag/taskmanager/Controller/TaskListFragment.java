@@ -156,8 +156,7 @@ public class TaskListFragment extends Fragment implements Serializable {
 
     private TaskRecyclerAdapter getNewRecycleAdapter() {
         return new TaskRecyclerAdapter(Repository.getInstance(getContext())
-                .getUserByUsername(Global.getOnlineUsername())
-                .getTaskByStatus(status)
+                .getTasks(Global.getOnlineUsername(), status)
                 , new TaskRecyclerAdapter.OnItemClickListener() {
             @Override
             public void showEditDialog(Task task) {
@@ -172,11 +171,10 @@ public class TaskListFragment extends Fragment implements Serializable {
 
         taskRecyclerAdapter.setTasks(Repository
                 .getInstance(getContext())
-                .getUserByUsername(Global.getOnlineUsername())
-                .getTaskByStatus(status));
+                .getTasks(Global.getOnlineUsername(), status));
 
         taskRecyclerAdapter.notifyDataSetChanged();
-        if (Repository.getInstance(getContext()).getUserByUsername(Global.getOnlineUsername()).getTaskByStatus(status).size() == 0)
+        if (Repository.getInstance(getContext()).getTasks(Global.getOnlineUsername(), status).size() == 0)
             empty.setVisibility(View.VISIBLE);
         else if (empty.getVisibility() == View.VISIBLE)
             empty.setVisibility(View.GONE);

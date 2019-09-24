@@ -1,5 +1,6 @@
 package com.mag.taskmanager.Model;
 
+import android.app.Activity;
 import android.view.Menu;
 
 import java.util.ArrayList;
@@ -27,17 +28,6 @@ public class User {
 
     public String getPassword() {
         return password;
-    }
-
-
-    public List<Task> getTaskByStatus(TaskStatus value) {
-//        List<Task> speceficTasks = new ArrayList<>();
-//        for (Task task : tasks) {
-//            if (task.getTaskStatus() == value)
-//                speceficTasks.add(task);
-//        }
-//        return speceficTasks;
-        return  null;
     }
 
     public void addTask(Task task) {
