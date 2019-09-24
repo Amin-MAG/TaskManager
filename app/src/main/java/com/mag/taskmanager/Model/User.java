@@ -28,9 +28,4 @@ public class User {
         return password;
     }
 
-    public void  clearTasks() {
-//        tasks = new ArrayList<>();
-    }
-
-
 }

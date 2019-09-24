@@ -137,14 +137,6 @@ public class Repository {
 
         List<Task> speceficTasks = new ArrayList<>();
 
-        Log.d("sql-debug",
-                status + " SELECT * FROM " + TaskManagerDBSchema.TaskManager.NAME
-                        + " LEFT JOIN " + TaskManagerDBSchema.Users.NAME
-                        + " on " + TaskManagerDBSchema.Users.NAME + "." + TaskManagerDBSchema.Users.Cols._ID + " = " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.USER_ID
-                        + " LEFT JOIN " + TaskManagerDBSchema.Tasks.NAME
-                        + " on " + TaskManagerDBSchema.Tasks.NAME + "." + TaskManagerDBSchema.Tasks.Cols._ID + " = " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.TASK_ID
-                        + " WHERE " + TaskManagerDBSchema.Users.NAME + "." + TaskManagerDBSchema.Users.Cols.USERNAME + " = \"" + username + "\"");
-
         Cursor cursor = database.rawQuery(
                 "SELECT * FROM " + TaskManagerDBSchema.TaskManager.NAME
                         + " LEFT JOIN " + TaskManagerDBSchema.Users.NAME
@@ -208,9 +200,15 @@ public class Repository {
     }
 
     public void updateTaskForUser(Task task) {
-        database.update(TaskManagerDBSchema.Tasks.NAME,getContentValues(task),TaskManagerDBSchema.Tasks.Cols._ID + " = ?" , new String[]{task.getTaskId()});
+        database.update(TaskManagerDBSchema.Tasks.NAME, getContentValues(task), TaskManagerDBSchema.Tasks.Cols._ID + " = ?", new String[]{task.getTaskId()});
     }
 
+    public void clearTasksForUser(String username) {
+        Log.d("sql-debug", TaskManagerDBSchema.TaskManager.NAME + " " + TaskManagerDBSchema.TaskManager.Cols.USER_ID + " = " + getUserByUsername(username).getId());
+//        database.delete(TaskManagerDBSchema.TaskManager.NAME,TaskManagerDBSchema.TaskManager.Cols.USER_ID +  " = ?", new String[]{getUserByUsername(username).getId()});
+        database.execSQL(
+                "DELETE FROM " + TaskManagerDBSchema.TaskManager.NAME + " WHERE " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.USER_ID + " = 1;");
+    }
 
     // Get Content Values
 
