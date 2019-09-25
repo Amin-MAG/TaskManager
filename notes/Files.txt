@@ -1,3 +1,0 @@
-Note:
-		database
-		orientation (few bugs)
