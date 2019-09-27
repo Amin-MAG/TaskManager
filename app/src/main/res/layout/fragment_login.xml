@@ -24,7 +24,7 @@ tools:context=".Controller.LoginFragment">
             android:layout_width="263dp"
             android:layout_height="220dp"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="32dp"
             android:src="@drawable/task_logo" />
 
