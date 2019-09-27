@@ -4,6 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +28,8 @@ import com.mag.taskmanager.R;
 import com.mag.taskmanager.Util.UiUtil;
 import com.mag.taskmanager.Var.Constants;
 import com.mag.taskmanager.Var.Global;
+
+import org.w3c.dom.Text;
 
 public class TaskActivity extends SingleFragmentActivity {
 
@@ -65,6 +71,26 @@ public class TaskActivity extends SingleFragmentActivity {
 
         findItems();
 
+        searchEditText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (searchEditText.length() > 0) {
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+
+        });
+
+
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +101,7 @@ public class TaskActivity extends SingleFragmentActivity {
                         titileTextView.startAnimation(fadeInAnim);
                         titileTextView.startAnimation(fadeInAnim);
 
+                        searchEditText.setText(Constants.EMPTY_STRING);
                         closeBtn.setVisibility(View.GONE);
                         searchTextLayout.setVisibility(View.GONE);
                     }
@@ -166,4 +193,7 @@ public class TaskActivity extends SingleFragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public String getSearchEditTextString() {
+        return searchEditText.getText() + Constants.EMPTY_STRING;
+    }
 }

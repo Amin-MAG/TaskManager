@@ -9,6 +9,8 @@ import com.mag.taskmanager.Model.Database.TaskManagerCursorWrapper;
 import com.mag.taskmanager.Model.Database.TaskManagerDBSchema;
 import com.mag.taskmanager.Model.Database.TaskManagerOpenHelper;
 import com.mag.taskmanager.Model.Exceptions.BadAuthorizationException;
+import com.mag.taskmanager.Var.Constants;
+import com.mag.taskmanager.Var.Global;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,17 +87,24 @@ public class Repository {
     // Tasks
 
     public List<Task> getTasks(String username, TaskStatus status) {
+        return getTasks(username, status, null);
+    }
+
+    public List<Task> getTasks(String username, TaskStatus status, String search) {
 
         List<Task> speceficTasks = new ArrayList<>();
 
-        Cursor cursor = database.rawQuery(
-                "SELECT * FROM " + TaskManagerDBSchema.TaskManager.NAME
-                        + " LEFT JOIN " + TaskManagerDBSchema.Users.NAME
-                        + " on " + TaskManagerDBSchema.Users.NAME + "." + TaskManagerDBSchema.Users.Cols._ID + " = " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.USER_ID
-                        + " LEFT JOIN " + TaskManagerDBSchema.Tasks.NAME
-                        + " on " + TaskManagerDBSchema.Tasks.NAME + "." + TaskManagerDBSchema.Tasks.Cols._ID + " = " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.TASK_ID
-                        + " WHERE " + TaskManagerDBSchema.Users.NAME + "." + TaskManagerDBSchema.Users.Cols.USERNAME + " = \"" + username + "\""
-                , new String[]{});
+        String command = "SELECT * FROM " + TaskManagerDBSchema.TaskManager.NAME
+                + " LEFT JOIN " + TaskManagerDBSchema.Users.NAME
+                + " on " + TaskManagerDBSchema.Users.NAME + "." + TaskManagerDBSchema.Users.Cols._ID + " = " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.USER_ID
+                + " LEFT JOIN " + TaskManagerDBSchema.Tasks.NAME
+                + " on " + TaskManagerDBSchema.Tasks.NAME + "." + TaskManagerDBSchema.Tasks.Cols._ID + " = " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.TASK_ID
+                + " WHERE " + TaskManagerDBSchema.Users.NAME + "." + TaskManagerDBSchema.Users.Cols.USERNAME + " = \"" + username + "\"";
+
+        if (search != null)
+            command += " AND ( " + TaskManagerDBSchema.Tasks.Cols.TITLE + " Like %" + search + "% OR " + TaskManagerDBSchema.Tasks.Cols.DESCRIPTION + " Like %" + search + "% )";
+
+        Cursor cursor = database.rawQuery(command, new String[]{});
 
         TaskManagerCursorWrapper cursorWrapper = new TaskManagerCursorWrapper(cursor);
 
@@ -155,7 +164,7 @@ public class Repository {
 
     public void clearTasksForUser(String userId) {
         database.execSQL(
-                "DELETE FROM " + TaskManagerDBSchema.TaskManager.NAME + " WHERE " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.USER_ID + " = " +  userId +";");
+                "DELETE FROM " + TaskManagerDBSchema.TaskManager.NAME + " WHERE " + TaskManagerDBSchema.TaskManager.NAME + "." + TaskManagerDBSchema.TaskManager.Cols.USER_ID + " = " + userId + ";");
     }
 
     // Get Content Values
