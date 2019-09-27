@@ -14,6 +14,10 @@ public class RegisterActivity extends SingleFragmentActivity {
         return new Intent(context, RegisterActivity.class);
     }
 
+    public String getTagName() {
+        return "tag_register_fragment";
+    }
+
     @Override
     public Fragment getFragment() {
         return RegisterFragment.newInstance();

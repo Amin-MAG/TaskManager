@@ -102,7 +102,7 @@ public class Repository {
                 + " WHERE " + TaskManagerDBSchema.Users.NAME + "." + TaskManagerDBSchema.Users.Cols.USERNAME + " = \"" + username + "\"";
 
         if (search != null)
-            command += " AND ( " + TaskManagerDBSchema.Tasks.Cols.TITLE + " Like %" + search + "% OR " + TaskManagerDBSchema.Tasks.Cols.DESCRIPTION + " Like %" + search + "% )";
+            command += " AND ( " + TaskManagerDBSchema.Tasks.Cols.TITLE + " Like \"%" + search + "%\" OR " + TaskManagerDBSchema.Tasks.Cols.DESCRIPTION + " Like \"%" + search + "%\" )";
 
         Cursor cursor = database.rawQuery(command, new String[]{});
 

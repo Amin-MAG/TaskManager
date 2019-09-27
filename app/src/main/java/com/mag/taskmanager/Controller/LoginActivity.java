@@ -7,8 +7,6 @@ import androidx.fragment.app.Fragment;
 
 public class LoginActivity extends SingleFragmentActivity {
 
-
-
     public static Intent newIntent(Context context) {
         return new Intent(context, LoginActivity.class);
     }
@@ -16,6 +14,10 @@ public class LoginActivity extends SingleFragmentActivity {
     @Override
     public Fragment getFragment() {
         return LoginFragment.newInstance();
+    }
+
+    public String getTagName() {
+        return "tag_login_fragment";
     }
 
 }

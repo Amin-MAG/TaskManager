@@ -3,15 +3,12 @@ package com.mag.taskmanager.Controller;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,6 +47,8 @@ public class MainTaskPagerFragment extends Fragment {
     private HashMap<TaskStatus, Fragment> taskListFragments = new HashMap<>();
     private TaskViewPagerAdapter taskViewPagerAdapter;
 
+    private static MainTaskPagerCallBack callBack;
+
     private ConstraintLayout mainLayout;
     private TabLayout statusTabLayout;
     private ViewPager taskViewPager;
@@ -58,6 +57,9 @@ public class MainTaskPagerFragment extends Fragment {
     private boolean recyclerExistance;
     private boolean viewPagerAdapterExistance;
 
+    public static void setCallBack(MainTaskPagerCallBack getter) {
+        callBack = getter;
+    }
 
     public static MainTaskPagerFragment newInstance() {
 
@@ -166,11 +168,16 @@ public class MainTaskPagerFragment extends Fragment {
 
             for (int i = 0; i < 3; i++) {
 
-                TaskListFragment.setGetView(new TaskListFragment.GetViews() {
+                TaskListFragment.setCallBack(new TaskListFragment.TaskListCallBack() {
                     @Override
                     public void updateTaskList() {
                         for (Fragment fragment : taskListFragments.values())
                             ((TaskListFragment) fragment).update();
+                    }
+
+                    @Override
+                    public String getSearchText() {
+                        return callBack.getSearchText();
                     }
                 });
 
@@ -234,5 +241,12 @@ public class MainTaskPagerFragment extends Fragment {
 
     }
 
+    public HashMap<TaskStatus, Fragment> getTaskListFragments() {
+        return taskListFragments;
+    }
+
+    interface MainTaskPagerCallBack {
+        String getSearchText();
+    }
 
 }

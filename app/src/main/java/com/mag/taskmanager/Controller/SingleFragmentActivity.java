@@ -12,6 +12,8 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 
     public abstract Fragment getFragment();
 
+    public abstract String getTagName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +22,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.singleFragmentActivity_mainFrame);
 
-        if (fragment == null)  UiUtil.changeFragment(fragmentManager, getFragment(),R.id.singleFragmentActivity_mainFrame,false);
+        if (fragment == null)  UiUtil.changeFragment(fragmentManager, getFragment(),R.id.singleFragmentActivity_mainFrame,false, getTagName());
 
     }
 

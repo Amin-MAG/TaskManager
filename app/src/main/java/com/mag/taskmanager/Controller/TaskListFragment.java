@@ -23,9 +23,11 @@ import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Util.UiUtil;
+import com.mag.taskmanager.Var.Constants;
 import com.mag.taskmanager.Var.Global;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -48,10 +50,10 @@ public class TaskListFragment extends Fragment implements Serializable {
     private View empty;
     private EditTaskFragment editTaskFragment;
 
-    private static GetViews getViews;
+    private static TaskListCallBack callBack;
 
-    public static void setGetView(GetViews getter) {
-        getViews = getter;
+    public static void setCallBack(TaskListCallBack getter) {
+        callBack = getter;
     }
 
     // Note
@@ -96,7 +98,7 @@ public class TaskListFragment extends Fragment implements Serializable {
                                     UiUtil.showSnackbar(recyclerView, getResources().getString(R.string.successfully_deleted), getResources().getString(R.color.task_app_green_dark));
                                 break;
                             case EDIT_TASK:
-                                getViews.updateTaskList();
+                                callBack.updateTaskList();
                                 if (recyclerView != null)
                                     UiUtil.showSnackbar(recyclerView, getResources().getString(R.string.successfully_edited), getResources().getString(R.color.task_app_green_dark));
                                 break;
@@ -163,22 +165,37 @@ public class TaskListFragment extends Fragment implements Serializable {
 
     public void update() {
 
-        taskRecyclerAdapter.setTasks(Repository
-                .getInstance(getContext())
-                .getTasks(Global.getOnlineUsername(), status));
+        List<Task> data;
+        if (callBack.getSearchText().equals(Constants.EMPTY_STRING))
+            data = Repository
+                    .getInstance(getContext())
+                    .getTasks(Global.getOnlineUsername(), status);
+        else
+            data = Repository
+                    .getInstance(getContext())
+                    .getTasks(Global.getOnlineUsername(), status, callBack.getSearchText());
+
+
+        taskRecyclerAdapter.setTasks(data);
 
         taskRecyclerAdapter.notifyDataSetChanged();
-        if (Repository.getInstance(getContext()).getTasks(Global.getOnlineUsername(), status).size() == 0)
+
+        if (data.size() == 0)
             empty.setVisibility(View.VISIBLE);
         else if (empty.getVisibility() == View.VISIBLE)
             empty.setVisibility(View.GONE);
 
+
     }
 
+    public TaskRecyclerAdapter getTaskRecyclerAdapter() {
+        return taskRecyclerAdapter;
+    }
 
-    public interface GetViews {
+    public interface TaskListCallBack {
         void updateTaskList();
-    }
 
+        String getSearchText();
+    }
 
 }

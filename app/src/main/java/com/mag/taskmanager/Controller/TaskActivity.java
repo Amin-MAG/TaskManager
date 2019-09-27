@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,12 +22,11 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Util.UiUtil;
 import com.mag.taskmanager.Var.Constants;
 import com.mag.taskmanager.Var.Global;
-
-import org.w3c.dom.Text;
 
 public class TaskActivity extends SingleFragmentActivity {
 
@@ -54,7 +51,20 @@ public class TaskActivity extends SingleFragmentActivity {
 
     @Override
     public Fragment getFragment() {
+
+        MainTaskPagerFragment.setCallBack(new MainTaskPagerFragment.MainTaskPagerCallBack() {
+            @Override
+            public String getSearchText() {
+                return searchEditText.getText().toString();
+            }
+        });
+
         return MainTaskPagerFragment.newInstance();
+    }
+
+    @Override
+    public String getTagName() {
+        return "tag_main_task_pager_fragment";
     }
 
     @Override
@@ -79,9 +89,17 @@ public class TaskActivity extends SingleFragmentActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (searchEditText.length() > 0) {
+                for (TaskStatus taskStatus : ((MainTaskPagerFragment) getSupportFragmentManager().findFragmentByTag("tag_main_task_pager_fragment")).getTaskListFragments().keySet()) {
+
+                    ((TaskListFragment)
+                            ((MainTaskPagerFragment)
+                                    getSupportFragmentManager()
+                                            .findFragmentByTag("tag_main_task_pager_fragment"))
+                                    .getTaskListFragments()
+                                    .get(taskStatus)).update();
 
                 }
+
             }
 
             @Override
@@ -193,7 +211,4 @@ public class TaskActivity extends SingleFragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public String getSearchEditTextString() {
-        return searchEditText.getText() + Constants.EMPTY_STRING;
-    }
 }
