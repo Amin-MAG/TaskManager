@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -24,6 +26,11 @@ import com.mag.taskmanager.Var.Constants;
 import com.mag.taskmanager.Var.Global;
 
 public class TaskActivity extends SingleFragmentActivity {
+
+    public static final int FADE_DELAY = 150;
+    public static final int SHOW_DELAY = 300;
+    private Animation fadeOutAnim;
+    private Animation fadeInAnim;
 
     private final static String DELETE_ALL_TASK_FRAGMENT = "delete_all_task_fragment";
     public static final int DELAY_MILLIS = 2000;
@@ -48,29 +55,56 @@ public class TaskActivity extends SingleFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        fadeOutAnim = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+        fadeInAnim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.fragment_user_info);
         ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.userInfoFragment_username)).setText(Global.getOnlineUsername());
 
-//        mainFrame = findViewById(R.id.singleFragmentActivity_mainFrame);
+        findItems();
+
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Runnable hideSearchBar = new Runnable() {
+                    @Override
+                    public void run() {
+                        titileTextView.startAnimation(fadeInAnim);
+                        titileTextView.startAnimation(fadeInAnim);
+
+                        closeBtn.setVisibility(View.GONE);
+                        searchTextLayout.setVisibility(View.GONE);
+                    }
+                };
+
+                Runnable showNotes = new Runnable() {
+                    @Override
+                    public void run() {
+                        usernameTextView.setVisibility(View.VISIBLE);
+                        titileTextView.setVisibility(View.VISIBLE);
+                    }
+                };
+
+                closeBtn.startAnimation(fadeOutAnim);
+
+                Constants.TIME_HANDLER.postDelayed(hideSearchBar, FADE_DELAY);
+                Constants.TIME_HANDLER.postDelayed(showNotes, SHOW_DELAY);
+
+            }
+        });
+
+    }
+
+    private void findItems() {
+        mainFrame = findViewById(R.id.singleFragmentActivity_mainFrame);
         searchTextLayout = findViewById(R.id.userInfoFragment_searchLayout);
         searchEditText = findViewById(R.id.userInfoFragment_searchText);
         closeBtn = findViewById(R.id.userInfoFragment_close);
         titileTextView = findViewById(R.id.userInfoFragment_title);
         usernameTextView = findViewById(R.id.userInfoFragment_username);
-
-
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                searchTextLayout.setVisibility(View.GONE);
-                closeBtn.setVisibility(View.GONE);
-                usernameTextView.setVisibility(View.VISIBLE);
-                titileTextView.setVisibility(View.VISIBLE);
-            }
-        });
-
     }
 
 
@@ -78,16 +112,6 @@ public class TaskActivity extends SingleFragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
-
-        // Associate searchable configuration with the SearchView
-//        SearchManager searchManager =
-//                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        android.widget.SearchView searchView = (SearchView)
-//                 menu.findItem(R.id.mainMenu_search).getActionView();
-//        searchView.setSearchableInfo(
-//                searchManager.getSearchableInfo(getComponentName()));
-
-
         return true;
     }
 
@@ -96,10 +120,29 @@ public class TaskActivity extends SingleFragmentActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mainMenu_search:
-                searchTextLayout.setVisibility(View.VISIBLE);
-                closeBtn.setVisibility(View.VISIBLE);
-                usernameTextView.setVisibility(View.GONE);
-                titileTextView.setVisibility(View.GONE);
+
+                Runnable hideNotes = new Runnable() {
+                    @Override
+                    public void run() {
+                        usernameTextView.setVisibility(View.GONE);
+                        titileTextView.setVisibility(View.GONE);
+                    }
+                };
+
+
+                Runnable showSearchBar = new Runnable() {
+                    @Override
+                    public void run() {
+                        searchTextLayout.setVisibility(View.VISIBLE);
+                        closeBtn.setVisibility(View.VISIBLE);
+                        searchEditText.requestFocus();
+
+                    }
+                };
+
+                Constants.TIME_HANDLER.postDelayed(hideNotes, FADE_DELAY);
+                Constants.TIME_HANDLER.postDelayed(showSearchBar, SHOW_DELAY);
+
                 return true;
             case R.id.mainMenu_delete:
                 DeleteAllFragment deleteAllFragment = DeleteAllFragment.newInstance();

@@ -22,6 +22,9 @@ import com.mag.taskmanager.R;
 import com.mag.taskmanager.Util.*;
 import com.mag.taskmanager.Var.*;
 
+import java.util.ArrayList;
+import java.util.stream.Stream;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,9 +64,7 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         findItems(view);
-
 
         setEvents();
 
