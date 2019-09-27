@@ -27,5 +27,7 @@
     <string name="doing">Doing</string>
     <string name="done">Done</string>
     <string name="logout">logout</string>
+    <string name="search">search</string>
+    <string name="search_point">search ...</string>
 
 </resources>

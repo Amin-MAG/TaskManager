@@ -10,6 +10,18 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+
+    <ImageButton
+        android:id="@+id/userInfoFragment_close"
+        android:layout_width="29dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/ic_back"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/userInfoFragment_title"
         android:layout_width="wrap_content"
@@ -33,5 +45,24 @@
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/userInfoFragment_title"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userInfoFragment_searchLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/userInfoFragment_close"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userInfoFragment_searchText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textImeMultiLine" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
