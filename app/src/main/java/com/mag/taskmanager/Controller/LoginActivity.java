@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 
 public class LoginActivity extends SingleFragmentActivity {
 
+    public static final String TAG_LOGIN_FRAGMENT = "tag_login_fragment";
+
     public static Intent newIntent(Context context) {
         return new Intent(context, LoginActivity.class);
     }
@@ -17,7 +19,7 @@ public class LoginActivity extends SingleFragmentActivity {
     }
 
     public String getTagName() {
-        return "tag_login_fragment";
+        return TAG_LOGIN_FRAGMENT;
     }
 
 }

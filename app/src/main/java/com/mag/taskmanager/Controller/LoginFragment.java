@@ -3,15 +3,14 @@ package com.mag.taskmanager.Controller;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -19,11 +18,9 @@ import com.mag.taskmanager.Model.Exceptions.BadAuthorizationException;
 import com.mag.taskmanager.Model.Exceptions.EmptyFieldException;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Util.*;
-import com.mag.taskmanager.Var.*;
-
-import java.util.ArrayList;
-import java.util.stream.Stream;
+import com.mag.taskmanager.Util.UiUtil;
+import com.mag.taskmanager.Var.Constants;
+import com.mag.taskmanager.Var.Global;
 
 
 /**

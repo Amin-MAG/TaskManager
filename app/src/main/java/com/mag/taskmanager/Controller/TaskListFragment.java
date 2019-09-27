@@ -188,9 +188,6 @@ public class TaskListFragment extends Fragment implements Serializable {
 
     }
 
-    public TaskRecyclerAdapter getTaskRecyclerAdapter() {
-        return taskRecyclerAdapter;
-    }
 
     public interface TaskListCallBack {
         void updateTaskList();

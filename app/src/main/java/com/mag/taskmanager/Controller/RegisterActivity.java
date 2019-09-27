@@ -10,12 +10,14 @@ import com.mag.taskmanager.R;
 
 public class RegisterActivity extends SingleFragmentActivity {
 
+    public static final String TAG_REGISTER_FRAGMENT = "tag_register_fragment";
+
     public static Intent newIntent(Context context) {
         return new Intent(context, RegisterActivity.class);
     }
 
     public String getTagName() {
-        return "tag_register_fragment";
+        return TAG_REGISTER_FRAGMENT;
     }
 
     @Override

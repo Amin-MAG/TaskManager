@@ -32,6 +32,7 @@ public class TaskActivity extends SingleFragmentActivity {
 
     public static final int FADE_DELAY = 150;
     public static final int SHOW_DELAY = 300;
+    public static final String TAG_MAIN_TASK_PAGER_FRAGMENT = "tag_main_task_pager_fragment";
     private Animation fadeOutAnim;
     private Animation fadeInAnim;
 
@@ -64,7 +65,7 @@ public class TaskActivity extends SingleFragmentActivity {
 
     @Override
     public String getTagName() {
-        return "tag_main_task_pager_fragment";
+        return TAG_MAIN_TASK_PAGER_FRAGMENT;
     }
 
     @Override
@@ -89,12 +90,12 @@ public class TaskActivity extends SingleFragmentActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                for (TaskStatus taskStatus : ((MainTaskPagerFragment) getSupportFragmentManager().findFragmentByTag("tag_main_task_pager_fragment")).getTaskListFragments().keySet()) {
+                for (TaskStatus taskStatus : ((MainTaskPagerFragment) getSupportFragmentManager().findFragmentByTag(TAG_MAIN_TASK_PAGER_FRAGMENT)).getTaskListFragments().keySet()) {
 
                     ((TaskListFragment)
                             ((MainTaskPagerFragment)
                                     getSupportFragmentManager()
-                                            .findFragmentByTag("tag_main_task_pager_fragment"))
+                                            .findFragmentByTag(TAG_MAIN_TASK_PAGER_FRAGMENT))
                                     .getTaskListFragments()
                                     .get(taskStatus)).update();
 

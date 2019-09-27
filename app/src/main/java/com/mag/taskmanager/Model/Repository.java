@@ -9,8 +9,6 @@ import com.mag.taskmanager.Model.Database.TaskManagerCursorWrapper;
 import com.mag.taskmanager.Model.Database.TaskManagerDBSchema;
 import com.mag.taskmanager.Model.Database.TaskManagerOpenHelper;
 import com.mag.taskmanager.Model.Exceptions.BadAuthorizationException;
-import com.mag.taskmanager.Var.Constants;
-import com.mag.taskmanager.Var.Global;
 
 import java.util.ArrayList;
 import java.util.List;
