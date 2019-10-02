@@ -12,7 +12,7 @@
     <style name="AppPickerTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/task_app_darkest</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/task_app_red</item>
+        <item name="colorAccent">@color/app_red_light</item>
     </style>
 
     <style name="AppNoActionBarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">

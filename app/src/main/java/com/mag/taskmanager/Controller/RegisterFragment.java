@@ -32,7 +32,7 @@ import com.mag.taskmanager.Var.*;
 public class RegisterFragment extends Fragment {
 
     public static final String REGISTRATION_COMPLETED = "Registration completed";
-    public static final int DELAY_MILLIS = 2000;
+    public static final int DELAY_MILLIS = 1000;
 
     private LinearLayout mainLayout;
     private TextInputEditText usernameEditText, passwordEditText, passwordRepeatEditText;

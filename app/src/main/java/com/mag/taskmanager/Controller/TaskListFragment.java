@@ -191,7 +191,6 @@ public class TaskListFragment extends Fragment implements Serializable {
 
     public interface TaskListCallBack {
         void updateTaskList();
-
         String getSearchText();
     }
 

@@ -26,6 +26,7 @@
     <!--Red-->
 
     <color name="task_app_red">#d61731</color>
+    <color name="app_red_light">#FFE51F</color>
 
 
     <!--Purples-->

@@ -40,19 +40,18 @@ import java.util.HashMap;
  */
 public class EditTaskFragment extends DialogFragment {
 
-    public static final String ARG_TASK = "arg_task";
-    public static final int REQUEST_CODE_FOR_DATE_PICKER = 1001;
-    public static final int REQUEST_CODE_FOR_TIME_PICKER = 1002;
-    public static final String EDIT_TASK_FRAGMENT_DATE_PICKER = "edit_task_fragment_date_picker";
-    public static final String EDIT_TASK_FRAGMENT_TIME_PICKER = "edit_task_fragment_time_picker";
-    public static final String DIALOG_ERROR = "dialog_error";
-    public static final String HAS_ERROR = "has_error";
-    public static final String DATE_PICKER_RESULT = "date_picker_result";
-    public static final String TIME_PICKER_RESULT = "time_picker_result";
-    public static final String ACTION_STRING = "action_string";
-    public static final String DELETE_TASK = "delete_task";
-    public static final String ACTION_STRING1 = "action_string";
-    public static final String EDIT_TASK = "edit_task";
+    private static final String ARG_TASK = "arg_task";
+    private static final int REQUEST_CODE_FOR_DATE_PICKER = 1001;
+    private static final int REQUEST_CODE_FOR_TIME_PICKER = 1002;
+    private static final String EDIT_TASK_FRAGMENT_DATE_PICKER = "edit_task_fragment_date_picker";
+    private static final String EDIT_TASK_FRAGMENT_TIME_PICKER = "edit_task_fragment_time_picker";
+    private static final String DIALOG_ERROR = "dialog_error";
+    private static final String HAS_ERROR = "has_error";
+    private static final String DATE_PICKER_RESULT = "date_picker_result";
+    private static final String TIME_PICKER_RESULT = "time_picker_result";
+    private static final String ACTION_STRING = "action_string";
+    private static final String DELETE_TASK = "delete_task";
+    private static final String EDIT_TASK = "edit_task";
 
     private TextInputEditText title, description;
     private MaterialButton edit, delete, cancel, date, time;
@@ -196,7 +195,7 @@ public class EditTaskFragment extends DialogFragment {
                     selectedTask.setDescription(taskDescription);
                     selectedTask.setDate(taskDate);
                     for (TaskStatus key : radioButtons.keySet()) {
-                        if (radioButtons.get(key).isChecked()){
+                        if (radioButtons.get(key).isChecked()) {
                             selectedTask.setTaskStatus(key);
                             break;
                         }
@@ -208,7 +207,7 @@ public class EditTaskFragment extends DialogFragment {
                     intent.putExtra(DIALOG_ERROR, e.getMessage());
                     intent.putExtra(HAS_ERROR, 1);
                 } finally {
-                    intent.putExtra(ACTION_STRING1, EDIT_TASK);
+                    intent.putExtra(ACTION_STRING, EDIT_TASK);
                     fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
                     dismiss();
                 }
@@ -255,9 +254,9 @@ public class EditTaskFragment extends DialogFragment {
         edit = view.findViewById(R.id.editTaskFragment_edit);
         cancel = view.findViewById(R.id.editTaskFragment_cancel);
         delete = view.findViewById(R.id.editTaskFragment_delete);
-        radioButtons.put(TaskStatus.TODO,  (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_todo));
-        radioButtons.put(TaskStatus.DOING,  (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_doing));
-        radioButtons.put(TaskStatus.DONE,  (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_done));
+        radioButtons.put(TaskStatus.TODO, (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_todo));
+        radioButtons.put(TaskStatus.DOING, (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_doing));
+        radioButtons.put(TaskStatus.DONE, (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_done));
     }
 
 }

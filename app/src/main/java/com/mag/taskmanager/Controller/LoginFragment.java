@@ -28,7 +28,7 @@ import com.mag.taskmanager.Var.Global;
  */
 public class LoginFragment extends Fragment {
 
-    public static final int DELAY_MILLIS = 2000;
+    public static final int DELAY_MILLIS = 1000;
     private LinearLayout mainLayout;
     private MaterialButton loginBtn, registerBtn;
     private TextInputEditText usernameEditText, passwordEditText;
