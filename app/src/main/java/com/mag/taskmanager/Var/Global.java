@@ -3,7 +3,7 @@ package com.mag.taskmanager.Var;
 public class Global {
 
     private static String onlineUsername;
-    private static String onlineUserId;
+    private static Long onlineUserId;
 
     public static String getOnlineUsername() {
         return onlineUsername;
@@ -13,11 +13,11 @@ public class Global {
         Global.onlineUsername = onlineUsername;
     }
 
-    public static String getOnlineUserID() {
+    public static Long getOnlineUserID() {
         return onlineUserId;
     }
 
-    public static void setOnlineUserID(String onlineUsername) {
+    public static void setOnlineUserID(Long onlineUsername) {
         Global.onlineUserId = onlineUsername;
     }
 

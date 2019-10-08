@@ -52,6 +52,8 @@ public class AddTaskFragment extends DialogFragment {
 
     private Date selectedDate;
 
+    private Task addedTask;
+
     public static AddTaskFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -101,6 +103,7 @@ public class AddTaskFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         selectedDate = new Date(System.currentTimeMillis());
+        addedTask = new Task();
     }
 
     @Override
@@ -193,7 +196,14 @@ public class AddTaskFragment extends DialogFragment {
                 try {
                     if (taskTitle.equals(Constants.EMPTY_STRING) || taskDescription.equals(Constants.EMPTY_STRING))
                         throw new EmptyFieldException();
-                    Repository.getInstance(getContext()).addTaskForUser(Global.getOnlineUserID(),new Task(taskTitle, taskDescription, taskDate.getTime(), TaskStatus.TODO));
+
+                    addedTask.setUserRelatedId(Global.getOnlineUserID());
+                    addedTask.setTitle(taskTitle);
+                    addedTask.setDescription(taskDescription);
+                    addedTask.setDate(taskDate);
+                    addedTask.setTaskStatus(TaskStatus.TODO);
+
+                    Repository.getInstance().addTaskForUser(addedTask);
                 } catch (EmptyFieldException e) {
                     intent.putExtra(DIALOG_ERROR,e.getMessage() );
                     intent.putExtra(HAS_ERROR,1 );

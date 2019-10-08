@@ -151,7 +151,7 @@ public class TaskListFragment extends Fragment implements Serializable {
     }
 
     private TaskRecyclerAdapter getNewRecycleAdapter() {
-        return new TaskRecyclerAdapter(Repository.getInstance(getContext())
+        return new TaskRecyclerAdapter(Repository.getInstance()
                 .getTasks(Global.getOnlineUsername(), status)
                 , new TaskRecyclerAdapter.OnItemClickListener() {
             @Override
@@ -168,11 +168,11 @@ public class TaskListFragment extends Fragment implements Serializable {
         List<Task> data;
         if (callBack.getSearchText().equals(Constants.EMPTY_STRING))
             data = Repository
-                    .getInstance(getContext())
+                    .getInstance()
                     .getTasks(Global.getOnlineUsername(), status);
         else
             data = Repository
-                    .getInstance(getContext())
+                    .getInstance()
                     .getTasks(Global.getOnlineUsername(), status, callBack.getSearchText());
 
 
@@ -191,6 +191,7 @@ public class TaskListFragment extends Fragment implements Serializable {
 
     public interface TaskListCallBack {
         void updateTaskList();
+
         String getSearchText();
     }
 

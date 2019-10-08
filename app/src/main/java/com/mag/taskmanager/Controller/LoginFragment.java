@@ -49,7 +49,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Repository.getInstance(getContext());
+        Repository.getInstance();
     }
 
     @Override
@@ -81,11 +81,11 @@ public class LoginFragment extends Fragment {
                     if (username.equals(Constants.EMPTY_STRING) || password.equals(Constants.EMPTY_STRING))
                         throw new EmptyFieldException();
 
-                    if (Repository.getInstance(getContext()).checkAuthorization(username, password)) {
+                    if (Repository.getInstance().checkAuthorization(username, password)) {
 
                         UiUtil.showSnackbar(mainLayout, getResources().getString(R.string.login_successfully), getResources().getString(R.color.task_app_green_dark));
                         Global.setOnlineUsername(username);
-                        Global.setOnlineUserID(Repository.getInstance(getContext()).getUserByUsername(username).getId());
+                        Global.setOnlineUserID(Repository.getInstance().getUserByUsername(username).getId());
                         Constants.TIME_HANDLER.postDelayed(new Runnable() {
                             @Override
                             public void run() {

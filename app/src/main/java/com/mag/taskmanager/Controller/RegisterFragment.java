@@ -38,6 +38,8 @@ public class RegisterFragment extends Fragment {
     private TextInputEditText usernameEditText, passwordEditText, passwordRepeatEditText;
     private MaterialButton submitBtn;
 
+    private User addedUser;
+
     public static RegisterFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -62,7 +64,7 @@ public class RegisterFragment extends Fragment {
         findItems(view);
 
         setEvents();
-        
+
     }
 
     private void setEvents() {
@@ -79,14 +81,18 @@ public class RegisterFragment extends Fragment {
 
                     if (usernameText.equals(Constants.EMPTY_STRING) || passwordText.equals(Constants.EMPTY_STRING) || passwordRepeatText.equals(Constants.EMPTY_STRING))
                         throw new EmptyFieldException();
-                    if (Repository.getInstance(getContext()).getUserByUsername(usernameText) != null)
+                    if (Repository.getInstance().getUserByUsername(usernameText) != null)
                         throw new DuplicateUsernameException();
                     if (!passwordRepeatText.equals(passwordText))
                         throw new WrongRepeatedPasswordException();
                     if (passwordText.length() < 5)
                         throw new ShortPasswordException();
 
-                    Repository.getInstance(getContext()).addUser(new User(usernameText, passwordText));
+                    addedUser = new User();
+                    addedUser.setUsername(usernameText);
+                    addedUser.setPassword(passwordText);
+
+                    Repository.getInstance().addUser(addedUser);
 
                     UiUtil.showSnackbar(mainLayout,REGISTRATION_COMPLETED, getResources().getString(R.color.task_app_green_dark));
 

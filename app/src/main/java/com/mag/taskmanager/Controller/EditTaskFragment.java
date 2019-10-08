@@ -63,7 +63,7 @@ public class EditTaskFragment extends DialogFragment {
     public static EditTaskFragment newInstance(Task task) {
 
         Bundle args = new Bundle();
-        args.putSerializable(ARG_TASK, task);
+        args.putLong(ARG_TASK, task.getTaskId());
 
         EditTaskFragment fragment = new EditTaskFragment();
         fragment.setArguments(args);
@@ -201,7 +201,7 @@ public class EditTaskFragment extends DialogFragment {
                         }
                     }
 
-                    Repository.getInstance(getContext()).updateTaskForUser(selectedTask);
+                    Repository.getInstance().updateTaskForUser(selectedTask);
 
                 } catch (EmptyFieldException e) {
                     intent.putExtra(DIALOG_ERROR, e.getMessage());
@@ -219,7 +219,7 @@ public class EditTaskFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
 
-                Repository.getInstance(getContext()).deleteTaskForUser(Global.getOnlineUserID(), selectedTask.getTaskId());
+                Repository.getInstance().deleteTaskForUser(selectedTask);
                 intent.putExtra(ACTION_STRING, DELETE_TASK);
                 intent.putExtra(HAS_ERROR, 0);
                 fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
