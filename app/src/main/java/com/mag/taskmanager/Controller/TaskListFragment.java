@@ -152,7 +152,7 @@ public class TaskListFragment extends Fragment implements Serializable {
 
     private TaskRecyclerAdapter getNewRecycleAdapter() {
         return new TaskRecyclerAdapter(Repository.getInstance()
-                .getTasks(Global.getOnlineUsername(), status)
+                .getTasks(Global.getOnlineUserID(), status)
                 , new TaskRecyclerAdapter.OnItemClickListener() {
             @Override
             public void showEditDialog(Task task) {
@@ -169,11 +169,11 @@ public class TaskListFragment extends Fragment implements Serializable {
         if (callBack.getSearchText().equals(Constants.EMPTY_STRING))
             data = Repository
                     .getInstance()
-                    .getTasks(Global.getOnlineUsername(), status);
+                    .getTasks(Global.getOnlineUserID(), status);
         else
             data = Repository
                     .getInstance()
-                    .getTasks(Global.getOnlineUsername(), status, callBack.getSearchText());
+                    .getTasks(Global.getOnlineUserID(), status, callBack.getSearchText());
 
 
         taskRecyclerAdapter.setTasks(data);
