@@ -8,7 +8,7 @@ public enum TaskStatus {
     private int index;
 
     TaskStatus(int index) {
-        this.index= index;
+        this.index = index;
     }
 
     public int getIndex() {

@@ -27,7 +27,8 @@ import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Var.*;
+import com.mag.taskmanager.Var.Constants;
+import com.mag.taskmanager.Var.Global;
 
 import java.util.Date;
 
@@ -91,7 +92,7 @@ public class AddTaskFragment extends DialogFragment {
                 break;
         }
 
-        if (resultCode == Activity.RESULT_OK){
+        if (resultCode == Activity.RESULT_OK) {
             date.setText(Constants.DATE_FORMAT.format(selectedDate));
             date.setText(Constants.DATE_FORMAT.format(selectedDate));
             time.setText(Constants.CLOCK_FORMAT.format(selectedDate));
@@ -175,7 +176,7 @@ public class AddTaskFragment extends DialogFragment {
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerFragment timePickerFragment= TimePickerFragment.newInstance(new Date(System.currentTimeMillis() + ONE_DAY_MILI_SECONDS));
+                TimePickerFragment timePickerFragment = TimePickerFragment.newInstance(new Date(System.currentTimeMillis() + ONE_DAY_MILI_SECONDS));
                 timePickerFragment.setTargetFragment(AddTaskFragment.this, REQUEST_CODE_FOR_TIME_PICKER);
                 timePickerFragment.show(getFragmentManager(), ADD_TASK_FRAGMENT_TIME_PICKER);
             }
@@ -205,8 +206,8 @@ public class AddTaskFragment extends DialogFragment {
 
                     Repository.getInstance().addTaskForUser(addedTask);
                 } catch (EmptyFieldException e) {
-                    intent.putExtra(DIALOG_ERROR,e.getMessage() );
-                    intent.putExtra(HAS_ERROR,1 );
+                    intent.putExtra(DIALOG_ERROR, e.getMessage());
+                    intent.putExtra(HAS_ERROR, 1);
                 } finally {
                     fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
                     dismiss();

@@ -1,18 +1,17 @@
 package com.mag.taskmanager.Model;
 
 
+import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.ToOne;
 
-import java.io.Serializable;
 import java.util.Date;
-import org.greenrobot.greendao.DaoException;
 
 @Entity
-public class Task  {
+public class Task {
 
     @Id(autoincrement = true)
     private Long taskId;
@@ -24,10 +23,14 @@ public class Task  {
     private Date date;
     @Convert(converter = TaskStatusConverter.class, columnType = Integer.class)
     private TaskStatus taskStatus;
-    /** Used to resolve relations */
+    /**
+     * Used to resolve relations
+     */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
-    /** Used for active entity operations. */
+    /**
+     * Used for active entity operations.
+     */
     @Generated(hash = 1469429066)
     private transient TaskDao myDao;
     @Generated(hash = 251390918)
@@ -35,7 +38,7 @@ public class Task  {
 
     @Generated(hash = 1496093198)
     public Task(Long taskId, Long userRelatedId, String title, String description,
-            Date date, TaskStatus taskStatus) {
+                Date date, TaskStatus taskStatus) {
         this.taskId = taskId;
         this.userRelatedId = userRelatedId;
         this.title = title;
@@ -96,7 +99,9 @@ public class Task  {
         this.userRelatedId = userRelatedId;
     }
 
-    /** To-one relationship, resolved on first access. */
+    /**
+     * To-one relationship, resolved on first access.
+     */
     @Generated(hash = 1543765668)
     public User getUser() {
         Long __key = this.userRelatedId;
@@ -115,7 +120,9 @@ public class Task  {
         return user;
     }
 
-    /** called by internal mechanisms, do not call yourself. */
+    /**
+     * called by internal mechanisms, do not call yourself.
+     */
     @Generated(hash = 1124643752)
     public void setUser(User user) {
         synchronized (this) {

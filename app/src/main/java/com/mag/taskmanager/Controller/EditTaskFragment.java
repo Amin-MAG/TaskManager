@@ -29,7 +29,6 @@ import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Var.Constants;
-import com.mag.taskmanager.Var.Global;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -108,7 +107,7 @@ public class EditTaskFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        selectedTask =  Repository.getInstance().getTask(getArguments().getLong(ARG_TASK));
+        selectedTask = Repository.getInstance().getTask(getArguments().getLong(ARG_TASK));
         selectedDate = new Date(System.currentTimeMillis());
     }
 

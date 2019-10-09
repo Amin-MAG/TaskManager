@@ -3,15 +3,14 @@ package com.mag.taskmanager.Controller;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -22,8 +21,8 @@ import com.mag.taskmanager.Model.Exceptions.WrongRepeatedPasswordException;
 import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.User;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Util.*;
-import com.mag.taskmanager.Var.*;
+import com.mag.taskmanager.Util.UiUtil;
+import com.mag.taskmanager.Var.Constants;
 
 
 /**
@@ -94,7 +93,7 @@ public class RegisterFragment extends Fragment {
 
                     Repository.getInstance().addUser(addedUser);
 
-                    UiUtil.showSnackbar(mainLayout,REGISTRATION_COMPLETED, getResources().getString(R.color.task_app_green_dark));
+                    UiUtil.showSnackbar(mainLayout, REGISTRATION_COMPLETED, getResources().getString(R.color.task_app_green_dark));
 
                     Constants.TIME_HANDLER.postDelayed(new Runnable() {
                         @Override
@@ -104,13 +103,13 @@ public class RegisterFragment extends Fragment {
                     }, DELAY_MILLIS);
 
                 } catch (EmptyFieldException e) {
-                    UiUtil.showSnackbar(mainLayout,e.getMessage(), getResources().getString(R.color.task_app_red));
+                    UiUtil.showSnackbar(mainLayout, e.getMessage(), getResources().getString(R.color.task_app_red));
                 } catch (ShortPasswordException e) {
-                    UiUtil.showSnackbar(mainLayout,e.getMessage(), getResources().getString(R.color.task_app_red));
+                    UiUtil.showSnackbar(mainLayout, e.getMessage(), getResources().getString(R.color.task_app_red));
                 } catch (WrongRepeatedPasswordException e) {
-                    UiUtil. showSnackbar(mainLayout,e.getMessage(), getResources().getString(R.color.task_app_red));
+                    UiUtil.showSnackbar(mainLayout, e.getMessage(), getResources().getString(R.color.task_app_red));
                 } catch (DuplicateUsernameException e) {
-                    UiUtil.showSnackbar(mainLayout,e.getMessage(), getResources().getString(R.color.task_app_red));
+                    UiUtil.showSnackbar(mainLayout, e.getMessage(), getResources().getString(R.color.task_app_red));
                 }
 
 

@@ -18,10 +18,10 @@ public class UiUtil {
                     .replace(containerId, fragment)
                     .commit();
         else
-                fragmentManager
-                        .beginTransaction()
-                        .add(containerId, fragment, tagName)
-                        .commit();
+            fragmentManager
+                    .beginTransaction()
+                    .add(containerId, fragment, tagName)
+                    .commit();
 
 
     }

@@ -8,8 +8,8 @@ class TaskStatusConverter implements PropertyConverter<TaskStatus, Integer> {
     public TaskStatus convertToEntityProperty(Integer databaseValue) {
         for (TaskStatus taskStatus : TaskStatus.values())
             if (databaseValue == taskStatus.getIndex())
-                return  taskStatus;
-            return null;
+                return taskStatus;
+        return null;
     }
 
     @Override
