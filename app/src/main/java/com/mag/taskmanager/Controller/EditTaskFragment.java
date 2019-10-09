@@ -229,6 +229,8 @@ public class EditTaskFragment extends DialogFragment {
                 if (shareIntent.resolveActivity(getActivity().getPackageManager()) != null)
                     startActivity(shareIntent);
 
+                dismiss();
+
             }
         });
 

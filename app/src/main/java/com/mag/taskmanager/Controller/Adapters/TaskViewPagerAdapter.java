@@ -6,10 +6,9 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.mag.taskmanager.Model.TaskStatus;
 
-import java.io.Serializable;
 import java.util.HashMap;
 
-public class TaskViewPagerAdapter extends FragmentStatePagerAdapter implements Serializable {
+public class TaskViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private HashMap<TaskStatus, Fragment> taskListFragments;
 
@@ -20,8 +19,8 @@ public class TaskViewPagerAdapter extends FragmentStatePagerAdapter implements S
 
     @Override
     public Fragment getItem(int position) {
-            TaskStatus status = TaskStatus.values()[position];
-            return taskListFragments.get(status);
+        TaskStatus status = TaskStatus.values()[position];
+        return taskListFragments.get(status);
     }
 
     @Override

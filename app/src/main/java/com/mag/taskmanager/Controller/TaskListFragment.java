@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,14 +27,13 @@ import com.mag.taskmanager.Util.UiUtil;
 import com.mag.taskmanager.Var.Constants;
 import com.mag.taskmanager.Var.Global;
 
-import java.io.Serializable;
 import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TaskListFragment extends Fragment implements Serializable {
+public class TaskListFragment extends Fragment {
 
     private static final int REQUEST_CODE_FOR_EDIT_DIALOG = 1005;
     private static final String EDIT_TASK_FRAGMENT = "edit_task_fragment";
@@ -43,6 +43,7 @@ public class TaskListFragment extends Fragment implements Serializable {
     private static final String DELETE_TASK = "delete_task";
     private static final String EDIT_TASK = "edit_task";
     private static final String ACTION_STRING = "action_string";
+    public static final String ON_SAVE_INSTANCE_TASK_STATUS = "on_save_instance_task_status";
 
     private FrameLayout mainFrame;
     private TaskRecyclerAdapter taskRecyclerAdapter;
@@ -62,7 +63,7 @@ public class TaskListFragment extends Fragment implements Serializable {
     public static TaskListFragment newInstance(TaskStatus status) {
 
         Bundle args = new Bundle();
-        args.putSerializable(ARG_STATUS, status);
+        args.putInt(ARG_STATUS, status.getIndex());
 
         TaskListFragment fragment = new TaskListFragment();
         fragment.setArguments(args);
@@ -120,7 +121,8 @@ public class TaskListFragment extends Fragment implements Serializable {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.status = (TaskStatus) getArguments().getSerializable(ARG_STATUS);
+        this.status = TaskStatus.values()[getArguments().getInt(ARG_STATUS)];
+        setRetainInstance(true);
     }
 
     @Override
@@ -133,7 +135,6 @@ public class TaskListFragment extends Fragment implements Serializable {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         findItems(view);
 
@@ -166,6 +167,7 @@ public class TaskListFragment extends Fragment implements Serializable {
     public void update() {
 
         List<Task> data;
+        Log.d("kkksss", status + "");
         if (callBack.getSearchText().equals(Constants.EMPTY_STRING))
             data = Repository
                     .getInstance()
@@ -191,7 +193,6 @@ public class TaskListFragment extends Fragment implements Serializable {
 
     public interface TaskListCallBack {
         void updateTaskList();
-
         String getSearchText();
     }
 

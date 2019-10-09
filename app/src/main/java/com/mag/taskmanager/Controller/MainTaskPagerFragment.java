@@ -117,8 +117,8 @@ public class MainTaskPagerFragment extends Fragment {
 
         // Bundle Data
         if (savedInstanceState != null) {
-            recyclerExistance = savedInstanceState.getBoolean(SAVE_RECYCLER_EXISTANCE);
-            viewPagerAdapterExistance = savedInstanceState.getBoolean(SAVE_VIEW_PAGER_ADAPTER_EXISTANCE);
+//            recyclerExistance = savedInstanceState.getBoolean(SAVE_RECYCLER_EXISTANCE);
+//            viewPagerAdapterExistance = savedInstanceState.getBoolean(SAVE_VIEW_PAGER_ADAPTER_EXISTANCE);
         }
 
         mainLayout = view.findViewById(R.id.pagerFragment_mainLayout);
@@ -233,11 +233,11 @@ public class MainTaskPagerFragment extends Fragment {
         outState.putBoolean(SAVE_RECYCLER_EXISTANCE, recyclerExistance);
         outState.putBoolean(SAVE_VIEW_PAGER_ADAPTER_EXISTANCE, viewPagerAdapterExistance);
 
-        outState.putSerializable(SAVE_TASK_VIEW_PAGER_ADAPTER, taskViewPagerAdapter);
+//        outState.putSerializable(SAVE_TASK_VIEW_PAGER_ADAPTER, taskViewPagerAdapter);
 
-        for (TaskStatus taskStatus : taskListFragments.keySet()) {
-            outState.putSerializable(SAVE_TASK_LIST_FRAGMENT + taskStatus, (TaskListFragment) taskListFragments.get(taskStatus));
-        }
+//        for (TaskStatus taskStatus : taskListFragments.keySet()) {
+//            outState.putSerializable(SAVE_TASK_LIST_FRAGMENT + taskStatus, (TaskListFragment) taskListFragments.get(taskStatus));
+//        }
 
     }
 
