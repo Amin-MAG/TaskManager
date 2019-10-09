@@ -119,49 +119,72 @@
 
         </RadioGroup>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/editTaskFragment_cancel"
-                android:layout_width="100dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="36dp"
-                android:layout_marginRight="36dp"
-                android:layout_weight="0.33"
-                android:backgroundTint="@color/task_app_white"
-                android:text="@android:string/cancel"
-                android:textColor="@color/task_app_dark"
-                android:textSize="10dp" />
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/editTaskFragment_delete"
-                android:layout_width="100dp"
+                android:layout_width="130dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="20dp"
-                android:layout_weight="0.33"
                 android:backgroundTint="@color/task_app_white"
                 android:text="@string/delete"
                 android:textColor="@color/task_app_dark"
-                android:textSize="10dp" />
+                android:textSize="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/editTaskFragment_edit"
-                android:layout_width="100dp"
+                android:layout_width="130dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="36dp"
-                android:layout_marginLeft="36dp"
-                android:layout_marginTop="20dp"
-                android:layout_weight="0.33"
                 android:backgroundTint="@color/task_app_white"
                 android:text="@string/edit"
                 android:textColor="@color/task_app_dark"
-                android:textSize="10dp" />
+                android:textSize="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_weight="0.33"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/editTaskFragment_cancel"
+                android:layout_width="130dp"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/task_app_white"
+                android:text="@android:string/cancel"
+                android:textColor="@color/task_app_dark"
+                android:textSize="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/editTaskFragment_share"
+                android:layout_width="130dp"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/task_app_white"
+                android:text="@string/share"
+                android:textColor="@color/task_app_dark"
+                android:textSize="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </LinearLayout>

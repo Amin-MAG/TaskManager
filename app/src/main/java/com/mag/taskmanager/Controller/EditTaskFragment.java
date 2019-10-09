@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.ShareCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
@@ -29,6 +30,7 @@ import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Var.Constants;
+import com.mag.taskmanager.Var.Global;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -53,7 +55,7 @@ public class EditTaskFragment extends DialogFragment {
     private static final String EDIT_TASK = "edit_task";
 
     private TextInputEditText title, description;
-    private MaterialButton edit, delete, cancel, date, time;
+    private MaterialButton edit, delete, cancel, date, time, share;
     private HashMap<TaskStatus, RadioButton> radioButtons = new HashMap<>();
 
     private Task selectedTask;
@@ -214,6 +216,22 @@ public class EditTaskFragment extends DialogFragment {
             }
         });
 
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Intent shareIntent = ShareCompat.IntentBuilder.from(getActivity())
+                        .setType("text/plain")
+                        .setText(getTaskReport())
+                        .getIntent();
+
+                if (shareIntent.resolveActivity(getActivity().getPackageManager()) != null)
+                    startActivity(shareIntent);
+
+            }
+        });
+
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -236,6 +254,21 @@ public class EditTaskFragment extends DialogFragment {
 
             }
         });
+
+    }
+
+    @SuppressLint("StringFormatMatches")
+    private String getTaskReport() {
+
+        return getString(R.string.share_template,
+                new String[]{
+                        Global.getOnlineUsername(),
+                        selectedTask.getTitle(),
+                        selectedTask.getDescription(),
+                        Constants.TIME_FORMAT.format(selectedTask.getDate())
+                }
+        );
+
     }
 
     private void setText() {
@@ -253,6 +286,7 @@ public class EditTaskFragment extends DialogFragment {
         edit = view.findViewById(R.id.editTaskFragment_edit);
         cancel = view.findViewById(R.id.editTaskFragment_cancel);
         delete = view.findViewById(R.id.editTaskFragment_delete);
+        share = view.findViewById(R.id.editTaskFragment_share);
         radioButtons.put(TaskStatus.TODO, (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_todo));
         radioButtons.put(TaskStatus.DOING, (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_doing));
         radioButtons.put(TaskStatus.DONE, (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_done));
