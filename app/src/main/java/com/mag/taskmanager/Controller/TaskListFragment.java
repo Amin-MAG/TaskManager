@@ -152,7 +152,7 @@ public class TaskListFragment extends Fragment implements Serializable {
 
     private TaskRecyclerAdapter getNewRecycleAdapter() {
         return new TaskRecyclerAdapter(Repository.getInstance()
-                .getTasks(Global.getOnlineUserID(), status)
+                .getTasks(Global.getOnlineUserID(), status, callBack.getSearchText())
                 , new TaskRecyclerAdapter.OnItemClickListener() {
             @Override
             public void showEditDialog(Task task) {

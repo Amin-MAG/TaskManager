@@ -108,7 +108,7 @@ public class EditTaskFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        selectedTask = (Task) getArguments().getSerializable(ARG_TASK);
+        selectedTask =  Repository.getInstance().getTask(getArguments().getLong(ARG_TASK));
         selectedDate = new Date(System.currentTimeMillis());
     }
 
