@@ -1,11 +1,14 @@
 package com.mag.taskmanager.Model;
 
 
+import com.mag.taskmanager.Var.Global;
+
 import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.ToOne;
 
 import java.util.Date;
@@ -21,8 +24,15 @@ public class Task {
     private String title;
     private String description;
     private Date date;
+    private String imageString;
     @Convert(converter = TaskStatusConverter.class, columnType = Integer.class)
     private TaskStatus taskStatus;
+
+
+    public String getPhotoFilename() {
+        return "IMG_" + Global.getOnlineUsername() + "-" + System.nanoTime() + ".jpg";
+    }
+
     /**
      * Used to resolve relations
      */
@@ -36,14 +46,15 @@ public class Task {
     @Generated(hash = 251390918)
     private transient Long user__resolvedKey;
 
-    @Generated(hash = 1496093198)
-    public Task(Long taskId, Long userRelatedId, String title, String description,
-                Date date, TaskStatus taskStatus) {
+    @Generated(hash = 692995114)
+    public Task(Long taskId, Long userRelatedId, String title, String description, Date date,
+                String imageString, TaskStatus taskStatus) {
         this.taskId = taskId;
         this.userRelatedId = userRelatedId;
         this.title = title;
         this.description = description;
         this.date = date;
+        this.imageString = imageString;
         this.taskStatus = taskStatus;
     }
 
@@ -167,6 +178,15 @@ public class Task {
         }
         myDao.update(this);
     }
+
+    public String getImageString() {
+        return this.imageString;
+    }
+
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
+    }
+
 
     /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 1442741304)

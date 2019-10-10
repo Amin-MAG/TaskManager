@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Util.UiUtil;
@@ -71,6 +72,14 @@ public class TaskActivity extends SingleFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Test //
+
+        Global.setOnlineUsername("amin");
+        Global.setOnlineUserID(Repository.getInstance().getUserByUsername("amin").getId());
+        Repository.getInstance();
+
+        //****//
 
         fadeOutAnim = AnimationUtils.loadAnimation(this, R.anim.fade_out);
         fadeInAnim = AnimationUtils.loadAnimation(this, R.anim.fade_in);

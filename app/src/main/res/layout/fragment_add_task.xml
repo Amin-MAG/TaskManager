@@ -89,6 +89,19 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/addTaskFragment_setPic"
+                    android:layout_width="96dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="36dp"
+                    android:layout_marginRight="36dp"
+                    android:backgroundTint="@color/task_app_white"
+                    android:text="@string/set_image"
+                    android:textColor="@color/task_app_dark"
+                    android:textSize="10dp"
+                    app:layout_constraintEnd_toStartOf="@+id/addTaskFragment_create"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/addTaskFragment_create"
                     android:layout_width="96dp"
                     android:layout_height="48dp"

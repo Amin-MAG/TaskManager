@@ -6,9 +6,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -17,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
@@ -30,7 +35,9 @@ import com.mag.taskmanager.R;
 import com.mag.taskmanager.Var.Constants;
 import com.mag.taskmanager.Var.Global;
 
+import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -41,18 +48,23 @@ public class AddTaskFragment extends DialogFragment {
     public static final int ONE_DAY_MILI_SECONDS = 24 * 60 * 60 * 1000;
     public static final int REQUEST_CODE_FOR_DATE_PICKER = 1001;
     public static final int REQUEST_CODE_FOR_TIME_PICKER = 1002;
+    private static final int REQUEST_CODE_CAPTURE_IMAGE = 1005;
     public static final String ADD_TASK_FRAGMENT_DATE_PICKER = "add_task_fragment_date_picker";
     public static final String ADD_TASK_FRAGMENT_TIME_PICKER = "add_task_fragment_time_picker";
     public static final String DIALOG_ERROR = "dialog_error";
     public static final String HAS_ERROR = "has_error";
     public static final String DATE_PICKER_RESULT = "date_picker_result";
     public static final String TIME_PICKER_RESULT = "time_picker_result";
+    public static final String FILE_PROVIDER_AUTHORITY = "com.mag.taskmanager.fileProvider";;
 
     private TextInputEditText title, description;
-    private MaterialButton cancel, create, date, time;
+    private MaterialButton cancel, create, date, time, setPiv;
+
+    private Intent cameraIntent;
+    private Uri photoUri;
+    private File photoFile;
 
     private Date selectedDate;
-
     private Task addedTask;
 
     public static AddTaskFragment newInstance() {
@@ -145,6 +157,8 @@ public class AddTaskFragment extends DialogFragment {
 
         setEvents();
 
+        cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
         return dialog;
     }
 
@@ -159,6 +173,7 @@ public class AddTaskFragment extends DialogFragment {
         date = view.findViewById(R.id.addTaskFragment_dateBtn);
         time = view.findViewById(R.id.addTaskFragment_timeBtn);
         create = view.findViewById(R.id.addTaskFragment_create);
+        setPiv = view.findViewById(R.id.addTaskFragment_setPic);
         cancel = view.findViewById(R.id.addTaskFragment_cancel);
     }
 
@@ -216,6 +231,19 @@ public class AddTaskFragment extends DialogFragment {
             }
         });
 
+        setPiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                photoFile = Repository.getInstance().getPhotoFile(addedTask, getContext());
+                photoUri = FileProvider.getUriForFile(getContext(), FILE_PROVIDER_AUTHORITY, photoFile);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                grantCameraPermission(photoUri);
+                startActivityForResult(cameraIntent, REQUEST_CODE_CAPTURE_IMAGE);
+
+            }
+        });
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -223,6 +251,19 @@ public class AddTaskFragment extends DialogFragment {
                 dismiss();
             }
         });
+
     }
+
+    private void grantCameraPermission(Uri photoUri) {
+
+        List<ResolveInfo> cameraActivities = getActivity().getPackageManager().queryIntentActivities(cameraIntent, PackageManager.MATCH_DEFAULT_ONLY);
+        for (ResolveInfo activity : cameraActivities) {
+            getActivity().grantUriPermission(activity.activityInfo.packageName,
+                    photoUri,
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        }
+
+    }
+
 
 }

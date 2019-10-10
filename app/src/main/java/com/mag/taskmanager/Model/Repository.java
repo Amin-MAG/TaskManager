@@ -1,10 +1,14 @@
 package com.mag.taskmanager.Model;
 
+import android.content.Context;
+
 import com.mag.taskmanager.Model.DatabaseORM.GreenDaoApplication;
 import com.mag.taskmanager.Model.Exceptions.BadAuthorizationException;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.List;
 
 public class Repository {
@@ -52,6 +56,16 @@ public class Repository {
 
         return true;
     }
+
+    //
+
+
+    public File getPhotoFile(Task task, Context context) {
+        return new File(context.getFilesDir(), task.getPhotoFilename());
+    }
+
+
+    //
 
     public Task getTask(Long taskId) {
         return taskDao.queryBuilder().where(TaskDao.Properties.TaskId.eq(taskId)).unique();
