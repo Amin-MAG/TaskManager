@@ -8,7 +8,6 @@ import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.ToOne;
 
 import java.util.Date;
@@ -24,42 +23,37 @@ public class Task {
     private String title;
     private String description;
     private Date date;
-    private String imageString;
+    private String imagePath;
     @Convert(converter = TaskStatusConverter.class, columnType = Integer.class)
     private TaskStatus taskStatus;
-
-
-    public String getPhotoFilename() {
-        return "IMG_" + Global.getOnlineUsername() + "-" + System.nanoTime() + ".jpg";
-    }
-
-    /**
-     * Used to resolve relations
-     */
+    /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
-    /**
-     * Used for active entity operations.
-     */
+    /** Used for active entity operations. */
     @Generated(hash = 1469429066)
     private transient TaskDao myDao;
-    @Generated(hash = 251390918)
-    private transient Long user__resolvedKey;
 
-    @Generated(hash = 692995114)
+    @Generated(hash = 613331817)
     public Task(Long taskId, Long userRelatedId, String title, String description, Date date,
-                String imageString, TaskStatus taskStatus) {
+            String imagePath, TaskStatus taskStatus) {
         this.taskId = taskId;
         this.userRelatedId = userRelatedId;
         this.title = title;
         this.description = description;
         this.date = date;
-        this.imageString = imageString;
+        this.imagePath = imagePath;
         this.taskStatus = taskStatus;
     }
 
     @Generated(hash = 733837707)
     public Task() {
+    }
+
+    @Generated(hash = 251390918)
+    private transient Long user__resolvedKey;
+
+    public String getPhotoFilename() {
+        return "IMG_" + Global.getOnlineUsername() + "_" + System.nanoTime() + ".jpg";
     }
 
     public Long getTaskId() {
@@ -68,6 +62,14 @@ public class Task {
 
     public void setTaskId(Long taskId) {
         this.taskId = taskId;
+    }
+
+    public Long getUserRelatedId() {
+        return this.userRelatedId;
+    }
+
+    public void setUserRelatedId(Long userRelatedId) {
+        this.userRelatedId = userRelatedId;
     }
 
     public String getTitle() {
@@ -94,6 +96,14 @@ public class Task {
         this.date = date;
     }
 
+    public String getImagePath() {
+        return this.imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     public TaskStatus getTaskStatus() {
         return this.taskStatus;
     }
@@ -102,17 +112,7 @@ public class Task {
         this.taskStatus = taskStatus;
     }
 
-    public Long getUserRelatedId() {
-        return this.userRelatedId;
-    }
-
-    public void setUserRelatedId(Long userRelatedId) {
-        this.userRelatedId = userRelatedId;
-    }
-
-    /**
-     * To-one relationship, resolved on first access.
-     */
+    /** To-one relationship, resolved on first access. */
     @Generated(hash = 1543765668)
     public User getUser() {
         Long __key = this.userRelatedId;
@@ -131,9 +131,7 @@ public class Task {
         return user;
     }
 
-    /**
-     * called by internal mechanisms, do not call yourself.
-     */
+    /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 1124643752)
     public void setUser(User user) {
         synchronized (this) {
@@ -178,15 +176,6 @@ public class Task {
         }
         myDao.update(this);
     }
-
-    public String getImageString() {
-        return this.imageString;
-    }
-
-    public void setImageString(String imageString) {
-        this.imageString = imageString;
-    }
-
 
     /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 1442741304)

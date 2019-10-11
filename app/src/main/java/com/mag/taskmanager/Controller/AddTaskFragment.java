@@ -32,6 +32,7 @@ import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
+import com.mag.taskmanager.Util.PictureUtils;
 import com.mag.taskmanager.Var.Constants;
 import com.mag.taskmanager.Var.Global;
 
@@ -55,7 +56,8 @@ public class AddTaskFragment extends DialogFragment {
     public static final String HAS_ERROR = "has_error";
     public static final String DATE_PICKER_RESULT = "date_picker_result";
     public static final String TIME_PICKER_RESULT = "time_picker_result";
-    public static final String FILE_PROVIDER_AUTHORITY = "com.mag.taskmanager.fileProvider";;
+    public static final String FILE_PROVIDER_AUTHORITY = "com.mag.taskmanager.fileProvider";
+    ;
 
     private TextInputEditText title, description;
     private MaterialButton cancel, create, date, time, setPiv;
@@ -100,6 +102,15 @@ public class AddTaskFragment extends DialogFragment {
                     selectedDate.setMinutes(sTime.getMinutes());
                 }
                 break;
+
+            case REQUEST_CODE_CAPTURE_IMAGE:
+
+                getActivity().revokeUriPermission(photoUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                if (PictureUtils.getScaleBitmap(photoFile.getAbsolutePath(), 512, 512) != null) {
+                    addedTask.setImagePath(photoFile.getPath());
+                }
+
+                break;
             default:
                 break;
         }
@@ -117,6 +128,7 @@ public class AddTaskFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         selectedDate = new Date(System.currentTimeMillis());
         addedTask = new Task();
+        cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
     }
 
     @Override
@@ -156,8 +168,6 @@ public class AddTaskFragment extends DialogFragment {
         setText();
 
         setEvents();
-
-        cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         return dialog;
     }
@@ -264,6 +274,5 @@ public class AddTaskFragment extends DialogFragment {
         }
 
     }
-
 
 }

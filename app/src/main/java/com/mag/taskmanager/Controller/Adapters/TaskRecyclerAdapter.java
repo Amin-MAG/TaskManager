@@ -1,8 +1,8 @@
 package com.mag.taskmanager.Controller.Adapters;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.R;
-import com.mag.taskmanager.Var.*;
+import com.mag.taskmanager.Util.PictureUtils;
+import com.mag.taskmanager.Var.Constants;
 
+import java.io.File;
 import java.util.List;
 
 public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapter.TaskRecycleHolder> {
@@ -78,7 +80,7 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
             taskTitle.setText(task.getTitle());
             taskDate.setText(Constants.TIME_FORMAT.format(task.getDate()));
 
-            setImage(task.getTitle());
+            setImage(task);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,17 +91,28 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
 
         }
 
-        private void setImage(String titile) {
+        private void setImage(Task task) {
 
-            String buttonFileName;
-            int buttonFileNum = (int) titile.toLowerCase().charAt(0) - SPECEFIC_ASCI_CODE_OF_A;
-            if (buttonFileNum < TWO_DIGIT) buttonFileName = EN_ALPHA_0 + buttonFileNum;
-            else buttonFileName = EN_ALPHA + buttonFileNum;
-            if (buttonFileNum < NUMBER_OF_ALPHABET && buttonFileNum > 0) {
-                int resID = activity.getResources().getIdentifier(buttonFileName, DRAWABLE, activity.getPackageName());
-                imageView.setImageResource(resID);
-            } else
-                imageView.setImageResource(R.drawable.alpha);
+            if (task.getImagePath() == null) {
+
+                String buttonFileName;
+                int buttonFileNum = (int) task.getTitle().toLowerCase().charAt(0) - SPECEFIC_ASCI_CODE_OF_A;
+                if (buttonFileNum < TWO_DIGIT) buttonFileName = EN_ALPHA_0 + buttonFileNum;
+                else buttonFileName = EN_ALPHA + buttonFileNum;
+                if (buttonFileNum < NUMBER_OF_ALPHABET && buttonFileNum > 0) {
+                    int resID = activity.getResources().getIdentifier(buttonFileName, DRAWABLE, activity.getPackageName());
+                    imageView.setImageResource(resID);
+                } else
+                    imageView.setImageResource(R.drawable.alpha);
+
+            } else {
+
+                File photoFile = new File(task.getImagePath());
+                Bitmap bitmap = PictureUtils.getScaleBitmap(photoFile.getAbsolutePath(), 512, 512);
+                imageView.setImageBitmap(bitmap);
+
+            }
+
 
         }
 
