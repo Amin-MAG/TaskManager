@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/addTaskFragment_mainLayout"
         android:theme="@style/AppPickerTheme"
-        android:padding="16dp"
+        android:padding="12dp"
         tools:context=".Controller.AddTaskFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -71,48 +71,44 @@
                 android:backgroundTint="@color/task_app_white"
                 android:textColor="@color/task_app_dark" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/addTaskFragment_cancel"
                     android:layout_width="96dp"
                     android:layout_height="48dp"
+                    android:layout_marginRight="8dp"
                     android:backgroundTint="@color/task_app_white"
                     android:text="@android:string/cancel"
                     android:textColor="@color/task_app_dark"
-                    android:textSize="10dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textSize="10dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/addTaskFragment_setPic"
                     android:layout_width="96dp"
                     android:layout_height="48dp"
-                    android:layout_marginEnd="36dp"
-                    android:layout_marginRight="36dp"
+                    android:layout_marginRight="8dp"
                     android:backgroundTint="@color/task_app_white"
                     android:text="@string/set_image"
                     android:textColor="@color/task_app_dark"
-                    android:textSize="10dp"
-                    app:layout_constraintEnd_toStartOf="@+id/addTaskFragment_create"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textSize="10dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/addTaskFragment_create"
                     android:layout_width="96dp"
                     android:layout_height="48dp"
+                    android:layout_marginRight="8dp"
                     android:backgroundTint="@color/task_app_white"
                     android:text="@string/create"
                     android:textColor="@color/task_app_dark"
-                    android:textSize="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textSize="10dp" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
 
         </LinearLayout>
