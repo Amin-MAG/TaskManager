@@ -88,6 +88,15 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <CheckBox
+                android:id="@+id/registerFragment_isAdmin"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/is_admin"
+                android:paddingLeft="24dp"
+                android:theme="@style/AppCheckBox" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/registerFragment_registerBtn"
                 android:layout_width="170dp"

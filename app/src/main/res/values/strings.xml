@@ -35,5 +35,6 @@
     </string>
     <string name="change_pic">Change Image</string>
     <string name="set_image" >Set Image</string>
+    <string name="is_admin">Is Admin</string>
 
 </resources>

@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +38,7 @@ public class RegisterFragment extends Fragment {
     private LinearLayout mainLayout;
     private TextInputEditText usernameEditText, passwordEditText, passwordRepeatEditText;
     private MaterialButton submitBtn;
+    private CheckBox isAdminCheckedBox;
 
     private User addedUser;
 
@@ -75,6 +78,7 @@ public class RegisterFragment extends Fragment {
                 String usernameText = usernameEditText.getText().toString();
                 String passwordText = passwordEditText.getText().toString();
                 String passwordRepeatText = passwordRepeatEditText.getText().toString();
+                boolean isAdmin = isAdminCheckedBox.isChecked();
 
                 try {
 
@@ -90,6 +94,7 @@ public class RegisterFragment extends Fragment {
                     addedUser = new User();
                     addedUser.setUsername(usernameText);
                     addedUser.setPassword(passwordText);
+                    addedUser.setIsAdmin(isAdmin);
 
                     Repository.getInstance().addUser(addedUser);
 
@@ -123,6 +128,7 @@ public class RegisterFragment extends Fragment {
         passwordEditText = view.findViewById(R.id.registerFragment_password);
         passwordRepeatEditText = view.findViewById(R.id.registerFragment_passwordR);
         submitBtn = view.findViewById(R.id.registerFragment_registerBtn);
+        isAdminCheckedBox = view.findViewById(R.id.registerFragment_isAdmin);
     }
 
 

@@ -21,4 +21,11 @@
         <item name="colorAccent">@color/task_app_white</item>
     </style>
 
+
+    <style name="AppCheckBox" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorControlNormal">@color/task_app_white</item>
+        <item name="colorControlActivated">@color/task_app_yellow</item>
+        <item name="android:textColor">@color/task_app_white</item>
+    </style>
+
 </resources>

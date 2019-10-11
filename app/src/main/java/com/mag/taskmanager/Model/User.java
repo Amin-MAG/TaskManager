@@ -14,12 +14,14 @@ public class User {
     @Unique
     private String username;
     private String password;
+    private boolean isAdmin;
 
-    @Generated(hash = 1681958521)
-    public User(Long id, String username, String password) {
+    @Generated(hash = 1538139471)
+    public User(Long id, String username, String password, boolean isAdmin) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.isAdmin = isAdmin;
     }
 
     @Generated(hash = 586692638)
@@ -48,6 +50,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean getIsAdmin() {
+        return this.isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
 

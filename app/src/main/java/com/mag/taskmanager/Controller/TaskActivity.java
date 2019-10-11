@@ -3,6 +3,7 @@ package com.mag.taskmanager.Controller;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioRecord;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -167,12 +168,19 @@ public class TaskActivity extends SingleFragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+
+        if (Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).getIsAdmin()) {
+            menu.findItem(R.id.mainMenu_delete).setVisible(false);
+        }
+
+
         return true;
     }
 
     @SuppressLint("ResourceType")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.mainMenu_search:
 

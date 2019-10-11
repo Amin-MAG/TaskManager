@@ -20,9 +20,11 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.mag.taskmanager.Controller.Adapters.TaskViewPagerAdapter;
+import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Util.UiUtil;
+import com.mag.taskmanager.Var.Global;
 
 import java.util.HashMap;
 
@@ -214,6 +216,7 @@ public class MainTaskPagerFragment extends Fragment {
         });
     }
 
+    @SuppressLint("RestrictedApi")
     private void floatingActionBar(@NonNull View view) {
         fab = view.findViewById(R.id.taskActivity_fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -224,6 +227,9 @@ public class MainTaskPagerFragment extends Fragment {
                 addTaskFragment.show(getFragmentManager(), ADD_TASK_FRAGMENT);
             }
         });
+
+        if (Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).getIsAdmin()) fab.setVisibility(View.GONE);
+
     }
 
     @Override
