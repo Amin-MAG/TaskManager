@@ -6,8 +6,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -38,7 +36,6 @@ import com.mag.taskmanager.Var.Global;
 
 import java.io.File;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -57,7 +54,7 @@ public class AddTaskFragment extends DialogFragment {
     public static final String DATE_PICKER_RESULT = "date_picker_result";
     public static final String TIME_PICKER_RESULT = "time_picker_result";
     public static final String FILE_PROVIDER_AUTHORITY = "com.mag.taskmanager.fileProvider";
-    ;
+
 
     private TextInputEditText title, description;
     private MaterialButton cancel, create, date, time, setPiv;
@@ -245,10 +242,10 @@ public class AddTaskFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
 
-                photoFile = Repository.getInstance().getPhotoFile(addedTask, getContext());
+                photoFile = Repository.getInstance().getPhotoFileName(addedTask, getContext());
                 photoUri = FileProvider.getUriForFile(getContext(), FILE_PROVIDER_AUTHORITY, photoFile);
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                grantCameraPermission(photoUri);
+                PictureUtils.grantCameraPermission(photoUri, getActivity(), cameraIntent);
                 startActivityForResult(cameraIntent, REQUEST_CODE_CAPTURE_IMAGE);
 
             }
@@ -264,15 +261,5 @@ public class AddTaskFragment extends DialogFragment {
 
     }
 
-    private void grantCameraPermission(Uri photoUri) {
-
-        List<ResolveInfo> cameraActivities = getActivity().getPackageManager().queryIntentActivities(cameraIntent, PackageManager.MATCH_DEFAULT_ONLY);
-        for (ResolveInfo activity : cameraActivities) {
-            getActivity().grantUriPermission(activity.activityInfo.packageName,
-                    photoUri,
-                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        }
-
-    }
 
 }

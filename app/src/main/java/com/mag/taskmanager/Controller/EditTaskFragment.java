@@ -8,7 +8,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -19,6 +21,7 @@ import android.widget.RadioButton;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ShareCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
@@ -29,9 +32,11 @@ import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
+import com.mag.taskmanager.Util.PictureUtils;
 import com.mag.taskmanager.Var.Constants;
 import com.mag.taskmanager.Var.Global;
 
+import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -44,6 +49,7 @@ public class EditTaskFragment extends DialogFragment {
     private static final String ARG_TASK = "arg_task";
     private static final int REQUEST_CODE_FOR_DATE_PICKER = 1001;
     private static final int REQUEST_CODE_FOR_TIME_PICKER = 1002;
+    private static final int REQUEST_CODE_CAPTURE_IMAGE = 1005;
     private static final String EDIT_TASK_FRAGMENT_DATE_PICKER = "edit_task_fragment_date_picker";
     private static final String EDIT_TASK_FRAGMENT_TIME_PICKER = "edit_task_fragment_time_picker";
     private static final String DIALOG_ERROR = "dialog_error";
@@ -53,10 +59,16 @@ public class EditTaskFragment extends DialogFragment {
     private static final String ACTION_STRING = "action_string";
     private static final String DELETE_TASK = "delete_task";
     private static final String EDIT_TASK = "edit_task";
+    public static final String FILE_PROVIDER_AUTHORITY = "com.mag.taskmanager.fileProvider";
+
 
     private TextInputEditText title, description;
-    private MaterialButton edit, delete, cancel, date, time, share;
+    private MaterialButton edit, delete, cancel, date, time, share, changeImage;
     private HashMap<TaskStatus, RadioButton> radioButtons = new HashMap<>();
+
+    private Intent cameraIntent;
+    private Uri photoUri;
+    private File photoFile;
 
     private Task selectedTask;
     private Date selectedDate;
@@ -94,6 +106,15 @@ public class EditTaskFragment extends DialogFragment {
                     selectedDate.setMinutes(sTime.getMinutes());
                 }
                 break;
+
+            case REQUEST_CODE_CAPTURE_IMAGE:
+
+                getActivity().revokeUriPermission(photoUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                if (PictureUtils.getScaleBitmap(photoFile.getAbsolutePath(), 512, 512) != null) {
+                    selectedTask.setImagePath(photoFile.getPath());
+                }
+
+                break;
             default:
                 break;
         }
@@ -111,6 +132,7 @@ public class EditTaskFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         selectedTask = Repository.getInstance().getTask(getArguments().getLong(ARG_TASK));
         selectedDate = new Date(System.currentTimeMillis());
+        cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
     }
 
     @Override
@@ -234,6 +256,19 @@ public class EditTaskFragment extends DialogFragment {
             }
         });
 
+        changeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                photoFile = Repository.getInstance().getPhotoFileName(selectedTask, getContext());
+                photoUri = FileProvider.getUriForFile(getContext(), FILE_PROVIDER_AUTHORITY, photoFile);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                PictureUtils.grantCameraPermission(photoUri, getActivity(), cameraIntent);
+                startActivityForResult(cameraIntent, REQUEST_CODE_CAPTURE_IMAGE);
+
+            }
+        });
+
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -289,6 +324,7 @@ public class EditTaskFragment extends DialogFragment {
         cancel = view.findViewById(R.id.editTaskFragment_cancel);
         delete = view.findViewById(R.id.editTaskFragment_delete);
         share = view.findViewById(R.id.editTaskFragment_share);
+        changeImage = view.findViewById(R.id.editTaskFragment_changeImage);
         radioButtons.put(TaskStatus.TODO, (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_todo));
         radioButtons.put(TaskStatus.DOING, (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_doing));
         radioButtons.put(TaskStatus.DONE, (RadioButton) view.findViewById(R.id.edtiFragment_radioBtn_done));

@@ -60,7 +60,7 @@ public class Repository {
     //
 
 
-    public File getPhotoFile(Task task, Context context) {
+    public File getPhotoFileName(Task task, Context context) {
         return new File(context.getFilesDir(), task.getPhotoFilename());
     }
 

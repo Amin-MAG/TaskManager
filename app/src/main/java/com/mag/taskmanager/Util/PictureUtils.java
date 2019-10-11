@@ -1,10 +1,16 @@
 package com.mag.taskmanager.Util;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.Point;
+import android.net.Uri;
+
+import java.util.List;
 
 public class PictureUtils {
 
@@ -45,6 +51,17 @@ public class PictureUtils {
         int destWith = point.x;
         int destHeight = point.y;
         return getScaleBitmap(path, destWith, destHeight);
+    }
+
+    public static void grantCameraPermission(Uri photoUri, Activity activity, Intent intent) {
+
+        List<ResolveInfo> cameraActivities = activity.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        for (ResolveInfo ac : cameraActivities) {
+            activity.grantUriPermission(ac.activityInfo.packageName,
+                    photoUri,
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        }
+
     }
 
 }
