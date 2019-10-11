@@ -13,10 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mag.taskmanager.Model.Repository;
 import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Util.PictureUtils;
 import com.mag.taskmanager.Var.Constants;
+import com.mag.taskmanager.Var.Global;
 
 import java.io.File;
 import java.util.List;
@@ -63,7 +65,7 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
         public static final int SPECEFIC_ASCI_CODE_OF_A = 96;
 
         private ImageView imageView;
-        private TextView taskTitle, taskDate;
+        private TextView taskTitle, taskDate, userText;
 
         public TaskRecycleHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +73,7 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
             imageView = itemView.findViewById(R.id.taskLayout_image);
             taskTitle = itemView.findViewById(R.id.taskLayout_title);
             taskDate = itemView.findViewById(R.id.taskLayout_date);
+            userText = itemView.findViewById(R.id.taskLayout_username);
 
         }
 
@@ -88,6 +91,9 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
                     listener.showEditDialog(task);
                 }
             });
+
+            if (Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).getIsAdmin())
+                userText.setText("Username : " + task.getUser().getUsername());
 
         }
 

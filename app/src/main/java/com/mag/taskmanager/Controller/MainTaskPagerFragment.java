@@ -43,7 +43,6 @@ public class MainTaskPagerFragment extends Fragment {
     public static final String HAS_ERROR = "has_error";
     public static final String SAVE_RECYCLER_EXISTANCE = "save_recycler_existance";
     public static final String SAVE_TASK_LIST_FRAGMENT = "save_task_list_fragment_";
-    public static final String SAVE_TASK_VIEW_PAGER_ADAPTER = "save_task_view_pager";
     public static final String SAVE_VIEW_PAGER_ADAPTER_EXISTANCE = "save_view_pager_adapter_existance";
 
     private HashMap<TaskStatus, Fragment> taskListFragments = new HashMap<>();

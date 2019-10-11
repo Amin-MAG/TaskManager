@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ import com.mag.taskmanager.Model.Task;
 import com.mag.taskmanager.Model.TaskStatus;
 import com.mag.taskmanager.R;
 import com.mag.taskmanager.Util.UiUtil;
-import com.mag.taskmanager.Var.Constants;
 import com.mag.taskmanager.Var.Global;
 
 import java.util.List;
@@ -152,31 +150,36 @@ public class TaskListFragment extends Fragment {
     }
 
     private TaskRecyclerAdapter getNewRecycleAdapter() {
-        return new TaskRecyclerAdapter(Repository.getInstance()
-                .getTasks(Global.getOnlineUserID(), status, callBack.getSearchText())
-                , new TaskRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void showEditDialog(Task task) {
-                editTaskFragment = EditTaskFragment.newInstance(task);
-                editTaskFragment.setTargetFragment(TaskListFragment.this, REQUEST_CODE_FOR_EDIT_DIALOG);
-                editTaskFragment.show(getFragmentManager(), EDIT_TASK_FRAGMENT);
-            }
-        });
+        if (Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).getIsAdmin()) {
+            return new TaskRecyclerAdapter(Repository.getInstance()
+                    .getTasks(status, callBack.getSearchText())
+                    , new TaskRecyclerAdapter.OnItemClickListener() {
+                @Override
+                public void showEditDialog(Task task) {
+                    editTaskFragment = EditTaskFragment.newInstance(task);
+                    editTaskFragment.setTargetFragment(TaskListFragment.this, REQUEST_CODE_FOR_EDIT_DIALOG);
+                    editTaskFragment.show(getFragmentManager(), EDIT_TASK_FRAGMENT);
+                }
+            });
+        } else
+            return new TaskRecyclerAdapter(Repository.getInstance()
+                    .getTasks(Global.getOnlineUserID(), status, callBack.getSearchText())
+                    , new TaskRecyclerAdapter.OnItemClickListener() {
+                @Override
+                public void showEditDialog(Task task) {
+                    editTaskFragment = EditTaskFragment.newInstance(task);
+                    editTaskFragment.setTargetFragment(TaskListFragment.this, REQUEST_CODE_FOR_EDIT_DIALOG);
+                    editTaskFragment.show(getFragmentManager(), EDIT_TASK_FRAGMENT);
+                }
+            });
     }
 
     public void update() {
 
         List<Task> data;
-        Log.d("kkksss", status + "");
-        if (callBack.getSearchText().equals(Constants.EMPTY_STRING))
-            data = Repository
-                    .getInstance()
-                    .getTasks(Global.getOnlineUserID(), status);
-        else
-            data = Repository
-                    .getInstance()
-                    .getTasks(Global.getOnlineUserID(), status, callBack.getSearchText());
-
+        data = Repository
+                .getInstance()
+                .getTasks(status, callBack.getSearchText());
 
         taskRecyclerAdapter.setTasks(data);
 
@@ -193,6 +196,7 @@ public class TaskListFragment extends Fragment {
 
     public interface TaskListCallBack {
         void updateTaskList();
+
         String getSearchText();
     }
 

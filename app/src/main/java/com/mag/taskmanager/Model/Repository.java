@@ -75,6 +75,23 @@ public class Repository {
         return getTasks(userId, status, null);
     }
 
+    public List<Task> getTasks(TaskStatus status, String search) {
+
+        QueryBuilder<Task> queryBuilder = taskDao.queryBuilder();
+
+        return
+                search == null ?
+                        queryBuilder.where(
+                                TaskDao.Properties.TaskStatus.eq(status.getIndex()))
+                                .list()
+                        :
+                        queryBuilder.where(
+                                TaskDao.Properties.TaskStatus.eq(status.getIndex()),
+                                queryBuilder.or(TaskDao.Properties.Title.like("%" + search + "%"), TaskDao.Properties.Description.like("%" + search + "%")))
+                                .list();
+
+    }
+
     public List<Task> getTasks(Long userId, TaskStatus status, String search) {
 
         QueryBuilder<Task> queryBuilder = taskDao.queryBuilder();
