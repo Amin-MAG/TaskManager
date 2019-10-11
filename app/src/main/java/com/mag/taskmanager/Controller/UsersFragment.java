@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,7 +40,7 @@ public class UsersFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        UserRecyclerAdapter userRecyclerAdapter = new UserRecyclerAdapter(Repository.getInstance().getUsers());
+        UserRecyclerAdapter userRecyclerAdapter = new UserRecyclerAdapter(Repository.getInstance().getUsers(), (FrameLayout) view.findViewById(R.id.usersFragment_mainFrame));
         userRecycler = view.findViewById(R.id.usersFragment_recycler);
         userRecycler.setAdapter(userRecyclerAdapter);
 

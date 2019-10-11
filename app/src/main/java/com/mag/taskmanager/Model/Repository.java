@@ -48,6 +48,10 @@ public class Repository {
         userDao.insert(user);
     }
 
+    public void deleteAllTaskAndUser(long id) {
+        taskDao.queryBuilder().where(TaskDao.Properties.UserRelatedId.eq(id)).buildDelete().executeDeleteWithoutDetachingEntities();
+        userDao.queryBuilder().where(UserDao.Properties.Id.eq(id)).buildDelete().executeDeleteWithoutDetachingEntities();
+    }
 
     public boolean checkAuthorization(String username, String password) throws BadAuthorizationException {
 

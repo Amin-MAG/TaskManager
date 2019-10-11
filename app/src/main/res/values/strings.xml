@@ -37,5 +37,6 @@
     <string name="set_image">Set Image</string>
     <string name="is_admin">Is Admin</string>
     <string name="users">Users</string>
+    <string name="back">Back</string>
 
 </resources>
