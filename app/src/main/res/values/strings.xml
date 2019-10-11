@@ -34,7 +34,8 @@
         %1$s !\nYour Task With Title %2$s : \n%3$s\nHas Been Created In  %4$s
     </string>
     <string name="change_pic">Change Image</string>
-    <string name="set_image" >Set Image</string>
+    <string name="set_image">Set Image</string>
     <string name="is_admin">Is Admin</string>
+    <string name="users">Users</string>
 
 </resources>

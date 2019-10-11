@@ -8,7 +8,6 @@ import com.mag.taskmanager.Model.Exceptions.BadAuthorizationException;
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.util.List;
 
 public class Repository {
@@ -37,6 +36,9 @@ public class Repository {
     private UserDao userDao;
     private TaskDao taskDao;
 
+    public List<User> getUsers() {
+        return userDao.queryBuilder().where(UserDao.Properties.IsAdmin.notEq(true)).list();
+    }
 
     public User getUserByUsername(String username) {
         return userDao.queryBuilder().where(UserDao.Properties.Username.eq(username)).unique();
@@ -69,6 +71,10 @@ public class Repository {
 
     public Task getTask(Long taskId) {
         return taskDao.queryBuilder().where(TaskDao.Properties.TaskId.eq(taskId)).unique();
+    }
+
+    public long getTasksCount(Long userId) {
+        return taskDao.queryBuilder().where(TaskDao.Properties.UserRelatedId.eq(userId)).count();
     }
 
     public List<Task> getTasks(Long userId, TaskStatus status) {

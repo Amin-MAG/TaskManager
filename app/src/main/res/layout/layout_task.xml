@@ -16,8 +16,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="15dp"
-        app:layout_constraintBottom_toBottomOf="@+id/taskLayout_title"
-        app:layout_constraintTop_toBottomOf="@+id/taskLayout_title">
+        app:layout_constraintBottom_toBottomOf="@+id/userLayout_username"
+        app:layout_constraintTop_toBottomOf="@+id/userLayout_username">
 
         <ImageView
             android:id="@+id/taskLayout_image"
@@ -39,7 +39,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.347"
             app:layout_constraintStart_toEndOf="@+id/taskLayout_image"
-            app:layout_constraintTop_toBottomOf="@+id/taskLayout_title" />
+            app:layout_constraintTop_toBottomOf="@+id/userLayout_username" />
 
         <TextView
             android:id="@+id/taskLayout_username"
@@ -56,7 +56,7 @@
             app:layout_constraintTop_toBottomOf="@+id/taskLayout_date" />
 
         <TextView
-            android:id="@+id/taskLayout_title"
+            android:id="@+id/userLayout_username"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginLeft="16dp"

@@ -48,8 +48,7 @@ public class TaskActivity extends SingleFragmentActivity {
     private ImageButton closeBtn;
 
     public static Intent newIntent(Context context) {
-        Intent intent = new Intent(context, TaskActivity.class);
-        return intent;
+        return new Intent(context, TaskActivity.class);
     }
 
     @Override
@@ -173,6 +172,9 @@ public class TaskActivity extends SingleFragmentActivity {
             menu.findItem(R.id.mainMenu_delete).setVisible(false);
         }
 
+        if (!Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).getIsAdmin()) {
+            menu.findItem(R.id.mainMenu_users).setVisible(false);
+        }
 
         return true;
     }
@@ -207,11 +209,19 @@ public class TaskActivity extends SingleFragmentActivity {
                 Constants.TIME_HANDLER.postDelayed(showSearchBar, SHOW_DELAY);
 
                 return true;
+            case R.id.mainMenu_users:
+
+                startActivity(UsersActivity.newIntent(this));
+
+                return true;
             case R.id.mainMenu_delete:
+
                 DeleteAllFragment deleteAllFragment = DeleteAllFragment.newInstance();
                 deleteAllFragment.show(getSupportFragmentManager(), DELETE_ALL_TASK_FRAGMENT);
+
                 return true;
             case R.id.mainMenu_logout:
+
                 Runnable updater = new Runnable() {
                     @Override
                     public void run() {
@@ -222,6 +232,7 @@ public class TaskActivity extends SingleFragmentActivity {
                 Global.setOnlineUserID(null);
                 Global.setOnlineUsername(null);
                 Constants.TIME_HANDLER.postDelayed(updater, DELAY_MILLIS);
+
                 return true;
             default:
                 break;

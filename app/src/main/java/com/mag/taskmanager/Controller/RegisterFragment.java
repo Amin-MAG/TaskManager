@@ -26,6 +26,8 @@ import com.mag.taskmanager.R;
 import com.mag.taskmanager.Util.UiUtil;
 import com.mag.taskmanager.Var.Constants;
 
+import java.util.Date;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,6 +97,7 @@ public class RegisterFragment extends Fragment {
                     addedUser.setUsername(usernameText);
                     addedUser.setPassword(passwordText);
                     addedUser.setIsAdmin(isAdmin);
+                    addedUser.setDate(new Date());
 
                     Repository.getInstance().addUser(addedUser);
 

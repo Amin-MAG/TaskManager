@@ -18,7 +18,7 @@
             android:name=".Controller.RegisterActivity"
             android:theme="@style/AppNoActionBarTheme" />
         <activity android:name=".Controller.SingleFragmentActivity" />
-
+        <activity android:name=".Controller.UsersActivity" />
         <activity android:name=".Controller.TaskActivity">
 <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->

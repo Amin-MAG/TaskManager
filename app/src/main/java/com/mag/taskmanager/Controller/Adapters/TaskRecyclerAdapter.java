@@ -71,7 +71,7 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
             super(itemView);
 
             imageView = itemView.findViewById(R.id.taskLayout_image);
-            taskTitle = itemView.findViewById(R.id.taskLayout_title);
+            taskTitle = itemView.findViewById(R.id.userLayout_username);
             taskDate = itemView.findViewById(R.id.taskLayout_date);
             userText = itemView.findViewById(R.id.taskLayout_username);
 

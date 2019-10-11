@@ -12,6 +12,11 @@
         android:title="@string/delete"
         app:showAsAction="ifRoom"/>
 
+    <item android:id="@+id/mainMenu_users"
+        android:icon="@drawable/ic_users"
+        android:title="@string/users"
+        app:showAsAction="ifRoom"/>
+
     <item android:id="@+id/mainMenu_logout"
         android:icon="@drawable/ic_logout"
         android:title="@string/logout"

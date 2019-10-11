@@ -6,6 +6,8 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Unique;
 
+import java.util.Date;
+
 @Entity
 public class User {
 
@@ -14,13 +16,16 @@ public class User {
     @Unique
     private String username;
     private String password;
+    private Date date;
     private boolean isAdmin;
 
-    @Generated(hash = 1538139471)
-    public User(Long id, String username, String password, boolean isAdmin) {
+    @Generated(hash = 1275843927)
+    public User(Long id, String username, String password, Date date,
+            boolean isAdmin) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.date = date;
         this.isAdmin = isAdmin;
     }
 
@@ -58,6 +63,14 @@ public class User {
 
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    public Date getDate() {
+        return this.date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
 

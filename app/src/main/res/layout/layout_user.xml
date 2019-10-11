@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="4dp"
+    app:cardBackgroundColor="@color/task_app_white">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/userLayout_username"
+        app:layout_constraintTop_toBottomOf="@+id/userLayout_username">
+
+        <TextView
+            android:id="@+id/userLayout_date"
+            android:layout_width="31dp"
+            android:layout_height="17dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:text="TextView"
+            android:textSize="14dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/userLayout_tasks"
+            tools:text="Date" />
+
+        <TextView
+            android:id="@+id/userLayout_tasks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/userLayout_username"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Tasks" />
+
+        <TextView
+            android:id="@+id/userLayout_username"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:gravity="center_vertical"
+            android:textSize="24dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Username" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="71dp"
+            android:layout_height="67dp"
+            android:src="@drawable/pro"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="56dp"
+            android:layout_height="61dp"
+            android:backgroundTint="@color/task_app_dark"
+            android:text=""
+            app:icon="@drawable/ic_delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+
