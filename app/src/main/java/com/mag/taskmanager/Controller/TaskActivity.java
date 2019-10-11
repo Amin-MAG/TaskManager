@@ -75,9 +75,9 @@ public class TaskActivity extends SingleFragmentActivity {
 
         // Test //
 
-        Global.setOnlineUsername("amin");
-        Global.setOnlineUserID(Repository.getInstance().getUserByUsername("amin").getId());
-        Repository.getInstance();
+//        Global.setOnlineUsername("amin");
+//        Global.setOnlineUserID(Repository.getInstance().getUserByUsername("amin").getId());
+//        Repository.getInstance();
 
         //****//
 
