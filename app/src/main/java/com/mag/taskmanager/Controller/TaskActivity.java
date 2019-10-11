@@ -237,6 +237,7 @@ public class TaskActivity extends SingleFragmentActivity {
             default:
                 break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

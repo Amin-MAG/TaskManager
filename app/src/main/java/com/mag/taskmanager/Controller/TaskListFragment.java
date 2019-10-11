@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,12 @@ public class TaskListFragment extends Fragment {
     }
 
     public TaskListFragment() {
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        update();
     }
 
     @SuppressLint("ResourceType")
@@ -151,6 +158,7 @@ public class TaskListFragment extends Fragment {
 
     private TaskRecyclerAdapter getNewRecycleAdapter() {
         if (Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).getIsAdmin()) {
+            Log.d("check_admin", "is Admin");
             return new TaskRecyclerAdapter(Repository.getInstance()
                     .getTasks(status, callBack.getSearchText())
                     , new TaskRecyclerAdapter.OnItemClickListener() {
@@ -177,9 +185,16 @@ public class TaskListFragment extends Fragment {
     public void update() {
 
         List<Task> data;
-        data = Repository
-                .getInstance()
-                .getTasks(status, callBack.getSearchText());
+
+        if (Repository.getInstance().getUserByUsername(Global.getOnlineUsername()).getIsAdmin()) {
+            data = Repository
+                    .getInstance()
+                    .getTasks(status, callBack.getSearchText());
+        } else {
+            data = Repository
+                    .getInstance()
+                    .getTasks(Global.getOnlineUserID(),status, callBack.getSearchText());
+        }
 
         taskRecyclerAdapter.setTasks(data);
 
@@ -196,7 +211,6 @@ public class TaskListFragment extends Fragment {
 
     public interface TaskListCallBack {
         void updateTaskList();
-
         String getSearchText();
     }
 

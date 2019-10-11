@@ -5,6 +5,7 @@ public class Global {
     private static String onlineUsername;
     private static Long onlineUserId;
 
+
     public static String getOnlineUsername() {
         return onlineUsername;
     }
